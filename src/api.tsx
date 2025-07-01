@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { AxiosError } from "axios";
-import { type CompanySearch } from "./company";
+import type { CompanySearch } from "./company";
 
 interface SearchResponse {
     data: CompanySearch[];
@@ -9,7 +9,7 @@ interface SearchResponse {
 export const searchCompanies = async (query: string) => {
   try {
     const data = await axios.get<SearchResponse>(
-      `https://financialmodelingprep.com/api/v3/search?query=${query}&limit=10&exchange=NASDAQ&apikey=${import.meta.env.VITE_API_KEY}`
+     `https://financialmodelingprep.com/api/v3/search?query=${query}&limit=10&exchange=NASDAQ&apikey=${import.meta.env.VITE_API_KEY}`
     );
 
     return data;

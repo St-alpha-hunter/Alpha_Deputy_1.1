@@ -2,20 +2,23 @@ import { type JSX } from "react";
 import React, { type ChangeEvent, useState, type SyntheticEvent} from "react";
 
 interface Props {
-    onSearchClick: (e: SyntheticEvent) => void;
+    onSearchSubmit: (e: SyntheticEvent) => void;
     search: string | undefined;
-    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Search : React.FC<Props> = ({onSearchClick, search, handleChange}:Props): JSX.Element => {
-
+const Search : React.FC<Props> = ({
+    onSearchSubmit, 
+    search, 
+    handleSearchChange
+    }:Props): JSX.Element => {
     return (
         <div> 
-            <input value = {search} onChange = {(e) => handleChange(e)}></input> 
+            <input value = {search} onChange = {(e) => handleSearchChange(e)}></input> 
             <button 
                 onClick= {(e) => {
                 console.log(e);
-                onSearchClick(e);
+                onSearchSubmit(e);
             }}> Search </button>
         </div>
     );
