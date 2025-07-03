@@ -4,7 +4,7 @@ type Props = {}
 
 const CompanyProfile = (props: Props) => {
   return (
-    <div>CompanyProfile</div>
+    <div>CompanyProfile Company</div>
   )
 }
 
