@@ -1,6 +1,9 @@
 import { TestDataCompany } from "../Table/TestData";
 
-type Props = {};
+type Props = {
+  config: any;
+  data: any;
+};
 const data = TestDataCompany[0];
 type Company = typeof data;
 

@@ -21,8 +21,8 @@ const DesignGuide = (props: Props) => {
         Design guide- This is the design guide for Fin Shark. These are reuable
         components of the app with brief instructions on how to use them.
       </h1>
-      <RatioList/>
-      <Table/>
+      <RatioList config={tableConfig} data={data}/>
+      <Table config={tableConfig} data={data}/>
       <h3>
         Table - Table takes in a configuration object and company data as
         params. Use the config to style your table.

@@ -3,14 +3,17 @@ import type { CompanyProfile } from "../../company";
 import { useEffect, useState } from "react";
 import { getCompanyProfile } from "../../api";
 
-import RatioList from "../../Components/RatioList/RatioList";
-import Spinner from "../../Components/Spinners/Spinner"
+//import RatioList from "../../Components/RatioList/RatioList";
+{/*
 import {
   formatLargeNonMonetaryNumber,
   formatRatio,
 } from "../../Helpers/NumberFormatting";
 
 import StockComment from "../../Components/StockComment/StockComment";
+*/}
+
+import Spinner from "../../Components/Spinners/Spinner"
 import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard";
 import Tile from "../../Components/Tile/Tile"
 import CompanyFind from "../../Components/CompanyFind/CompanyFind";
@@ -22,15 +25,16 @@ interface Props {}
 const CompanyPage = (props: Props) => {
  
   let { ticker } = useParams();
-  const [company, setCompany] = useState<CompanyProfile>();
+  const [company, setCompany] = useState<CompanyProfile | null>(null);
 
   useEffect(() => {
     const getProfileInit = async() => {
       const result = await getCompanyProfile(ticker!);
-      setCompany(result?.data[0]);
+      setCompany(result?.data[0] ?? null);
     }
     getProfileInit();
   }, [])
+
   return (
         <>
       {company ? (

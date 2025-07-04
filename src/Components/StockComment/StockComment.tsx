@@ -1,6 +1,6 @@
 
 interface Props {
-    
+    stockSymbol:string
 }
 
 const StockComment = (props: Props) => {
