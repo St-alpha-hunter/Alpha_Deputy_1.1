@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+  "./index.html", // 确保 HTML 文件包含
+  "./src/**/*.{js,jsx,ts,tsx}", // 所有源码
+  "./src/**/*.css" // ⬅️ 加上这个，如果你还会在 css 中写类（比如 utility-first 定制）
+  ],
   theme: {
     screens: {
       sm: "480px",

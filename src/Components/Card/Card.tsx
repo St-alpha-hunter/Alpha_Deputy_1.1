@@ -17,7 +17,7 @@ const Card : React.FC<Props> = ({ id, searchResult, onPortfolioCreate}: Props): 
       key={id}
       id={id}
     >
-      Add commentMore actions
+      
       <Link to={`/company/${searchResult.symbol}`} className="font-bold text-center text-black md:text-left">
         {searchResult.name} ({searchResult.symbol})
       </Link>
@@ -26,7 +26,6 @@ const Card : React.FC<Props> = ({ id, searchResult, onPortfolioCreate}: Props): 
           {searchResult.exchangeShortName} - {searchResult.stockExchange}
       </p>
 
-      Add commentMore actions
       <AddPortfolio
         onPortfolioCreate={onPortfolioCreate}
         symbol={searchResult.symbol}

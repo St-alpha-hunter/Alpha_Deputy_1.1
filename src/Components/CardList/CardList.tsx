@@ -9,7 +9,7 @@ interface Props  {
 };
 
 const CardList: React.FC<Props> = ({ searchResults, onPortfolioCreate }: Props): JSX.Element => {
-  return <>
+  return <div className = "text-black">
     {searchResults.length > 0 ? (
       searchResults.map((result) => {
         return (
@@ -25,7 +25,7 @@ const CardList: React.FC<Props> = ({ searchResults, onPortfolioCreate }: Props):
       <p className = "mb-3 mt-3 text-xl font-semibold text-center md:text">No results!</p>
     )
   } 
-    </>;
+    </div>;
 };
 
 
