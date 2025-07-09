@@ -20,7 +20,8 @@ const FactorCategory = ( {category, ChoosingFactor, CreateFactorList}: Props) =>
         );
 
   return ( <div className="factor-category">
-    
+
+  <div className="h-full w-[100px] bg-lightBlue text-white font-bold rounded-lg text-center"> Category</div>
       { factorsInThisCategory.length > 0 ? (
           factorsInThisCategory.map((factor) => {
           

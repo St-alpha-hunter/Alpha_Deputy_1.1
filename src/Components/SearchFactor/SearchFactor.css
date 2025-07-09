@@ -1,0 +1,17 @@
+.input-wrapper {
+    background-color: lightBlue;
+    /* padding 区域的颜色 */
+    padding: 12px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.styled-input {
+    padding: 2px 2px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgb(227, 241, 198);
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}

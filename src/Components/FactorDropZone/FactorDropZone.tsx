@@ -1,13 +1,19 @@
 import { useDrop } from "react-dnd";
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import type { FactorProps } from "../Factor/Factor"; 
+import Factor from "../Factor/Factor";
+import { toast } from "react-toastify";
 
 type DropZoneProps = {
     //Partial就是把所有的属性都变成可选的
   onDropFactor?: (factor: Partial<FactorProps>) => void;
 };
 
+
+
 const FactorDropZone: FC<DropZoneProps> = ({ onDropFactor }) => {
+  const [selectedFactors, setSelectedFactors] = useState<FactorProps[]>([]);
+  
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: "FACTOR",
     drop: (item: Partial<FactorProps>) => {
@@ -21,8 +27,9 @@ const FactorDropZone: FC<DropZoneProps> = ({ onDropFactor }) => {
     }),
   }));
 
+
   return (
- <div className = "p-4 border-2 border-lightGreen rounded-lg shadow-md bg-white w-full h-[500px] max-w-xl mx-auto">
+ <div className = "flex flex-col p-4 border-8 border-lightGreen rounded-lg shadow-md bg-white w-full h-[500px] max-w-xl mx-auto">
         <div
             ref={dropRef as unknown as React.Ref<HTMLDivElement>}
             className={`h-[300px] w-full border-2 border-dashed rounded-lg transition flex flex-col
@@ -33,6 +40,9 @@ const FactorDropZone: FC<DropZoneProps> = ({ onDropFactor }) => {
             <p className="text-center text-gray-600 mt-4">
                 {isOver && canDrop ? "Release and Add factors" : "drag factors to here"}
             </p>
+            {selectedFactors.map((factor) => (
+                <Factor key={factor.id} {...factor} />
+        ))}
         </div>
         </div>
             <div className="mt-6 text-center h-auto">
