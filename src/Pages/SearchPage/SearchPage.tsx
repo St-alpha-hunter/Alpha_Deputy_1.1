@@ -21,6 +21,8 @@ const SearchPage = (props: Props) => {
               setSearch(e.target.value);
               console.log(e);
           };
+
+
           //异步编程记得使用async
           const onSearchSubmit = async (e: SyntheticEvent) => { 
               const result = await searchCompanies(search);
@@ -32,6 +34,8 @@ const SearchPage = (props: Props) => {
               console.log(searchResult);
           };
     
+
+
           const onPortfolioCreate = (e: SyntheticEvent) => {
             e.preventDefault();
     
@@ -46,6 +50,8 @@ const SearchPage = (props: Props) => {
             console.log(e)
           }
     
+
+
           const onPortfolioDelete = (e: any) => {
             e.preventDefault();
             const removed = portfolioValues.filter((value) => {
@@ -53,6 +59,7 @@ const SearchPage = (props: Props) => {
             });
             setPortfolioValues(removed);
           }
+
 
 
   return (
@@ -66,9 +73,13 @@ const SearchPage = (props: Props) => {
         portfolioValues={portfolioValues}
         onPortfolioDelete={onPortfolioDelete}
         />
-      <CardList searchResults ={searchResult} onPortfolioCreate={onPortfolioCreate}/>
+      <CardList 
+        searchResults ={searchResult} 
+        onPortfolioCreate={onPortfolioCreate}
+        />
     </div>
   )
+  
 }
 
 export default SearchPage

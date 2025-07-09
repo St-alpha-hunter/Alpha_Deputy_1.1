@@ -15,9 +15,29 @@ const Navbar = (props: Props) => {
 
                 <div className=" font-bold lg:flex">
                   <Link to ="/search" className="text-black hover:text-darkBlue">
-                          Search
+                          Search Stock
                   </Link>
                 </div>
+
+                <div className=" font-bold lg:flex">
+                  <Link to ="/deck" className="text-black hover:text-darkBlue">
+                          FactorDeck
+                  </Link>
+                </div>
+
+                <div className=" font-bold lg:flex">
+                  <Link to ="/session" className="text-black hover:text-darkBlue">
+                         Session
+                  </Link>
+                </div>
+
+                <div className=" font-bold lg:flex">
+                  <Link to ="/report" className="text-black hover:text-darkBlue">
+                         My Team's Reports
+                  </Link>
+                </div>
+
+
           </div>
           <div className="lg:flex items-center space-x-6 text-black">
             <div className="hover:text-darkBlue">Login</div>

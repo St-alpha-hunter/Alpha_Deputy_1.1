@@ -12,6 +12,10 @@ const CompFinder = ({ ticker }: Props) => {
   useEffect(() => {
     const getComps = async () => {
       const value = await getCompData(ticker);
+
+      //console.log("API 响应：", value); 
+      //console.log("提取的公司数据：", value?.[0]);
+
       setCompanyData(value?.[0]);
     };
     getComps();
@@ -19,8 +23,8 @@ const CompFinder = ({ ticker }: Props) => {
   return (
     <div className="inline-flex rounded-md shadow-sm m-4" role="group">
       {companyData ? (
-        companyData?.peersList.map((ticker) => {
-          return <CompFinderItem ticker={ticker} />;
+        [companyData]?.map((ticker) => {
+          return <CompFinderItem key={ticker.symbol} ticker={ticker.symbol} />;
         })
       ) : (
         <Spinner />

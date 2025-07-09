@@ -18,9 +18,10 @@ const config = [
 ];
 
 const RatioList = (props: Props) => {
-    const renderedRow = config.map(row => {
+    const renderedRow = config.map((row, index) => {
+      console.log("渲染这一行", row.Label, row.render(data));
       return (
-        <li className = "py-3 sm:py-4">
+        <li key={row.Label || index}  className = "py-3 sm:py-4">
           <div className="flex items-center space-x-4">
             <p className="text-sm font-medium text-gray-900 truncate">
               {row.Label}

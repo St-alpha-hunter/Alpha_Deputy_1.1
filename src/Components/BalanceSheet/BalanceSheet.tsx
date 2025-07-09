@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { CompanyBalanceSheet } from "../../company";
 import { useOutletContext } from "react-router-dom";
 import RatioList from "../RatioList/RatioList";
@@ -86,6 +86,7 @@ const BalanceSheet = (props: Props) => {
   useEffect(() => {
     const getCompanyData = async () => {
       const value = await getBalanceSheet(ticker!);
+      console.log("Balance Sheet 返回的数据:", value);
       setCompanyData(value? value[0]:null);
     };
     getCompanyData();

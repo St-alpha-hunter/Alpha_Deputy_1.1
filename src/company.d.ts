@@ -325,9 +325,44 @@ export interface Dividend {
 }
 
 export interface CompanyCompData {
+  address: string;
+  averageVolume: number;
+  beta: number;
+  ceo: string;
+  change: number;
+  changePercentage: number;
+  cik: string;
+  city: string;
+  companyName: string;
+  country: string;
+  currency: string;
+  cusip: string;
+  defaultImage: boolean;
+  description: string;
+  exchange: string;
+  exchangeFullName: string;
+  fullTimeEmployees: string;
+  image: string;
+  industry: string;
+  ipoDate: string;
+  isActivelyTrading: boolean;
+  isAdr: boolean;
+  isEtf: boolean;
+  isFund: boolean;
+  isin: string;
+  lastDividend: number;
+  marketCap: number;
+  phone: string;
+  price: number;
+  range: string;
+  sector: string;
+  state: string;
   symbol: string;
-  peersList: string[];
+  volume: number;
+  website: string;
+  zip: string;
 }
+
 
 export interface CompanyTenK {
   symbol: string;

@@ -1,0 +1,51 @@
+import type { SyntheticEvent } from "react";
+import Factor from "../Factor/Factor";
+import { exampleFactors } from "../Factor/examplefactors";
+import { exampleCategory } from "../../Pages/FactorDeckPage/exampleCategory";
+import "./FactorCategory.css"
+
+export interface Props {
+  category:string
+  ChoosingFactor: (e: SyntheticEvent) => void; // 就传进来，透传下去
+
+  // Reserved for future category-level operations
+  CreateFactorList?:(e: SyntheticEvent) => void;
+}
+
+export type { Props as FactorCategoryProps };
+
+const FactorCategory = ( {category, ChoosingFactor, CreateFactorList}: Props) => {
+        const factorsInThisCategory = exampleFactors.filter(
+          (f) => f.category === category
+        );
+
+  return ( <div className="factor-category">
+    
+      { factorsInThisCategory.length > 0 ? (
+          factorsInThisCategory.map((factor) => {
+          
+            return (
+              <div className="min-w-[120px] w-fit p-3">
+                <Factor
+                    key={factor.id}
+                    {...factor}
+                    ChoosingFactor={ ChoosingFactor }
+                />
+            </div>
+            )
+            
+          })
+        ):(
+    <p className="mb-3 mt-3 text-xl font-semibold text-center md:text">
+      No results
+    </p>
+          )
+    }
+
+
+
+    </div>
+  );
+};
+
+export default FactorCategory;

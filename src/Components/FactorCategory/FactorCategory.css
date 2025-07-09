@@ -1,0 +1,8 @@
+.factor-category {
+     @apply  flex flex-row flex-wrap gap-4 
+     items-start bg-gray-100 
+     min-h-[256px]
+     rounded-xl shadow-md p-4 
+     border border-gray-400 
+     transition hover:shadow-lg;
+}
