@@ -19,6 +19,8 @@ import FactorCategory from "../../Components/FactorCategory/FactorCategory";
 import FactorSidebar from "../../Components/FactorSidebar/FactorSidebar";
 import SearchFactor from "../../Components/SearchFactor/SearchFactor";
 import { toast } from "react-toastify";
+import CardList from "../../Components/CardList/CardList";
+import FactorList from "../../Components/FactorList/FactorList";
 
 
 type Props = {}
@@ -27,10 +29,8 @@ const FactorDeckPage = (props: Props) => {
 
     const [search, setSearch] = useState<string>("");
     const [factor, setfactor] = useState< FactorProps | null>(null);
-    const [factorgory, setfactorgory] = useState < FactorCategoryProps | null>(null);
-    const [categories, setcategories] = useState <string[]>([]);
     const [selectedFactors, setSelectedFactors] = useState<FactorProps[]>([]);
-    
+     const [searchResult, setSearchResult] = useState<FactorProps[]>([]);
     
     
     const ClickFactor = (e: SyntheticEvent) => {
@@ -38,15 +38,32 @@ const FactorDeckPage = (props: Props) => {
     }
 
     
+   
     const onSearchSubmit = async (e : SyntheticEvent) => {
+        e.preventDefault();
+            // 本地搜索 exampleFactors
+        const filtered = exampleFactors.filter((factor) =>
+        factor.name.toLowerCase().includes(search.toLowerCase()) 
+    );
 
+    // 类型转换，因为 searchResult 用的是 CompanySearch[]
+    // 暂时你可以把 searchResult 类型改成 FactorProps[]（或单独搞一个 searchFactorResult）
+    setSearchResult(filtered); 
     };
+   
 
     const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
                   setSearch(e.target.value);
                   console.log(e);
               };
     
+    const onPortfolioCreate = (e: SyntheticEvent) =>{
+
+    };
+
+    const onPortfolioDelete = (e: SyntheticEvent) =>{
+
+    };
 
     const handleDropFactor = (factor: Partial<FactorProps>) => {
         console.log("Dropped", factor);
@@ -58,39 +75,55 @@ const FactorDeckPage = (props: Props) => {
         setSelectedFactors(prev => [...prev, factor as FactorProps]);
         };
 
-
-
-  
     return (
     <div className = "ml-[260px] grid grid-cols-12 h-screen relative">
+
         <div className="fixed top-24 left-0 w-[260px] h-[calc(100vh-4rem)] overflow-auto p-4 rounded-lg z-40">
             <FactorSidebar/>
         </div>
+
         <div className="col-span-8 bg-lightGreen p-4 flex flex-col space-y-6 border-4 border-gray-300">
             { exampleCategory.map((item) => {
                 return(           
-            
                 <FactorCategory
                     key = {item.id}
                     category={item.category}
                     ChoosingFactor={ClickFactor}
                 />
-        
                 );
             })
             }
         </div>
 
-        <div className="fixed top-24 right-0 w-[470px] bg-white p-4 overflow-auto border-4 rounded-lg border-lightGreen space-y-2">
-            <SearchFactor 
-                onSearchSubmit={onSearchSubmit} 
-                search={search}
-                handleSearchChange={handleSearchChange}/>
-            <FactorDropZone  
-                onDropFactor={handleDropFactor} 
-                />
-        </div>
+        <div className="flex flex-col fixed top-24 space-y-2 right-0 w-[470px] h-[700px] bg-white p-4 overflow-auto border-8 rounded-lg border-lightGreen">
+          
+           <div className = "flex-grow-[2] ">     
+                <SearchFactor 
+                    onSearchSubmit={onSearchSubmit} 
+                    search={search}
+                    handleSearchChange={handleSearchChange}/>        
+            </div>
 
+           <div className = "flex-grow-[2] ">
+                <FactorList
+                    searchResults={searchResult} 
+                    />
+            </div>
+
+           
+            <div className = "flex-grow-[2] ">
+                <FactorDropZone  
+                    onDropFactor={handleDropFactor} 
+                    />
+            </div>
+            
+            <div className = "flex-grow-[4] flex flex-row flex-wrap gap-2 border-8 rounded-lg p-1 border-lightGreen overflow-y-auto">
+                {selectedFactors.map((factor) => (
+                    <Factor key={factor.id} {...factor} />
+                ))}
+            </div>
+        
+        </div>
     </div>
   )
 }

@@ -14,13 +14,20 @@ const Search : React.FC<Props> = ({
     handleSearchChange
     }:Props): JSX.Element => {
     return (
-        <div className="input-wrapper"> 
-            <input className="w-[1024px] h-12  px-5 py-3 border-4 border-blue-500 styled-input rounded-lg shadow-sm text-base focus:outline-none focus:border-green-500 transition" value = {search} onChange = {(e) => handleSearchChange(e)}></input> 
+        <div className="w-[1000px] h-[200px] bg-lightGreen 
+            rounded-lg mx-auto flex items-center 
+            justify-center flex-wrap space-x-1"> 
+            <input className="w-[600px] h-[80px] border-4 ml-6 mr-6 border-blue-500 
+                styled-input rounded-lg shadow-sm text-base focus:outline-none
+                focus:border-green-500 transition" 
+                value = {search} onChange = {(e) => handleSearchChange(e)}>
+            </input> 
             <button className = "bg-white ml-8 text-blue-500 font-semibold px-4 py-2 rounded hover:bg-yellow-100"
-                onClick= {(e) => {
-                console.log(e);
-                onSearchSubmit(e);
-            }}> Search </button>
+                    onClick= {(e) => {
+                    console.log(e);
+                    onSearchSubmit(e);
+                }}> Search 
+            </button>
         </div>
     );
 };

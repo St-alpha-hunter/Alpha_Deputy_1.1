@@ -1,6 +1,7 @@
 import type { SyntheticEvent } from "react";
 import Factor from "../Factor/Factor";
 import { exampleFactors } from "../Factor/examplefactors";
+import { SlEqualizer } from "react-icons/sl";
 import { exampleCategory } from "../../Pages/FactorDeckPage/exampleCategory";
 import "./FactorCategory.css"
 
@@ -19,12 +20,18 @@ const FactorCategory = ( {category, ChoosingFactor, CreateFactorList}: Props) =>
           (f) => f.category === category
         );
 
-  return ( <div className="factor-category">
+  return ( 
+  
+  <div className="factor-category">
+      <div className="flex flex-col h-full space-y-2 w-[100px] bg-lightBlue text-white font-bold rounded-lg text-center"
+        >
 
-  <div className="h-full w-[100px] bg-lightBlue text-white font-bold rounded-lg text-center"> Category</div>
+        <SlEqualizer className = "w-full text-2xl mt-12"/>
+          <span className="text-lg font-semibold mb-1 mt-1">{category}</span>
+
+        </div>
       { factorsInThisCategory.length > 0 ? (
           factorsInThisCategory.map((factor) => {
-          
             return (
               <div className="min-w-[120px] w-fit p-3">
                 <Factor
@@ -33,8 +40,7 @@ const FactorCategory = ( {category, ChoosingFactor, CreateFactorList}: Props) =>
                     ChoosingFactor={ ChoosingFactor }
                 />
             </div>
-            )
-            
+            )          
           })
         ):(
     <p className="mb-3 mt-3 text-xl font-semibold text-center md:text">
@@ -42,11 +48,7 @@ const FactorCategory = ( {category, ChoosingFactor, CreateFactorList}: Props) =>
     </p>
           )
     }
-
-
-
     </div>
   );
 };
-
 export default FactorCategory;
