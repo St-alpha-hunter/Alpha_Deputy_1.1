@@ -14,80 +14,67 @@ type Props = {};
 
 const tableConfig = [
   {
-    label: "Market Cap",
+    Label: "Market Cap",
     render: (company: CompanyKeyMetrics) =>
-      formatLargeNonMonetaryNumber(company.marketCapTTM),
+      formatLargeNonMonetaryNumber(company.marketCap),
     subTitle: "Total value of all a company's shares of stock",
   },
   {
-    label: "Current Ratio",
+    Label: "Current Ratio",
     render: (company: CompanyKeyMetrics) =>
-      formatRatio(company.currentRatioTTM),
+      formatRatio(company.currentRatio),
     subTitle:
       "Measures the companies ability to pay short term debt obligations",
   },
   {
-    label: "Return On Equity",
-    render: (company: CompanyKeyMetrics) => formatRatio(company.roeTTM),
+    Label: "Return On Equity",
+    render: (company: CompanyKeyMetrics) => formatRatio(company.returnOnEquity),
     subTitle:
       "Return on equity is the measure of a company's net income divided by its shareholder's equity",
   },
   {
-    label: "Return On Assets",
+    Label: "Return On Assets",
     render: (company: CompanyKeyMetrics) =>
-      formatRatio(company.returnOnTangibleAssetsTTM),
+      formatRatio(company.returnOnTangibleAssets),
     subTitle:
       "Return on assets is the measure of how effective a company is using its assets",
   },
   {
-    label: "Free Cashflow Per Share",
+    Label: "Free Cashflow Per Share",
     render: (company: CompanyKeyMetrics) =>
-      formatRatio(company.freeCashFlowPerShareTTM),
+      formatRatio(company.freeCashFlowToEquity),
     subTitle:
       "Return on assets is the measure of how effective a company is using its assets",
   },
   {
-    label: "Book Value Per Share TTM",
+    Label: "Capex Per Share TTM",
     render: (company: CompanyKeyMetrics) =>
-      formatRatio(company.bookValuePerShareTTM),
-    subTitle:
-      "Book value per share indicates a firm's net asset value (total assets - total liabilities) on per share basis",
-  },
-  {
-    label: "Divdend Yield TTM",
-    render: (company: CompanyKeyMetrics) =>
-      formatRatio(company.dividendYieldTTM),
-    subTitle: "Shows how much a company pays each year relative to stock price",
-  },
-  {
-    label: "Capex Per Share TTM",
-    render: (company: CompanyKeyMetrics) =>
-      formatRatio(company.capexPerShareTTM),
+      formatRatio(company.capexPerShare),
     subTitle:
       "Capex is used by a company to aquire, upgrade, and maintain physical assets",
   },
   {
-    label: "Graham Number",
+    Label: "Graham Number",
     render: (company: CompanyKeyMetrics) =>
-      formatRatio(company.grahamNumberTTM),
+      formatRatio(company.grahamNumber),
     subTitle:
       "This is the upperbouind of the price range that a defensive investor should pay for a stock",
-  },
-  {
-    label: "PE Ratio",
-    render: (company: CompanyKeyMetrics) => formatRatio(company.peRatioTTM),
-    subTitle:
-      "This is the upperbouind of the price range that a defensive investor should pay for a stock",
-  },
+  }
 ];
 
 const CompanyProfile = (props: Props) => {
   const ticker = useOutletContext<string>();
-  const [companyData, setCompanyData] = useState<CompanyKeyMetrics | null>(null);
+  const [companyData, setCompanyData] = useState<CompanyKeyMetrics|null >();
+  
+  useEffect(() => {
+  console.log("📊 companyData 更新了：", companyData);
+}, [companyData]);
+  
+  
   useEffect(() => {
     const getCompanyKeyRatios = async () => {
       const value = await getCompanyKeyMetrics(ticker);
-      setCompanyData(value.length ? value[0]: null);
+      setCompanyData(value.length > 0 ? value[0]:null);
     };
     getCompanyKeyRatios();
   }, []);

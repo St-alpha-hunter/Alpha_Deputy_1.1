@@ -70,7 +70,7 @@ const SearchPage = (props: Props) => {
           handleSearchChange={handleSearchChange} />
           {serverError && <h1>{serverError}</h1> }
       <ListPortfolio  
-        portfolioValues={portfolioValues}
+        portfolioValues={portfolioValues!}
         onPortfolioDelete={onPortfolioDelete}
         />
       <CardList 

@@ -1,4 +1,4 @@
-import logo2 from "./logo1.png";
+import logo from "./logo.png";
 import { Link } from "react-router-dom";
 
 interface Props {}
@@ -9,7 +9,7 @@ const Navbar = (props: Props) => {
         <div className="flex items-center justify-between">
             <div className="flex items-center space-x-20">
                 <Link to = "/">
-                  <img src={logo2} alt="" />
+                  <img src={logo} alt="" />
                 </Link>
 
 

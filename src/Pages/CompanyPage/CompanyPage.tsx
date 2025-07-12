@@ -30,33 +30,39 @@ const CompanyPage = (props: Props) => {
   useEffect(() => {
     const getProfileInit = async() => {
       const result = await getCompanyProfile(ticker!);
+      console.log("✅ result from API", result);
       setCompany(result?.data[0] ?? null);
     }
     getProfileInit();
   }, [])
 
-  return (
-        <>
-      {company ? (
-        <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
-          <Sidebar />
-          <CompanyDashboard ticker={ticker!}>
-            <Tile title="Company Name" subTitle={company.companyName} />
-            <Tile title="Price" subTitle={"$" + company.price.toString()} />
-            <Tile title="DCF" subTitle={"$" + company.dcf.toString()} />
-            <Tile title="Sector" subTitle={company.sector} />
-            <CompanyFind ticker={company.symbol} />
-            <TenkFind ticker={company.symbol} />
-            <p className="bg-white shadow rounded text-medium font-medium text-gray-900 p-3 mt-1 m-4">
-              {company.description}
-            </p>
-          </CompanyDashboard>
-        </div>
-      ) : (
-        <Spinner />
-      )}
-    </>
-  );
+return (
+  company ? (
+    <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
+      <Sidebar />
+      <CompanyDashboard ticker={ticker!}>
+        <Tile title="Company Name" subTitle={company.companyName || "N/A"} />
+        <Tile
+          title="Price"
+          subTitle={company.price != null ? `$${company.price.toFixed(2)}` : "N/A"}
+        />
+        <Tile
+          title="DCF"
+          subTitle={company.dcf != null ? `$${company.dcf.toFixed(2)}` : "N/A"}
+        />
+        <Tile title="Sector" subTitle={company.sector || "N/A"} />
+        <CompanyFind ticker={company.symbol} />
+        <TenkFind ticker={company.symbol} />
+        <p className="bg-white shadow rounded text-medium font-medium text-gray-900 p-3 mt-1 m-4">
+          {company.description || "No description available."}
+        </p>
+      </CompanyDashboard>
+    </div>
+  ) : (
+    <Spinner />
+  )
+);
+ 
   };
 
 export default CompanyPage;

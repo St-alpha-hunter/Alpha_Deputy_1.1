@@ -13,7 +13,7 @@ const TenkFindItem = ({ tenk }: Props) => {
         reloadDocument
         to={tenk.finalLink}
         type="button"
-        className = "inline-flex items-center p-4 text-md text-white bg-lightGreen rounded-md"
+        className = "inline-flex items-center p-4 text-md text-gray-600 bg-lightGreen rounded-md"
         > 10k - {tenk.symbol} - {fillingData} </Link>
   );
 };

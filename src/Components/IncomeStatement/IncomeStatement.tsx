@@ -80,15 +80,16 @@ const configs = [
 const IncomeStatement = (props: Props) => {
 //useOutletContext 不是组件，而是 React Router 提供的一个 Hook，专门用来在嵌套路由中从父组件获取“共享数据”的
   const ticker = useOutletContext<string>();
-  const [incomeStatement, setIncomeStatement] =
-    useState<CompanyIncomeStatement[]>();
+  const [incomeStatement, setIncomeStatement] =useState<CompanyIncomeStatement[]>();
   useEffect(() => {
     const getRatios = async () => {
+      console.log("开始请求 income statement...");
       const result = await getIncomeStatement(ticker!);
+      console.log("API 返回结果：", result);
       setIncomeStatement(result);
     };
     getRatios();
-  }, []);
+  }, [ticker]);
   return (
     <>
       {incomeStatement ? (

@@ -13,7 +13,9 @@ const DeletePortfolio = ({ onPortfolioDelete, portfolioValue }: Props) => {
                 hidden={true} 
                 value = {portfolioValue ?? ''}
                 readOnly={true}/>
-            <button>X</button>
+            <button className="block w-[40px] py-3 text-white duration-200 border-2 rounded-lg bg-red-500 hover:text-red-500 hover:bg-white border-red-500">
+              X
+            </button>
         </form>
     </div>
   )

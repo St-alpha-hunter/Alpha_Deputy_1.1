@@ -17,6 +17,7 @@ interface SearchResponse {
 
 
 //搜索公司
+//确认无误
 export const searchCompanies = async (query: string) => {
   try {
     const data = await axios.get<SearchResponse>(
@@ -53,7 +54,7 @@ export const getCompanyProfile = async (query: string) => {
 export const getCompanyKeyMetrics = async (symbol: string) => {
   try {
     const { data } = await axios.get<CompanyKeyMetrics[]>(
-      "https://financialmodelingprep.com/api/v3/profile",
+      "https://financialmodelingprep.com/stable/key-metrics",
       {
         params: {
           symbol,                                    // 等价于 symbol: symbol
@@ -73,20 +74,15 @@ export const getCompanyKeyMetrics = async (symbol: string) => {
 export const getIncomeStatement = async (symbol: string) => {
   try {
     const { data } = await axios.get<CompanyIncomeStatement[]>(
-      "https://financialmodelingprep.com/stable/income-statement",
-      {
-        params: {
-          symbol,                                    // 等价于 symbol: symbol
-          apikey: import.meta.env.VITE_API_KEY,
-        },
-      }
+      `https://financialmodelingprep.com/api/v3/income-statement/${symbol}?apikey=${import.meta.env.VITE_API_KEY}`
     );
     return data;
   } catch (err: any) {
     console.error("error message:", err.message);
-    throw err;                                     // 往上抛，方便页面统一处理
+    throw err;
   }
 };
+
 
 //获得公司的资产负债表
 export const getBalanceSheet = async (symbol: string) => {
