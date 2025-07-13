@@ -11,6 +11,8 @@ import CashFlowStatement from "../Components/CashFlowStatement/CashFlowStatement
 import SessionPage from "../Pages/SessionPage/SessionPage";
 import AnalysisPage from "../Pages/AnalysisPage/AnalysisPage";
 import FactorDeckPage from "../Pages/FactorDeckPage/FactorDeckPage";
+import StrategyWarehouse from "../Pages/StrategyWarehouse/StrategyWarehouse";
+import CodeFactor from "../Pages/CodeFactor/CodeFactor";
 
 export const router = createBrowserRouter([
     {
@@ -21,9 +23,11 @@ export const router = createBrowserRouter([
             { path: "search", element: <SearchPage/>},
             { path: "company/:ticker", element: <CompanyPage/>},
             { path: "design-guide", element:<DesignGuide/>},
-            { path: "deck", element:<FactorDeckPage/>},
             { path: "session", element:<SessionPage/>},
             { path: "report", element:<AnalysisPage/>},
+            { path: "deck", element:<FactorDeckPage/>},
+            { path: "strategy-warehouse", element: <StrategyWarehouse/>},
+            { path: "coding", element: <CodeFactor/>},
 
             {            
               path: "company/:ticker",
@@ -34,7 +38,7 @@ export const router = createBrowserRouter([
                 {path: "balance-sheet", element: <BalanceSheet/>},
                 {path: "cashflow-statement", element: <CashFlowStatement/>} 
               ]
-            }
-        ],
+            }            
+       ],
     },
 ]);
