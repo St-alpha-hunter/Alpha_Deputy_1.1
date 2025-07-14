@@ -32,14 +32,12 @@ const FactorDeckPage = (props: Props) => {
     const [search, setSearch] = useState<string>("");
     const [factor, setfactor] = useState< FactorProps | null>(null);
     const [selectedFactors, setSelectedFactors] = useState<FactorProps[]>([]);
-     const [searchResult, setSearchResult] = useState<FactorProps[]>([]);
+    const [searchResult, setSearchResult] = useState<FactorProps[]>([]);
     
     
     const ClickFactor = (e: SyntheticEvent) => {
         setfactor;
     }
-
-    
    
     const onSearchSubmit = async (e : SyntheticEvent) => {
         e.preventDefault();
@@ -63,20 +61,20 @@ const FactorDeckPage = (props: Props) => {
 
     };
 
-    const onPortfolioDelete = (e: SyntheticEvent) =>{
-
-    };
+    const FactorDelete = (deletefactor : MinimalFactor) =>{
+        setSelectedFactors((prev) => prev.filter((f) => f.id !== deletefactor.id) )
+        };
 
 
     const handleDropFactor = (factor: MinimalFactor ) => {
-        console.log("Dropped", factor);
-        const exists = selectedFactors.some(f =>f.id === factor.id);
-        if (exists) {
-            toast.error(`${factor.name} has been added`);
-            return;
+        setSelectedFactors((prev) => {
+        if (prev.some((f) => f.id === factor.id)) {
+        toast.error(`${factor.name} is already in your list 📋`);
+        return prev;               // 不变
         }
-        setSelectedFactors(prev => [...prev, factor as FactorProps]);
-        };
+        return [...prev, factor as FactorProps];
+    });
+    };
 
 
     return (
@@ -115,17 +113,12 @@ const FactorDeckPage = (props: Props) => {
             </div>
 
            
-            <div className = "flex-grow-[2] ">
+            <div className = "flex-grow-[6] ">
                 <FactorDropZone  
-                    onDropFactor={handleDropFactor} 
-                    />
-            </div>
-            
-            <div className = "flex-grow-[4] flex flex-row flex-wrap gap-2 border-8 rounded-lg p-1 border-lightGreen overflow-y-auto">
-                <Display
                     selectedFactors={selectedFactors}
-                    displayfactors={handleDropFactor}
-                />
+                    onDropFactor={handleDropFactor} 
+                    FactorDelete={FactorDelete}
+                    />
             </div>
         
         </div>
@@ -134,3 +127,6 @@ const FactorDeckPage = (props: Props) => {
 }
 
 export default FactorDeckPage
+
+
+

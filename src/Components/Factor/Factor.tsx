@@ -18,6 +18,7 @@ type Props = {
     tags?: string[];          // 标签（如 ["动量", "技术"]）
     ChoosingFactor?: (e: SyntheticEvent) => void;
     CheckingFactor?: (factor: MinimalFactor) => void;
+    DeletingFactor?: (factor: MinimalFactor) =>void;
 }
 
 export type { Props as FactorProps };
