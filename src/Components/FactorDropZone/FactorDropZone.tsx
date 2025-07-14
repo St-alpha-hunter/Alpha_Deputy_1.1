@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 type DropZoneProps = {
     //Partial就是把所有的属性都变成可选的
-  onDropFactor?: (factor: Partial<FactorProps>) => void;
+  onDropFactor?: (factor:  { id: string; name?: string }) => void;
 };
 
 
@@ -16,7 +16,7 @@ const FactorDropZone: FC<DropZoneProps> = ({ onDropFactor }) => {
   
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: "FACTOR",
-    drop: (item: Partial<FactorProps>) => {
+    drop: (item: { id: string; name?: string }) => {
       if (onDropFactor) {
         onDropFactor(item);
       }

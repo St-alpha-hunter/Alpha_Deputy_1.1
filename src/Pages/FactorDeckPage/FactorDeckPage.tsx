@@ -8,6 +8,7 @@ import type {FactorCategoryProps} from "../../Components/FactorCategory/FactorCa
 
 //鼠标管理
 import type { ChangeEvent, MouseEvent, SyntheticEvent } from "react";
+import type { MinimalFactor } from "../../Components/Factor/Factor";
 
 //用例调用
 import { exampleCategory } from "./exampleCategory";
@@ -18,6 +19,7 @@ import FactorDropZone from "../../Components/FactorDropZone/FactorDropZone"
 import FactorCategory from "../../Components/FactorCategory/FactorCategory";
 import FactorSidebar from "../../Components/FactorSidebar/FactorSidebar";
 import SearchFactor from "../../Components/SearchFactor/SearchFactor";
+import Display from "../../Components/Display/Display";
 import { toast } from "react-toastify";
 import CardList from "../../Components/CardList/CardList";
 import FactorList from "../../Components/FactorList/FactorList";
@@ -65,7 +67,8 @@ const FactorDeckPage = (props: Props) => {
 
     };
 
-    const handleDropFactor = (factor: Partial<FactorProps>) => {
+
+    const handleDropFactor = (factor: MinimalFactor ) => {
         console.log("Dropped", factor);
         const exists = selectedFactors.some(f =>f.id === factor.id);
         if (exists) {
@@ -74,6 +77,7 @@ const FactorDeckPage = (props: Props) => {
         }
         setSelectedFactors(prev => [...prev, factor as FactorProps]);
         };
+
 
     return (
     <div className = "ml-[260px] grid grid-cols-12 h-screen relative">
@@ -86,9 +90,9 @@ const FactorDeckPage = (props: Props) => {
             { exampleCategory.map((item) => {
                 return(           
                 <FactorCategory
-                    key = {item.id}
-                    category={item.category}
-                    ChoosingFactor={ClickFactor}
+                    key={`${item.id}`}
+                    category = {item.category}
+                    ChoosingFactor = {ClickFactor}
                 />
                 );
             })
@@ -118,9 +122,10 @@ const FactorDeckPage = (props: Props) => {
             </div>
             
             <div className = "flex-grow-[4] flex flex-row flex-wrap gap-2 border-8 rounded-lg p-1 border-lightGreen overflow-y-auto">
-                {selectedFactors.map((factor) => (
-                    <Factor key={factor.id} {...factor} />
-                ))}
+                <Display
+                    selectedFactors={selectedFactors}
+                    displayfactors={handleDropFactor}
+                />
             </div>
         
         </div>

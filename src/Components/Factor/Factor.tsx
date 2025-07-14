@@ -1,6 +1,13 @@
 import { useDrag } from 'react-dnd';
 import { useRef, useEffect, useState, type SyntheticEvent } from "react";
 
+type MinimalFactor = {
+  id: string;
+  name?: string;
+};
+
+export type {MinimalFactor};
+
 type Props = {
     id:string,
     category: string,
@@ -10,9 +17,11 @@ type Props = {
     description?: string;     // 简介
     tags?: string[];          // 标签（如 ["动量", "技术"]）
     ChoosingFactor?: (e: SyntheticEvent) => void;
+    CheckingFactor?: (factor: MinimalFactor) => void;
 }
 
 export type { Props as FactorProps };
+
 
 const Factor = ({ id, category, code, name, description, tags, ChoosingFactor} : Props) => {
     const [isHovered, setIsHovered] = useState(false);

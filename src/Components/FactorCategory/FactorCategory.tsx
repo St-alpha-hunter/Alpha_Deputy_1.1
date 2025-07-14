@@ -33,9 +33,8 @@ const FactorCategory = ( {category, ChoosingFactor, CreateFactorList}: Props) =>
       { factorsInThisCategory.length > 0 ? (
           factorsInThisCategory.map((factor) => {
             return (
-              <div className="min-w-[120px] w-fit p-3">
+              <div key={`${factor.id}`} className="min-w-[120px] w-fit p-3">
                 <Factor
-                    key={factor.id}
                     {...factor}
                     ChoosingFactor={ ChoosingFactor }
                 />
