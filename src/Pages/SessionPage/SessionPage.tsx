@@ -1,9 +1,31 @@
+import { useState, type SyntheticEvent } from "react";
+import FactorAdjuster from "../../Components/FactorAdjuster/FactorAdjuster";
+import PortfolioConstraintForm from "../../Components/PortfolioConstraintForm/PortfolioConstraintForm";
+import ManualStockAdjuster from "../../Components/ManualStockAdjuster/ManualStockAdjuster";
+import StockSelection from "../../Components/StockSelection/StockSelection";
 
-type Props = {}
+const SessionPage = () => {
 
-const SessionPage = (props: Props) => {
+  // 可选状态
+  
+  const [autoSelectedStocks, setAutoSelectedStocks] = useState<[]>([]);
+  const [finalPortfolio, setFinalPortfolio] = useState<[]>([]);
+
+  const onWeightChange = (e:any) =>{
+    
+  }
+
   return (
-    <div>SessionPage</div>
+    <div className="flex flex-col">
+      <FactorAdjuster
+         onWeightChange ={onWeightChange}
+      />
+      <StockSelection/>
+      <ManualStockAdjuster
+      />
+      <PortfolioConstraintForm
+      />
+    </div>
   )
 }
 

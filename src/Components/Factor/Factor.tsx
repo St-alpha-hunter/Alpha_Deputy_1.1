@@ -12,8 +12,8 @@ type Props = {
     id:string,
     category: string,
     code:string,
-
     name?: string;            // 中文名称（如“12月动量”）
+    weight?: number;
     description?: string;     // 简介
     tags?: string[];          // 标签（如 ["动量", "技术"]）
     ChoosingFactor?: (e: SyntheticEvent) => void;

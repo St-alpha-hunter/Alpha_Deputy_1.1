@@ -4,6 +4,7 @@ import type { FactorProps } from "../Factor/Factor";
 import Factor from "../Factor/Factor";
 import { toast } from "react-toastify";
 import type { MinimalFactor } from "../Factor/Factor";
+import { useNavigate } from 'react-router-dom';
 
 type DropZoneProps = {
     //Partial就是把所有的属性都变成可选的
@@ -17,6 +18,12 @@ type DropZoneProps = {
 const FactorDropZone: FC<DropZoneProps> = ({ selectedFactors, onDropFactor, FactorDelete }:DropZoneProps) => {
   
   
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/session');
+  };
+
+
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: "FACTOR",
     drop: (factor: { id: string; name?: string }) => {
@@ -65,7 +72,7 @@ const FactorDropZone: FC<DropZoneProps> = ({ selectedFactors, onDropFactor, Fact
           </div>
 
           <div className="flex-grow-[1] text-center">
-                <button className="px-6 py-2 bg-lightGreen text-white max-w-xs font-semibold rounded hover:opacity-90 transition">
+                <button onClick={handleClick} className="px-6 py-2 bg-lightGreen text-white max-w-xs font-semibold rounded hover:opacity-90 transition">
                     Confrim My Orders and Continue 
                 </button>         
           </div>

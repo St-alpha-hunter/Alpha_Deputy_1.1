@@ -26,13 +26,19 @@ const factorSlice = createSlice({
       state.selectedFactors = state.selectedFactors.filter(f => f.id !== action.payload);
     },
 
+    setFactorWeight(state, action: PayloadAction<{ id: string; weight: number }>) {
+      const factor = state.selectedFactors.find(f => f.id === action.payload.id);
+      if (factor) {
+        factor.weight = action.payload.weight;
+      }
+    },
 
     clearFactors(state) {
       state.selectedFactors = [];
     }
-    
+
   }
 });
 
-export const { addFactor, removeFactor, clearFactors } = factorSlice.actions;
+export const { addFactor, removeFactor, clearFactors, setFactorWeight} = factorSlice.actions;
 export default factorSlice.reducer;
