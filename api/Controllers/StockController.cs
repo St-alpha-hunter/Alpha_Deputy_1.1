@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using api.Data;
+using api.Helpers;
 using api.Models;
 using api.Mappers;
 using api.Dtos.Stock;
@@ -27,18 +28,18 @@ namespace api.Controllers
 
         //查询所有的
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var stocks = await _stockRepo.GetAllAsync();
+            var stocks = await _stockRepo.GetAllAsync(query);
             var stockDto = stocks.Select(s => s.ToStockDto());
             return Ok(stocks);
         }
 
 
         //按照id查询
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetStockById")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -61,9 +62,10 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             var stockModel = stockDto.ToStockFromCreateDTO();
-            await _context.Stock.AddAsync(stockModel);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.ToStockDto());
+            await _stockRepo.CreateAsync(stockModel);
+            var routeUrl = Url.Link("GetStockById", new { id = stockModel.Id });
+            Console.WriteLine("👉看这里 URL = " + routeUrl);
+            return CreatedAtRoute("GetStockById", new { id = stockModel.Id }, stockModel.ToStockDto());
         }
 
         //更新stock
