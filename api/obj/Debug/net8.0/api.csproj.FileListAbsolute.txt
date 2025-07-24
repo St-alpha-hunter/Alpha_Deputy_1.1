@@ -138,3 +138,15 @@ D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.Asp
 D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
