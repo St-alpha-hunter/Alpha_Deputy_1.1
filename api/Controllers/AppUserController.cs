@@ -7,6 +7,8 @@ using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using api.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace api.Controllers
@@ -16,10 +18,38 @@ namespace api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
-        public AccountController(UserManager<AppUser> userManager)
+        private readonly ITokenService _tokenService;
+        private readonly SignInManager<AppUser> _signinManager;
+        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signinManager)
         {
             _userManager = userManager;
+            _tokenService = tokenService;
+            _signinManager = signinManager;
         }
+
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto LoginDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == LoginDto.Username.ToLower());
+
+            if (user == null) return Unauthorized("Invalid Username");
+            var result = await _signinManager.CheckPasswordSignInAsync(user, LoginDto.Password, false);
+
+            if (!result.Succeeded) return Unauthorized("Username password not found");
+            return Ok(
+                new NewUserDto
+                {
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Token = _tokenService.CreateToken(user)
+                }
+            );
+        }
+
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
@@ -42,7 +72,14 @@ namespace api.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if (roleResult.Succeeded)
                     {
-                        return Ok("User created");
+                        return Ok(
+                            new NewUserDto
+                            {
+                                UserName = appUser.UserName,
+                                Email = appUser.Email,
+                                Token = _tokenService.CreateToken(appUser)
+                            }
+                        );
                     }
                     else
                     {

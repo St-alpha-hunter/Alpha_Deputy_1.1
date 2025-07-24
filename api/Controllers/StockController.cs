@@ -10,6 +10,7 @@ using api.Models;
 using api.Mappers;
 using api.Dtos.Stock;
 using api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 namespace api.Controllers
 {
     [Route("api/stock")]
@@ -28,6 +29,7 @@ namespace api.Controllers
 
         //查询所有的
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
