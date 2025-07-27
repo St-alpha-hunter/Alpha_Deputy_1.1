@@ -13,15 +13,32 @@ namespace api.Data
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
             : base(options)
-        {
-        }
-
+        { }
         public required DbSet<Comment> Comment { get; set; }
         public required DbSet<Stock> Stock { get; set; }
-
+        public DbSet<Portfolio> Portfolios { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Portfolio>(x => x.HasKey(p => new { p.AppUserId, p.StockId }));
+
+            builder.Entity<Portfolio>()
+                .HasOne(u => u.AppUser)
+                .WithMany(u => u.Portfolios)
+                .HasForeignKey(p => p.AppUserId);
+
+            builder.Entity<Portfolio>()
+                .HasOne(u => u.Stock)
+                .WithMany(u => u.Portfolios)
+                .HasForeignKey(p => p.StockId);
+
+            builder.Entity<Comment>()
+                .HasOne(c => c.AppUser)
+                .WithMany()  // 如果 AppUser 有导航属性 Comments，这里写 .WithMany(u => u.Comments)
+                .HasForeignKey(c => c.AppUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             List<IdentityRole> roles = new List<IdentityRole>
             {
                 new IdentityRole

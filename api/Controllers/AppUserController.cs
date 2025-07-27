@@ -34,7 +34,7 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == LoginDto.Username.ToLower());
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == LoginDto.Username);
 
             if (user == null) return Unauthorized("Invalid Username");
             var result = await _signinManager.CheckPasswordSignInAsync(user, LoginDto.Password, false);
@@ -96,5 +96,7 @@ namespace api.Controllers
                 return StatusCode(500, e);
             }
         }
+
+
     }
 }

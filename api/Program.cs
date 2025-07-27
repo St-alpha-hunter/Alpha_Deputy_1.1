@@ -1,5 +1,6 @@
 using api.Data;
 using api.Interfaces;
+using api.Service;
 using api.Repository;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
@@ -97,8 +98,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<ITokenService, ITokenService>();
-
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 
 var app = builder.Build();
 
