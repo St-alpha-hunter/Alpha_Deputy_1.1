@@ -5,16 +5,19 @@ import Navbar from './Components/Navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import { Toaster } from 'react-hot-toast';
+import { UserProvider } from './Context/useAuth';
+
 
 function App() {
 
   return (
           <>
-             <Toaster position="top-center" />
-             <Navbar/>
-             <Outlet/>
-             <ToastContainer/>
-
+            <UserProvider>
+                <Toaster position="top-center" />
+                  <Navbar/>
+                  <Outlet/>
+                <ToastContainer/>
+            </UserProvider>
           </>
       );
     }

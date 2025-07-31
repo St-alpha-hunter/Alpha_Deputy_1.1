@@ -13,6 +13,9 @@ import AnalysisPage from "../Pages/AnalysisPage/AnalysisPage";
 import FactorDeckPage from "../Pages/FactorDeckPage/FactorDeckPage";
 import StrategyWarehouse from "../Pages/StrategyWarehouse/StrategyWarehouse";
 import CodeFactor from "../Pages/CodeFactor/CodeFactor";
+import LoginPage from "../Pages/LoginPage/LoginPage";
+import RegisterPage from "../Pages/RegisterPage/RegisterPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
     {
@@ -21,17 +24,23 @@ export const router = createBrowserRouter([
         children: [
             { path: "", element: <HomePage/>},
             { path: "search", element: <SearchPage/>},
+            { path: "login", element: <LoginPage/>},
+            { path: "register", element: <RegisterPage /> },
             { path: "company/:ticker", element: <CompanyPage/>},
             { path: "design-guide", element:<DesignGuide/>},
-            { path: "session", element:<SessionPage/>},
-            { path: "report", element:<AnalysisPage/>},
-            { path: "deck", element:<FactorDeckPage/>},
+            { path: "session", element:<ProtectedRoute><SessionPage/></ProtectedRoute>},
+            { path: "report", element:<ProtectedRoute><AnalysisPage/></ProtectedRoute>},
+            { path: "deck", element:<ProtectedRoute><FactorDeckPage/></ProtectedRoute>},
             { path: "strategy-warehouse", element: <StrategyWarehouse/>},
             { path: "coding", element: <CodeFactor/>},
 
             {            
               path: "company/:ticker",
-              element: <CompanyPage/>,
+              element: (
+              <ProtectedRoute>
+                <CompanyPage/>
+              </ProtectedRoute>
+              ),
               children: [
                 {path: "company-profile", element: <CompanyProfile/>},
                 {path: "income-statement", element: <IncomeStatement/>},
