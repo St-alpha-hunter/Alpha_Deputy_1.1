@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type SyntheticEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type SyntheticEvent } from "react";
 import type { CompanySearch } from "../../company";
 import { searchCompanies } from "../../api";
 import Navbar from "../../Components/Navbar/Navbar";
@@ -6,13 +6,16 @@ import Hero from "../../Components/Hero/Hero";
 import Search from "../../Components/Search/Search";
 import ListPortfolio from "../../Components/Portfolio/ListPortfolio/ListPortfolio";
 import CardList from "../../Components/CardList/CardList";
+import type { PortfolioGet } from "../../Models/Portfolio";
+import { portfolioAddAPI, portfolioDeleteAPI, portfolioGetAPI } from "../../Service/PortfolioService";
+import { toast } from "react-toastify";
 
 type Props = {}
 
 const SearchPage = (props: Props) => {
 
           const [search, setSearch] = useState<string>("");
-          const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
+          const [portfolioValues, setPortfolioValues] = useState<PortfolioGet[] | null>([]);
           const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
           const [serverError, setServerError] = useState<string>("");
     
@@ -22,6 +25,20 @@ const SearchPage = (props: Props) => {
               console.log(e);
           };
 
+          useEffect(() => {
+            getPortfolio();
+          }, []);
+
+          const getPortfolio = () =>{
+            portfolioGetAPI()
+            .then((res) =>{
+              if(res?.data){
+                setPortfolioValues(res?.data);
+              }
+            }).catch((e) => {
+              toast.warning("Could not get portfolio values!");
+            });
+          };
 
           //异步编程记得使用async
           const onSearchSubmit = async (e: SyntheticEvent) => { 
@@ -36,30 +53,39 @@ const SearchPage = (props: Props) => {
     
 
 
-          const onPortfolioCreate = (e: SyntheticEvent) => {
+          const onPortfolioCreate = (e: any) => {
             e.preventDefault();
+            portfolioAddAPI(e.target[0].value)
+            .then((res) => {
+              if(res?.status === 204){
+                toast.success("Stock added to portfolio!")
+                getPortfolio();
+              }
+            }).catch((e) =>{
+                toast.warning("Could not create portfolio item!");
+            })
+          };
+//           const form = e.target as HTMLFormElement;
+//           const formData = new FormData(form);
+//           const value = formData.get("symbol") as string;
     
-            const form = e.target as HTMLFormElement;
-            const formData = new FormData(form);
-            const value = formData.get("symbol") as string;
+//            if (portfolioValues.includes(value)) return;
+//            const updatedPortfolio = [...portfolioValues, value];
     
-            if (portfolioValues.includes(value)) return;
-            const updatedPortfolio = [...portfolioValues, value];
-    
-            setPortfolioValues(updatedPortfolio);
-            console.log(e)
-          }
-    
-
+//            setPortfolioValues(updatedPortfolio);
+//            console.log(e)
+          
 
           const onPortfolioDelete = (e: any) => {
             e.preventDefault();
-            const removed = portfolioValues.filter((value) => {
-              return value !== e.target[0].value;
-            });
-            setPortfolioValues(removed);
-          }
-
+            portfolioDeleteAPI(e.target[0].value)
+            .then((res) =>{
+              if(res?.status == 200){
+                  toast.success("Stock deleted from portfolio");
+                  getPortfolio();
+              }
+            })
+          };
 
 
   return (

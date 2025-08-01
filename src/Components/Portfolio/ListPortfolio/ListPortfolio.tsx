@@ -1,9 +1,10 @@
 import type { SyntheticEvent } from "react";
 import CardPortfolio from "../CardPortfolio/CardPortfolio";
 import {v4 as uuidv4} from "uuid";
+import type { PortfolioGet } from "../../../Models/Portfolio";
 
 interface Props {
-    portfolioValues: string[];
+    portfolioValues: PortfolioGet[];
     onPortfolioDelete: (e: SyntheticEvent) => void;
 }
 
@@ -19,11 +20,12 @@ const ListPortfolio = ( {portfolioValues, onPortfolioDelete}: Props) => {
             portfolioValues.map((portfolioValue) => {
               return (
                 <CardPortfolio
-                  key={portfolioValue} // ✅ 用作 React 渲染识别
-                  id={portfolioValue}  // ✅ 如果 CardPortfolio 组件内部也需要用到
+                  
+                  key={portfolioValue.id} // ✅ 用作 React 渲染识别
+                  id={uuidv4()}
+                  // ✅ 如果 CardPortfolio 组件内部也需要用到
                   portfolioValue={portfolioValue}
-                  onPortfolioDelete={onPortfolioDelete}
-                />
+                  onPortfolioDelete={onPortfolioDelete}                />
               );
             })
           ) : (

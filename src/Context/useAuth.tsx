@@ -81,6 +81,7 @@ export const UserProvider = ({ children }: Props) => {
   const isLoggedIn = () => {
     return !!user;
   };
+//!!value === Boolean(value) 与上述相同
 
   const logout = () => {
     localStorage.removeItem("token");
