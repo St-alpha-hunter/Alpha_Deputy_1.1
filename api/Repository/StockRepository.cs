@@ -22,9 +22,19 @@ namespace api.Repository
 
   public async Task<Stock> CreateAsync(Stock stockModel)
         {
-            await _context.Stock.AddAsync(stockModel);
-            await _context.SaveChangesAsync();
-            return stockModel;
+            try
+            {
+                await _context.Stock.AddAsync(stockModel);
+                await _context.SaveChangesAsync();
+                return stockModel;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Stock插入失败: " + ex.Message);
+                if (ex.InnerException != null)
+                    Console.WriteLine("Inner: " + ex.InnerException.Message);
+                throw;
+            }
         }
 
         public async Task<Stock?> DeleteAsync(int id)

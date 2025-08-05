@@ -19,6 +19,7 @@ namespace api.Data
         public DbSet<Portfolio> Portfolios { get; set; }
         public DbSet<Asset> Assets { get; internal set; }
         public DbSet<Factor> Factors { get; internal set; }
+        public DbSet<Report> Reports { get; internal set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -43,7 +43,7 @@ namespace api.Repository
 
         public async Task<List<Comment>> GetAllAsync(CommentQueryObject queryObject)
         {
-            var comments = _context.Comment.Include(a => a.AppUser).AsQueryable();
+            var comments = _context.Comment.Include(a => a.AppUser).Include(c => c.Stock).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryObject.Symbol))
             {

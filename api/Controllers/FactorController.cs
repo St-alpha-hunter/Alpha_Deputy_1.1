@@ -41,7 +41,7 @@ namespace api.Controllers
 
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById(int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -64,8 +64,8 @@ namespace api.Controllers
             return Ok(factor.ToFactorDto());
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] int id, UpdateFactorDto updateDto)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateFactorDto updateDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -76,8 +76,8 @@ namespace api.Controllers
             return Ok(factorModel.ToFactorDto());
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -88,6 +88,6 @@ namespace api.Controllers
             }
             return Ok(factor);
         }
-        
+
     }
 }

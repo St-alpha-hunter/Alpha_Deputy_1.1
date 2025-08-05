@@ -7,6 +7,7 @@ using api.Interfaces;
 using api.Mappers;
 using api.Models;
 using Newtonsoft.Json;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace api.Service
 {
@@ -23,7 +24,7 @@ namespace api.Service
         {
             try
             {
-                var result = await _httpClient.GetAsync($"https://financialmodelingprep.com/stable/profile/{symbol}?apikey={_config["FMPKey"]}");
+                var result = await _httpClient.GetAsync($"https://financialmodelingprep.com/api/v3/profile/{symbol}?apikey={_config["FMPKey"]}");
                 if (result.IsSuccessStatusCode)
                 {
                     var content = await result.Content.ReadAsStringAsync();

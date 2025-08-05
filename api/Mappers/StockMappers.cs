@@ -40,16 +40,15 @@ namespace api.Mappers
         }
 
 
-        public static Stock ToStockFromFMP(this FMPStock fmpStock)
+        public static Stock ToStockFromFMP(this FMPStock fmp)
         {
             return new Stock
             {
-                Symbol = fmpStock.symbol,
-                CompanyName = fmpStock.companyName,
-                Purchase = (decimal)fmpStock.price,
-                LastDiv = (decimal)fmpStock.lastDiv,
-                Industry = fmpStock.industry,
-                MarketCap = fmpStock.mktCap
+                Symbol = fmp.symbol ?? string.Empty,
+                CompanyName = fmp.companyName ?? string.Empty,
+                Industry = fmp.industry ?? string.Empty,
+                MarketCap = fmp.marketCap,
+                LastDiv = (decimal)fmp.lastDividend,
             };
         }
 

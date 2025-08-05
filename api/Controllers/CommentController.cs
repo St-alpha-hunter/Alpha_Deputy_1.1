@@ -64,7 +64,7 @@ namespace api.Controllers
 
 
         [HttpPost]
-        [Route("{symbol:alpha}")]
+        [Route("{symbol}")]
         public async Task<IActionResult> Create([FromRoute] string symbol, CreateCommentDto commentDto)
         {
             if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace api.Controllers
                 }
                 else
                 {
-                    await _stockRepo.CreateAsync(stock);
+                    stock = await _stockRepo.CreateAsync(stock);
                 }
             }
             //    if (!await _stockRepo.StockExists(stockId))
