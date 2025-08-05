@@ -7,7 +7,7 @@ using Npgsql.Replication;
 using api.Models;
 using api.Mappers;
 
-
+//先声明类型，然后再搞变量名，大概是这样的.
 namespace api.Mappers
 {
     public static class CommentMappers

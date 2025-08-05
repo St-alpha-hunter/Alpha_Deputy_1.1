@@ -150,3 +150,4 @@ D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.Ide
 D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\desktop\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\sid_map.json

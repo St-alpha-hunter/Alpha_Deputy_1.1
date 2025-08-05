@@ -17,6 +17,8 @@ namespace api.Data
         public required DbSet<Comment> Comment { get; set; }
         public required DbSet<Stock> Stock { get; set; }
         public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<Asset> Assets { get; internal set; }
+        public DbSet<Factor> Factors { get; internal set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

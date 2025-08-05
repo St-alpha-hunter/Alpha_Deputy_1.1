@@ -70,6 +70,9 @@ const CompanyProfile = (props: Props) => {
   console.log("📊 companyData 更新了：", companyData);
 }, [companyData]);
   
+  useEffect(() => {
+    console.log("🐛 ticker 是：", ticker);
+  }, [ticker]);
   
   useEffect(() => {
     const getCompanyKeyRatios = async () => {
@@ -77,7 +80,7 @@ const CompanyProfile = (props: Props) => {
       setCompanyData(value.length > 0 ? value[0]:null);
     };
     getCompanyKeyRatios();
-  }, []);
+  }, [ticker]);
   
   return (
     <>
