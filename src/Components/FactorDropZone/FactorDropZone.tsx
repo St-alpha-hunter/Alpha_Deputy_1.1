@@ -1,8 +1,10 @@
 import { useDrop } from "react-dnd";
 import { useState, type FC } from "react";
 import type { FactorProps } from "../Factor/Factor"; 
+import { addFactor, removeFactor} from "../../redux/features/Factors/factorSlice";
 import Factor from "../Factor/Factor";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import type { MinimalFactor } from "../Factor/Factor";
 import { useNavigate } from 'react-router-dom';
 
@@ -17,8 +19,9 @@ type DropZoneProps = {
 
 const FactorDropZone: FC<DropZoneProps> = ({ selectedFactors, onDropFactor, FactorDelete }:DropZoneProps) => {
   
-  
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleClick = () => {
     navigate('/session');
   };

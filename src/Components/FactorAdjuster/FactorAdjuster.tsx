@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../redux/features/store';
 import type { FactorProps } from '../Factor/Factor';
 import { setFactorWeight } from '../../redux/features/Factors/factorSlice';
+import Factor from '../Factor/Factor';
 
 
 interface Props {
@@ -16,21 +17,65 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
         (state: RootState) => state.factor.selectedFactors
       );
       // 初始化平均权重
-      const [weight ,setWeight] = useState<FactorProps[]>([]);
-      // 初始化或重新计算平均权重
+      //const [weight ,setWeight] = useState<FactorProps[]>([]);
+      
+      const sum = selectedFactors.reduce((acc, f) => acc + (f.weight ?? 0), 0);
+
       useEffect(() => {
-        if (selectedFactors.length > 0) {
-          const avgWeight = 1 / selectedFactors.length;
-          selectedFactors.forEach( f => {
-            dispatch(setFactorWeight({ id: f.id, weight: avgWeight}));
-          });
-        }
-      }, [selectedFactors]);
+      if (selectedFactors.length === 0) return;
 
+      const needInit = selectedFactors.some(f => f.weight == null);
+      if (!needInit) return;
 
+      const avg = 1 / selectedFactors.length;
+      selectedFactors.forEach(f => {
+        const w = f.weight == null ? avg : f.weight;
+        dispatch(setFactorWeight({ id: f.id, weight: w }));
+      });
+      // 这里不加依赖；如果依赖 selectedFactors，会重复平均。根据你的业务改成合适的依赖。
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+      //const factorIdsKey = selectedFactors.map(f => f.weight);
+      // 初始化或重新计算平均权重
+      // useEffect(() => {
+      //   if (selectedFactors.length > 0) {
+      //     const avgWeight = 1 / selectedFactors.length;
+      //     selectedFactors.forEach( f => {
+      //       dispatch(setFactorWeight({ id: f.id, weight: avgWeight}));
+      //     });
+      //   }
+      // }, []);
+
+      // const handleWeightChange = (id: string, newWeight: number) => {
+      //   dispatch(setFactorWeight({ id, weight: newWeight }));
+      // };
+
+      // 按比例重分配的权重调整
       const handleWeightChange = (id: string, newWeight: number) => {
-        dispatch(setFactorWeight({ id, weight: newWeight }));
+        const clamped = Math.max(0, Math.min(1, newWeight)); // 防守式约束
+        const others = selectedFactors.filter(f => f.id !== id);
+
+        const remain = Math.max(0, 1 - clamped);
+        const othersSum = others.reduce((s, f) => s + (f.weight ?? 0), 0);
+
+        const updated = selectedFactors.map(f => {
+          if (f.id === id) return { ...f, weight: clamped };
+
+          // 如果其余因子原本总和为0，就均分；否则按原比例缩放
+          const base = othersSum > 0 ? ((f.weight ?? 0) / othersSum) : (1 / (others.length || 1));
+          return { ...f, weight: remain * base };
+        });
+
+        // 批量更新Redux仓库
+        updated.forEach(f => {
+          dispatch(setFactorWeight({ id: f.id, weight: f.weight! }));
+        });
+
+        // 需要的话把 updated 回传给父组件
+        // onWeightChange?.(updated);
       };
+
 
  //     const total = selectedFactors
  //     .map(f => f.weight)
@@ -42,29 +87,42 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
 
 
       return (
-          <div>
-            <h3>Modify Factors' Weight</h3>
-            {selectedFactors.map(f => (
-              <div key={f.id} style={{ marginBottom: '1rem' }}>
-                <div>{f.name}</div>
-                <input
-                  type="range"
-                  min={0}
-                  max={1}
-                  step={0.01}
-                  value={f.weight}
-                  onChange={e => handleWeightChange(f.id, parseFloat(e.target.value))}
-                />
-                <span>{( (f?.weight ?? 0) * 100).toFixed(1)}%</span>
-              </div>
-            ))}
-            <div>
-              <strong>Total Weights: {(total * 100).toFixed(1)}%</strong>
-                    {Math.abs(total - 1) > 0.01 && (
-                <span style={{ color: 'red', marginLeft: 10 }}>⚠ Total Occpuy is not equal to 100%</span>
-              )}
+        <div>
+           <h3>Modify Factors' Weight</h3>
+            <div className='bg-gray-100 p-4 rounded flex flex-wrap'>
+              {selectedFactors.map(f => (
+                <div key={f.id} style={{ marginBottom: '1rem' }} className='flex flex-row justify-around p-2'>
+                  <div className='flex flex-row'>
+
+                    <div className=' flex flex-col p-3'>
+                        <Factor  key={f.id} {...f} />
+                          <div className='text-black'>{f.name}</div>
+                                <input
+                                    type="range"
+                                    min={0}
+                                    max={1}
+                                    step={0.01}
+                                    value={f.weight}
+                                    onChange={e => handleWeightChange(f.id, parseFloat(e.target.value))}
+                                />
+                    </div>
+
+                    <div>
+                        <span>{( (f?.weight ?? 0) * 100).toFixed(1)}%</span>
+                    </div>
+
+                      </div>
+                </div>
+              ))}
             </div>
-          </div>
+
+            <div>
+                  <strong>Total Weights: {(total * 100).toFixed(1)}%</strong>
+                        {Math.abs(total - 1) > 0.01 && (
+                    <span style={{ color: 'red', marginLeft: 10 }}>⚠ Total Occpuy is not equal to 100%</span>
+                )}
+            </div>
+        </div>
       );
 
     }

@@ -24,3 +24,24 @@ dist-ssr
 *.sw?
 
 .fake
+
+
+
+cat > .gitignore <<'EOF'
+# Python
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints/
+# 平台/IDE
+.vscode/
+*.DS_Store
+# 编译产物/扩展
+*.pyd
+*.so
+*.dll
+*.dylib
+# 数据/临时
+.env
+data/
+bundles/data/
+EOF

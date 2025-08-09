@@ -24,14 +24,20 @@ import { toast } from "react-toastify";
 import CardList from "../../Components/CardList/CardList";
 import FactorList from "../../Components/FactorList/FactorList";
 
+//Redux
+import { addFactor, removeFactor} from "../../redux/features/Factors/factorSlice";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../redux/features/store";
 
 type Props = {}
 
 const FactorDeckPage = (props: Props) => {
+    const dispatch = useDispatch();
 
     const [search, setSearch] = useState<string>("");
     const [factor, setfactor] = useState< FactorProps | null>(null);
-    const [selectedFactors, setSelectedFactors] = useState<FactorProps[]>([]);
+    const selectedFactors = useSelector((state: RootState) => state.factor.selectedFactors)
+    //const [selectedFactors, setSelectedFactors] = useState<FactorProps[]>([]);
     const [searchResult, setSearchResult] = useState<FactorProps[]>([]);
     
     
@@ -61,20 +67,32 @@ const FactorDeckPage = (props: Props) => {
 
     };
 
-    const FactorDelete = (deletefactor : MinimalFactor) =>{
-        setSelectedFactors((prev) => prev.filter((f) => f.id !== deletefactor.id) )
-        };
+    // const FactorDelete = (deletefactor : MinimalFactor) =>{
+    //     setSelectedFactors((prev) => prev.filter((f) => f.id !== deletefactor.id) )
+    //     dispatch(removeFactor(deletefactor.id));
+    //     };
 
 
-    const handleDropFactor = (factor: MinimalFactor ) => {
-        setSelectedFactors((prev) => {
-        if (prev.some((f) => f.id === factor.id)) {
-        toast.error(`${factor.name} is already in your list 📋`);
-        return prev;               // 不变
-        }
-        return [...prev, factor as FactorProps];
-    });
+    // const handleDropFactor = (factor: MinimalFactor ) => {
+    //     setSelectedFactors((prev) => {
+    //     if (prev.some((f) => f.id === factor.id)) {
+    //     toast.error(`${factor.name} is already in your list 📋`);
+    //     dispatch(addFactor(factor as FactorProps));
+    //     return prev;               // 不变
+    //     }
+    //     return [...prev, factor as FactorProps];
+    // });
+    // };
+
+    const handleDropFactor = (factor: MinimalFactor) => {
+    dispatch(addFactor(factor as FactorProps));
     };
+
+    
+     const FactorDelete = (deletefactor : MinimalFactor) =>{
+
+        dispatch(removeFactor(deletefactor.id));
+   };
 
 
     return (
