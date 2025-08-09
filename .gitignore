@@ -45,3 +45,27 @@ __pycache__/
 data/
 bundles/data/
 EOF
+
+# ===== Data / 临时文件 =====
+*.parquet
+*.csv
+*.tsv
+*.tmp
+*.bak
+
+# ===== OS 生成的文件 =====
+ehthumbs.db
+Icon?
+
+# ===== .NET / C# =====
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.json.lock
+*.sourceinfo
+*.suo
+*.user
+*.vs/
