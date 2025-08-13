@@ -1,7 +1,7 @@
 import { useState, type SyntheticEvent } from "react";
 import FactorAdjuster from "../../Components/FactorAdjuster/FactorAdjuster";
 import PortfolioConstraintForm from "../../Components/PortfolioConstraintForm/PortfolioConstraintForm";
-import ManualStockAdjuster from "../../Components/DisplayStock/ManualStockAdjuster";
+import ManualStockAdjuster from "../../Components/DisplayStock/DisplayStock";
 import StockSelection from "../../Components/StockSelection/StockSelection";
 
 const SessionPage = () => {
@@ -20,13 +20,13 @@ const SessionPage = () => {
       <FactorAdjuster
          onWeightChange ={onWeightChange}
       />
+        <div className = "flex flex-row p-2 space-x-1">
+          <StockSelection/>
+          <PortfolioConstraintForm/>
 
-      <StockSelection/>
-      <ManualStockAdjuster
-      />
-      <PortfolioConstraintForm
-      />
-    </div>
+        </div>
+          <ManualStockAdjuster/>
+      </div>
   )
 }
 

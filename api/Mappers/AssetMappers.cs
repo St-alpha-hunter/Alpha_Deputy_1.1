@@ -17,6 +17,7 @@ namespace api.Mappers
             {
                 Sid = assetModel.Sid,
                 Symbol = assetModel.Symbol,
+                Industry = assetModel.Industry,
                 AssetName = assetModel.AssetName,
                 Exchange = assetModel.Exchange,
                 StartDate = ((DateTimeOffset)assetModel.StartDate).ToUnixTimeSeconds(),
@@ -30,6 +31,7 @@ namespace api.Mappers
             return new Asset
             {
                 Symbol = assetModel.Symbol,
+                Industry = assetModel.Industry,
                 AssetName = assetModel.AssetName,
                 Exchange = assetModel.Exchange,
                 StartDate = DateTimeOffset.FromUnixTimeSeconds(assetModel.StartDate).UtcDateTime,
@@ -40,6 +42,7 @@ namespace api.Mappers
         public static void UpdateEntity(this AssetUpdateDto dto, Asset assetModel)
         {
             assetModel.Symbol = dto.Symbol;
+            assetModel.Industry = dto.Industry;
             assetModel.AssetName = dto.AssetName;
             assetModel.Exchange = dto.Exchange;
             assetModel.StartDate = DateTimeOffset.FromUnixTimeSeconds(dto.StartDate).UtcDateTime;

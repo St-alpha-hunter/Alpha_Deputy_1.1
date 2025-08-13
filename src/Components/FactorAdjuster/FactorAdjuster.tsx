@@ -4,6 +4,10 @@ import type { RootState } from '../../redux/features/store';
 import type { FactorProps } from '../Factor/Factor';
 import { setFactorWeight } from '../../redux/features/Factors/factorSlice';
 import Factor from '../Factor/Factor';
+import { FactorSelectionForm } from '../../Service/FactorService';
+import type { FactorSelectionModel } from '../../Service/FactorService';
+import { toast } from 'react-toastify';
+
 
 
 interface Props {
@@ -86,10 +90,29 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
 // undefined 时，才返回右侧的默认值；否则返回左侧值
 
 
+      const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const data: FactorSelectionModel[] = selectedFactors.map(f => ({
+          name: f.name ?? "",
+          weight: f.weight ?? 0,
+          code: f.code as string,
+        }));
+
+        FactorSelectionForm(data)
+          .then(response => {
+            toast.success("Factors submitted successfully!");
+          })
+          .catch(error => {
+            toast.error("Failed to submit factors.");
+          });
+      };
+
       return (
         <div>
            <h3>Modify Factors' Weight</h3>
-            <div className='bg-gray-100 p-4 rounded flex flex-wrap'>
+           <form onSubmit={handleSubmit}>
+            <div className='bg-gray-100 p-4 rounded flex flex-wrap m-10'>
               {selectedFactors.map(f => (
                 <div key={f.id} style={{ marginBottom: '1rem' }} className='flex flex-row justify-around p-2'>
                   <div className='flex flex-row'>
@@ -102,7 +125,7 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
                                     min={0}
                                     max={1}
                                     step={0.01}
-                                    value={f.weight}
+                                    value={f.weight ?? 0}
                                     onChange={e => handleWeightChange(f.id, parseFloat(e.target.value))}
                                 />
                     </div>
@@ -114,7 +137,10 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
                       </div>
                 </div>
               ))}
+              <button type="submit" className='bg-red-500 text-white rounded-lg p-2'>Confirm My Factors</button>
             </div>
+          </form>
+
 
             <div>
                   <strong>Total Weights: {(total * 100).toFixed(1)}%</strong>

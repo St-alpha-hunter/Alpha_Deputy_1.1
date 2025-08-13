@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import  { StockSelectionForm } from '../../Service/StockSelection';
+import { StockSelectionModel } from '../../Service/StockSelection';
+
 
 type Props = {};
 
@@ -37,18 +41,28 @@ const StockSelection = (props: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // 这里可以提交数据到父组件或后端
-    console.log({
+    const data = new StockSelectionModel(
       poolSize,
       selectedIndustries,
       maxIndustryExposure
-    });
+    );
+    StockSelectionForm(data)
+      .then((res) => {
+        if (res) {
+          toast.success("Stock selection submitted successfully!");
+        }
+      })
+      .catch((error) => {
+        toast.error("Failed to submit stock selection: " + error.message);
+      });
   };
 
+
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: '0 auto' }}>
-      <h3>股票筛选设置</h3>
+    <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: '0 auto' }} className='bg-gray-200 p-5 m-1 rounded-xl'>
+      <h3>Step 2: Selecting Stocks</h3>
       <div>
-        <label>股票池子数量：</label>
+        <label> Numbers of Stock：</label>
         <input
           type="number"
           min={1}
@@ -57,7 +71,7 @@ const StockSelection = (props: Props) => {
         />
       </div>
       <div>
-        <label>选择行业：</label>
+        <label>Selected Industries:</label>
         <div>
           <input
             type="checkbox"
@@ -77,7 +91,7 @@ const StockSelection = (props: Props) => {
         ))}
       </div>
       <div>
-        <label>最大行业暴露（%）：</label>
+        <label>max industry exposure (%):</label>
         <input
           type="number"
           min={0}
@@ -86,7 +100,7 @@ const StockSelection = (props: Props) => {
           onChange={e => setMaxIndustryExposure(Number(e.target.value))}
         />
       </div>
-      <button type="submit">提交</button>
+      <button type="submit" className='bg-red-500 text-white rounded-lg p-2'>Start Choosing Stocks</button>
     </form>
   );
 };

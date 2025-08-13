@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import { PortfolioConstraint } from '../../Service/Constraint';
+import { PortfolioConstraintModel } from '../../Service/Constraint';
 
 type Props = {};
+
 
 const PortfolioConstraintForm = (props: Props) => {
   const [rebalanceFreq, setRebalanceFreq] = useState<string>('monthly');
@@ -10,36 +14,44 @@ const PortfolioConstraintForm = (props: Props) => {
   const [commission, setCommission] = useState<number>(0.1);
   const [slip, setSlip] = useState<number>(0.05);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // 可以提交到父组件或后端
-    console.log({
-      rebalanceFreq,
-      maxPositionPerChase,
-      riskFreeRatio,
-      positionLimit,
-      commission,
-      slip
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  const constraint = new PortfolioConstraintModel(
+    rebalanceFreq,
+    maxPositionPerChase,
+    riskFreeRatio,
+    positionLimit,
+    commission,
+    slip
+  );
+  PortfolioConstraint(constraint)
+    .then((res) => {
+      if (res) {
+        toast.success("Constraint submit successfully");
+      }
+    })
+    .catch((e) => {
+      toast.error("Constraint submit failed: " + e.message);
     });
-  };
+};
 
   return (
-    <form className='text-blod bg-lightGreen' onSubmit={handleSubmit} style={{ maxWidth: 400, margin: '0 auto' }}>
-      <h2>投资组合约束设置</h2>
+    <form className='text-blod bg-gray-200 rounded-lg m-1 p-5 space-y-6' onSubmit={handleSubmit} style={{ maxWidth: 400, margin: '0 auto' }}>
+      <h2>Portfolio Constraint Settings</h2>
       <div>
-        <label>调仓频率：</label>
+        <label>Rebalance Frequency:</label>
         <select
           value={rebalanceFreq}
           onChange={e => setRebalanceFreq(e.target.value)}
         >
-          <option value="daily">每日</option>
-          <option value="weekly">每周</option>
-          <option value="monthly">每月</option>
-          <option value="quarterly">每季度</option>
+          <option value="daily">daily</option>
+          <option value="weekly">weekly</option>
+          <option value="monthly">monthly</option>
+          <option value="quarterly">quarterly</option>
         </select>
       </div>
       <div>
-        <label>单个资产最大占比（%）：</label>
+        <label>max position per chase (%):</label>
         <input
           type="number"
           min={0}
@@ -49,7 +61,7 @@ const PortfolioConstraintForm = (props: Props) => {
         />
       </div>
       <div>
-        <label>无风险资产比例（%）：</label>
+        <label>risk-free asset ratio (%):</label>
         <input
           type="number"
           min={0}
@@ -59,7 +71,7 @@ const PortfolioConstraintForm = (props: Props) => {
         />
       </div>
       <div>
-        <label>持仓数量上限：</label>
+        <label>position limit:</label>
         <input
           type="number"
           min={1}
@@ -68,7 +80,7 @@ const PortfolioConstraintForm = (props: Props) => {
         />
       </div>
       <div>
-        <label>佣金（%）：</label>
+        <label>Commission (%):</label>
         <input
           type="number"
           min={0}
@@ -78,7 +90,7 @@ const PortfolioConstraintForm = (props: Props) => {
         />
       </div>
       <div>
-        <label>滑点比例（%）：</label>
+        <label>slippage (%)：</label>
         <input
           type="number"
           min={0}
@@ -87,7 +99,7 @@ const PortfolioConstraintForm = (props: Props) => {
           onChange={e => setSlip(Number(e.target.value))}
         />
       </div>
-      <button type="submit">提交</button>
+      <button type="submit" className='bg-red-500 text-white rounded-lg p-2'>Start Backtest</button>
     </form>
   );
 };

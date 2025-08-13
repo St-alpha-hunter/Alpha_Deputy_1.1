@@ -12,6 +12,7 @@ namespace api.Dtos.Asset
         public long Sid { get; set; }
         [Required]
         public string Symbol { get; set; } = string.Empty;
+        public string Industry { get; set; } = string.Empty;
         public string AssetName { get; set; } = string.Empty;
         [Required]
         public string Exchange { get; set; } = string.Empty;
