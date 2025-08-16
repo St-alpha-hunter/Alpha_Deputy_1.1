@@ -7,17 +7,164 @@ import { StockSelectionModel } from '../../Service/StockSelection';
 type Props = {};
 
 const industries = [
-  "Technology",
-  "Healthcare",
-  "Finance",
-  "Consumer Electronics",
-  "Energy",
-  "Utilities",
-  "Industrials",
-  "Materials",
-  "Real Estate",
-  "Communication Services"
+    "Advertising Agencies",
+    "Aerospace & Defense",
+    "Agricultural - Machinery",
+    "Agricultural Farm Products",
+    "Agricultural Inputs",
+    "Airlines",
+    "Airports & Air Services",
+    "Aluminum",
+    "Apparel - Footwear & Accessories",
+    "Apparel - Manufacturers",
+    "Apparel - Retail",
+    "Asset Management",
+    "Asset Management - Cryptocurrency",
+    "Asset Management - Global",
+    "Asset Management - Income",
+    "Auto - Dealerships",
+    "Auto - Manufacturers",
+    "Auto - Parts",
+    "Auto - Recreational Vehicles",
+    "Banks",
+    "Banks - Diversified",
+    "Banks - Regional",
+    "Beverages - Alcoholic",
+    "Beverages - Non-Alcoholic",
+    "Beverages - Wineries & Distilleries",
+    "Biotechnology",
+    "Broadcasting",
+    "Business Equipment & Supplies",
+    "Chemicals",
+    "Chemicals - Specialty",
+    "Coal",
+    "Communication Equipment",
+    "Computer Hardware",
+    "Conglomerates",
+    "Construction",
+    "Construction Materials",
+    "Consulting Services",
+    "Consumer Electronics",
+    "Copper",
+    "Department Stores",
+    "Discount Stores",
+    "Diversified Utilities",
+    "Drug Manufacturers - General",
+    "Drug Manufacturers - Specialty & Generic",
+    "Education & Training Services",
+    "Electrical Equipment & Parts",
+    "Electronic Gaming & Multimedia",
+    "Engineering & Construction",
+    "Entertainment",
+    "Financial - Capital Markets",
+    "Financial - Conglomerates",
+    "Financial - Credit Services",
+    "Financial - Data & Stock Exchanges",
+    "Financial - Diversified",
+    "Financial - Mortgages",
+    "Food Confectioners",
+    "Food Distribution",
+    "Furnishings, Fixtures & Appliances",
+    "Gambling",
+    "Resorts & Casinos",
+    "General Transportation",
+    "General Utilities",
+    "Gold",
+    "Grocery Stores",
+    "Hardware, Equipment & Parts",
+    "Home Improvement",
+    "Household & Personal Products",
+    "Independent Power Producers",
+    "Industrial - Distribution",
+    "Industrial - Infrastructure Operations",
+    "Industrial - Machinery",
+    "Industrial - Pollution & Treatment Controls",
+    "Industrial - Specialties",
+    "Industrial Materials",
+    "Information Technology Services",
+    "Insurance - Brokers",
+    "Insurance - Diversified",
+    "Insurance - Life",
+    "Insurance - Property & Casualty",
+    "Insurance - Reinsurance",
+    "Insurance - Specialty",
+    "Integrated Freight & Logistics",
+    "Internet Content & Information",
+    "Investment - Banking & Investment Services",
+    "Leisure",
+    "Luxury Goods",
+    "Manufacturing - Metal Fabrication",
+    "Manufacturing - Miscellaneous",
+    "Manufacturing - Textiles",
+    "Manufacturing - Tools & Accessories",
+    "Marine Shipping",
+    "Media & Entertainment",
+    "Medical - Care Facilities",
+    "Medical - Devices",
+    "Medical - Diagnostics & Research",
+    "Medical - Distribution",
+    "Medical - Equipment & Services",
+    "Medical - Healthcare Information Services",
+    "Medical - Healthcare Plans",
+    "Medical - Instruments & Supplies",
+    "Medical - Pharmaceuticals",
+    "None",
+    "Oil & Gas Drilling",
+    "Oil & Gas Energy",
+    "Oil & Gas Equipment & Services",
+    "Oil & Gas Exploration & Production",
+    "Oil & Gas Integrated",
+    "Oil & Gas Midstream",
+    "Oil & Gas Refining & Marketing",
+    "Other Precious Metals",
+    "Packaged Foods",
+    "Packaging & Containers",
+    "Paper, Lumber & Forest Products",
+    "Personal Products & Services",
+    "Publishing",
+    "Railroads",
+    "Real Estate - Development",
+    "Real Estate - Diversified",
+    "Real Estate - General",
+    "Real Estate - Services",
+    "Regulated Electric",
+    "Regulated Gas",
+    "Regulated Water",
+    "REIT - Diversified",
+    "REIT - Healthcare Facilities",
+    "REIT - Hotel & Motel",
+    "REIT - Industrial",
+    "REIT - Mortgage",
+    "REIT - Office",
+    "REIT - Residential",
+    "REIT - Retail",
+    "REIT - Specialty",
+    "Renewable Utilities",
+    "Rental & Leasing Services",
+    "Residential Construction",
+    "Restaurants",
+    "Security & Protection Services",
+    "Semiconductors",
+    "Shell Companies",
+    "Silver",
+    "Software - Application",
+    "Software - Infrastructure",
+    "Software - Services",
+    "Solar",
+    "Specialty Business Services",
+    "Specialty Retail",
+    "Staffing & Employment Services",
+    "Steel",
+    "Technology Distributors",
+    "Telecommunications Services",
+    "Tobacco",
+    "Travel Lodging",
+    "Travel Services",
+    "Trucking",
+    "Uranium",
+    "Waste Management"
 ];
+
 
 const StockSelection = (props: Props) => {
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
@@ -59,7 +206,7 @@ const StockSelection = (props: Props) => {
 
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: '0 auto' }} className='bg-gray-200 p-5 m-1 rounded-xl'>
+    <form onSubmit={handleSubmit} style={{ maxWidth: 600, margin: '0 auto' }} className='bg-gray-200 p-5 m-1 rounded-xl'>
       <h3>Step 2: Selecting Stocks</h3>
       <div>
         <label> Numbers of Stock：</label>
@@ -79,16 +226,18 @@ const StockSelection = (props: Props) => {
             onChange={handleAllChange}
           /> all
         </div>
-        {industries.map(industry => (
-          <div key={industry}>
-            <input
-              type="checkbox"
-              checked={selectedIndustries.includes(industry)}
-              onChange={() => handleIndustryChange(industry)}
-            />
-            {industry}
-          </div>
-        ))}
+        <div style = {{maxHeight: 200, overflowY: 'auto', border: '1px solid #ccc', padding: '4px', marginBottom: '8px' }}>
+          {industries.map(industry => (
+            <div key={industry}>
+              <input
+                type="checkbox"
+                checked={selectedIndustries.includes(industry)}
+                onChange={() => handleIndustryChange(industry)}
+              />
+              {industry}
+            </div>
+          ))}
+        </div>
       </div>
       <div>
         <label>max industry exposure (%):</label>

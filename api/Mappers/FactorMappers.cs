@@ -18,6 +18,7 @@ namespace api.Mappers
             {
                 Id = factorModel.Id,
                 Name = factorModel.Name,
+                Category = factorModel.Category,
                 Description = factorModel.Description,
                 ComputeCode = factorModel.ComputeCode,
                 CreatedAt = factorModel.CreatedAt,
@@ -31,6 +32,7 @@ namespace api.Mappers
             return new Factor
             {
                 Name = createDto.Name,
+                Category = createDto.Category,
                 Description = createDto.Description,
                 ComputeCode = createDto.ComputeCode,
                 CreatedAt = DateTime.UtcNow,
@@ -43,6 +45,7 @@ namespace api.Mappers
         public static void UpdateEntity(this Factor factorModel, UpdateFactorDto updateDto)
         {
             factorModel.Name = updateDto.Name;
+            factorModel.Category = updateDto.Category;
             factorModel.Description = updateDto.Description;
             factorModel.ComputeCode = updateDto.ComputeCode;
             factorModel.UpdatedAt = DateTime.UtcNow;

@@ -21,10 +21,6 @@ namespace api.Models
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
         public bool Enabled { get; set; } = false;
 
-        // 新增：用户约束
-        [Required]
-        public string AppUserId { get; set; } = string.Empty;
-        public AppUser AppUser { get; set; }
-
+        // 新增：用户约
     }
 }

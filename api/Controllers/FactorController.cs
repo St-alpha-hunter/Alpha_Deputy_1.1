@@ -26,10 +26,10 @@ namespace api.Controllers
         public FactorController(IFactorRepository factorRepo)
         {
             _factorRepo = factorRepo;
+
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetAllAsync([FromQuery] FactorQueryObject factorQuery)
         {
             if (!ModelState.IsValid)
@@ -59,6 +59,8 @@ namespace api.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            // 关键：获取当前用户，并把 Id 写入外键
             var factor = createDto.ToEntity();
             await _factorRepo.CreateAsync(factor);
             return Ok(factor.ToFactorDto());

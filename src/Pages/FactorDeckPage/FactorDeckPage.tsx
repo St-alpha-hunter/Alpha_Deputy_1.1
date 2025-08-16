@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 //接口导入
 import type { FactorProps } from "../../Components/Factor/Factor";
 import Factor from "../../Components/Factor/Factor";
-import type {FactorCategoryProps} from "../../Components/FactorCategory/FactorCategory"
+
 
 //鼠标管理
 import type { ChangeEvent, MouseEvent, SyntheticEvent } from "react";
@@ -16,7 +16,7 @@ import { exampleFactors } from "../../Components/Factor/examplefactors"
 
 //区域管理
 import FactorDropZone from "../../Components/FactorDropZone/FactorDropZone"
-import FactorCategory from "../../Components/FactorCategory/FactorCategory";
+import FactorCategorySecond from "../../Components/FactorCategory/FactorCategorySecond";
 import FactorSidebar from "../../Components/FactorSidebar/FactorSidebar";
 import SearchFactor from "../../Components/SearchFactor/SearchFactor";
 import Display from "../../Components/Display/Display";
@@ -105,7 +105,7 @@ const FactorDeckPage = (props: Props) => {
         <div className="col-span-8 bg-lightGreen p-4 flex flex-col space-y-6 border-4 border-gray-300">
             { exampleCategory.map((item) => {
                 return(           
-                <FactorCategory
+                <FactorCategorySecond
                     key={`${item.id}`}
                     category = {item.category}
                     ChoosingFactor = {ClickFactor}

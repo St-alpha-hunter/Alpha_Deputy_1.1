@@ -2,7 +2,6 @@ import type { SyntheticEvent } from "react";
 import Factor from "../Factor/Factor";
 import { exampleFactors } from "../Factor/examplefactors";
 import { SlEqualizer } from "react-icons/sl";
-import { exampleCategory } from "../../Pages/FactorDeckPage/exampleCategory";
 import "./FactorCategory.css"
 
 export interface Props {

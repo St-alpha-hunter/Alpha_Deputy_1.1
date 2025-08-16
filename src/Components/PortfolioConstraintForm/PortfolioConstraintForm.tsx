@@ -36,7 +36,7 @@ const handleSubmit = (e: React.FormEvent) => {
 };
 
   return (
-    <form className='text-blod bg-gray-200 rounded-lg m-1 p-5 space-y-6' onSubmit={handleSubmit} style={{ maxWidth: 400, margin: '0 auto' }}>
+    <form className='text-blod bg-gray-200 rounded-lg m-1 p-5 space-y-6' onSubmit={handleSubmit} style={{ maxWidth: 600, margin: '0 auto' }}>
       <h2>Portfolio Constraint Settings</h2>
       <div>
         <label>Rebalance Frequency:</label>

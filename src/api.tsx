@@ -155,14 +155,14 @@ export const getCompData = async (symbol: string) => {
 //查年报（10-K）的 API
 export const getTenk = async ({
   cik,
-  from = "2024-01-01",
-  to = "2024-07-01",
-  page = 0,
-  limit = 100
+  from,
+  to,
+  page,
+  limit
 }: TenKParams) => {
   try {
     const { data } = await axios.get<CompanyTenK[]>(
-      "https://financialmodelingprep.com/stable/sec-filings-search",
+      "https://financialmodelingprep.com/stable/sec-filings-search/cik",
       {
         params: {
           cik,
@@ -184,3 +184,5 @@ export const getTenk = async ({
       throw error;
   }
 };
+
+

@@ -110,7 +110,7 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
 
       return (
         <div>
-           <h3>Modify Factors' Weight</h3>
+           <h3 className='text-lg font-bold ml-5'>Modify Factors' Weight</h3>
            <form onSubmit={handleSubmit}>
             <div className='bg-gray-100 p-4 rounded flex flex-wrap m-10'>
               {selectedFactors.map(f => (
@@ -137,17 +137,21 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
                       </div>
                 </div>
               ))}
-              <button type="submit" className='bg-red-500 text-white rounded-lg p-2'>Confirm My Factors</button>
+                <div>
+                    <strong className='ml-5'>Total Weights: {(total * 100).toFixed(1)}%</strong>
+                          {Math.abs(total - 1) > 0.01 && (
+                      <span style={{ color: 'red', marginLeft: 10 }}>⚠ Total Occupy is not equal to 100%</span>
+                  )}
+              </div>
+            </div>
+
+            <div className="flex justify-center">
+              <button type="submit" className='bg-red-500 text-white  rounded-lg p-2'>Confirm My Factors</button>
             </div>
           </form>
 
 
-            <div>
-                  <strong>Total Weights: {(total * 100).toFixed(1)}%</strong>
-                        {Math.abs(total - 1) > 0.01 && (
-                    <span style={{ color: 'red', marginLeft: 10 }}>⚠ Total Occpuy is not equal to 100%</span>
-                )}
-            </div>
+
         </div>
       );
 

@@ -23,6 +23,12 @@ namespace api.Repository
         }
         public async Task<Factor> CreateAsync(Factor factorModel)
         {
+            var exists = await _context.Factors.AnyAsync(f => f.Name == factorModel.Name);
+            if (exists)
+            {
+                return null; // 或者抛出自定义异常
+            }
+
             await _context.Factors.AddAsync(factorModel);
             await _context.SaveChangesAsync();
             return factorModel;
@@ -57,6 +63,12 @@ namespace api.Repository
             {
                 factorModel = factorModel.Where(f => f.Id == queryFactor.Id);
             };
+
+            if (!string.IsNullOrEmpty(queryFactor.Category))
+            {
+                factorModel = factorModel.Where(f => f.Category == queryFactor.Category);
+            }
+
             if (queryFactor.IsDecsending == true)
             {
                 factorModel = factorModel.OrderByDescending(f => f.CreatedAt);
