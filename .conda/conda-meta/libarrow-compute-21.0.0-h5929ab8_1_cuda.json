@@ -1,0 +1,100 @@
+{
+  "build": "h5929ab8_1_cuda",
+  "build_number": 1,
+  "channel": "https://conda.anaconda.org/conda-forge/win-64",
+  "constrains": [],
+  "depends": [
+    "libarrow 21.0.0 h50032ca_1_cuda",
+    "libre2-11 >=2024.7.2",
+    "libutf8proc >=2.10.0,<2.11.0a0",
+    "re2",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libarrow-compute-21.0.0-h5929ab8_1_cuda",
+  "features": "",
+  "files": [
+    "Library/bin/arrow_compute.dll",
+    "Library/lib/arrow_compute.lib",
+    "Library/lib/cmake/ArrowCompute/ArrowComputeConfig.cmake",
+    "Library/lib/cmake/ArrowCompute/ArrowComputeConfigVersion.cmake",
+    "Library/lib/cmake/ArrowCompute/ArrowComputeTargets-release.cmake",
+    "Library/lib/cmake/ArrowCompute/ArrowComputeTargets.cmake",
+    "Library/lib/pkgconfig/arrow-compute.pc",
+    ".nonadmin"
+  ],
+  "fn": "libarrow-compute-21.0.0-h5929ab8_1_cuda.conda",
+  "license": "Apache-2.0",
+  "link": {
+    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libarrow-compute-21.0.0-h5929ab8_1_cuda",
+    "type": 1
+  },
+  "md5": "c17858ce61906b7e9bca03a283960f88",
+  "name": "libarrow-compute",
+  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libarrow-compute-21.0.0-h5929ab8_1_cuda.conda",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "Library/bin/arrow_compute.dll",
+        "path_type": "hardlink",
+        "sha256": "ecc145c159cca51780bb89570423a1b5848d48c7556fa8da0748c321a8ca1b4b",
+        "sha256_in_prefix": "ecc145c159cca51780bb89570423a1b5848d48c7556fa8da0748c321a8ca1b4b",
+        "size_in_bytes": 9623040
+      },
+      {
+        "_path": "Library/lib/arrow_compute.lib",
+        "path_type": "hardlink",
+        "sha256": "ff15736b037426f6c6a169ca1c9f85aa04deb9f77a6613e50e33745f81778a25",
+        "sha256_in_prefix": "ff15736b037426f6c6a169ca1c9f85aa04deb9f77a6613e50e33745f81778a25",
+        "size_in_bytes": 170946
+      },
+      {
+        "_path": "Library/lib/cmake/ArrowCompute/ArrowComputeConfig.cmake",
+        "path_type": "hardlink",
+        "sha256": "31aba536fc7e1c2c13a6732a8a62d93ee780b3278dc805b15b98a5bac9decab0",
+        "sha256_in_prefix": "31aba536fc7e1c2c13a6732a8a62d93ee780b3278dc805b15b98a5bac9decab0",
+        "size_in_bytes": 2403
+      },
+      {
+        "_path": "Library/lib/cmake/ArrowCompute/ArrowComputeConfigVersion.cmake",
+        "path_type": "hardlink",
+        "sha256": "2615c61906248bb0814e668e0d1c50fd7b428683774777f8d7df49ef0b926788",
+        "sha256_in_prefix": "2615c61906248bb0814e668e0d1c50fd7b428683774777f8d7df49ef0b926788",
+        "size_in_bytes": 2830
+      },
+      {
+        "_path": "Library/lib/cmake/ArrowCompute/ArrowComputeTargets-release.cmake",
+        "path_type": "hardlink",
+        "sha256": "981bcf85d9e7fdd731f3293364595d284f7f2479c8d2008c5ed2c1c790fdf9ca",
+        "sha256_in_prefix": "981bcf85d9e7fdd731f3293364595d284f7f2479c8d2008c5ed2c1c790fdf9ca",
+        "size_in_bytes": 1090
+      },
+      {
+        "_path": "Library/lib/cmake/ArrowCompute/ArrowComputeTargets.cmake",
+        "path_type": "hardlink",
+        "sha256": "2f2f4d3a8c1deeb4a2ece66b18cf49af468f142287e405e70636fcc3cbc9cfb6",
+        "sha256_in_prefix": "2f2f4d3a8c1deeb4a2ece66b18cf49af468f142287e405e70636fcc3cbc9cfb6",
+        "size_in_bytes": 4362
+      },
+      {
+        "_path": "Library/lib/pkgconfig/arrow-compute.pc",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "prefix_placeholder": "C:/bld/apache-arrow_1754305172713/_h_env",
+        "sha256": "2ea2a07b90b563f9e9e28adad75c1a79d7e2297dcd3dd15aa76e343d8b048b56",
+        "sha256_in_prefix": "ff2b3cb4710579fafe5c8a5b376e88bd2d0239e11a1b17594cb47a18a44f6cb0",
+        "size_in_bytes": 1091
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "None",
+  "sha256": "a072abc1c69e8372926e0bcb7125b10010a2cef4045ed447eac2423226c39f06",
+  "size": 1771213,
+  "subdir": "win-64",
+  "timestamp": 1754311011000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/win-64/libarrow-compute-21.0.0-h5929ab8_1_cuda.conda",
+  "version": "21.0.0"
+}

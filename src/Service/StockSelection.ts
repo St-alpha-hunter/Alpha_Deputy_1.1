@@ -16,11 +16,15 @@ class StockSelectionModel {
     this.maxIndustryExposure = maxIndustryExposure;
   }
 }
-const api = "http://localhost:8000/stock_selection";
 
-export const StockSelectionForm = async (data: StockSelectionModel) => {
+const api = "http://localhost:8000/stock_selection";
+const computeApi = "http://localhost:8000/compute_factors_select_stocks";
+
+export const StockSelectionForm = async (data: StockSelectionModel, session_id: string, start: string, end: string) => {
   try {
-    const response = await axios.post(api, data);
+    await axios.post(api, data, { params: { session_id } });
+    const computeReq = { session_id, start, end };
+    const response = await axios.post(computeApi, computeReq);
     return response.data;
   } catch (error) {
     handleError(error);

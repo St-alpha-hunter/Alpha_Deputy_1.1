@@ -1,0 +1,72 @@
+{
+  "build": "hff4702e_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/win-64",
+  "constrains": [],
+  "depends": [
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30139"
+  ],
+  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libutf8proc-2.10.0-hff4702e_0",
+  "features": "",
+  "files": [
+    "Library/bin/utf8proc.dll",
+    "Library/include/utf8proc.h",
+    "Library/lib/pkgconfig/libutf8proc.pc",
+    "Library/lib/utf8proc.lib",
+    ".nonadmin"
+  ],
+  "fn": "libutf8proc-2.10.0-hff4702e_0.conda",
+  "license": "MIT",
+  "link": {
+    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libutf8proc-2.10.0-hff4702e_0",
+    "type": 1
+  },
+  "md5": "0c661f61710bf7fec2ea584d276208d7",
+  "name": "libutf8proc",
+  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libutf8proc-2.10.0-hff4702e_0.conda",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "Library/bin/utf8proc.dll",
+        "path_type": "hardlink",
+        "sha256": "4165fc24fe95216efc6e80d5b83391b90f64ae5a4438421b77d67966a2ac9a33",
+        "sha256_in_prefix": "4165fc24fe95216efc6e80d5b83391b90f64ae5a4438421b77d67966a2ac9a33",
+        "size_in_bytes": 353792
+      },
+      {
+        "_path": "Library/include/utf8proc.h",
+        "path_type": "hardlink",
+        "sha256": "d947b38124a9f218631b537dd7a367f6a2a6a992c72caa46b3f3e7c81e6138ee",
+        "sha256_in_prefix": "d947b38124a9f218631b537dd7a367f6a2a6a992c72caa46b3f3e7c81e6138ee",
+        "size_in_bytes": 33458
+      },
+      {
+        "_path": "Library/lib/pkgconfig/libutf8proc.pc",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "prefix_placeholder": "D:/bld/libutf8proc_1748341599375/_h_env",
+        "sha256": "612a01a94061f2284681ccfc315ce1e0d4899e053902bca4fe0f3d6add77a2eb",
+        "sha256_in_prefix": "fb5b5276c7673fa3a0958075f2e0950567a4ae235c0c74e310ceb22ac1e375ae",
+        "size_in_bytes": 391
+      },
+      {
+        "_path": "Library/lib/utf8proc.lib",
+        "path_type": "hardlink",
+        "sha256": "254e130613f75b1590967cb4ebce24edbfb8a4d22ca40da8d3a674f8b1a60be2",
+        "sha256_in_prefix": "254e130613f75b1590967cb4ebce24edbfb8a4d22ca40da8d3a674f8b1a60be2",
+        "size_in_bytes": 8352
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "None",
+  "sha256": "c3588c52e50666d631e21fffdc057594dbb78464bb87b5832fee3f713a1e4c52",
+  "size": 85704,
+  "subdir": "win-64",
+  "timestamp": 1748342286000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/win-64/libutf8proc-2.10.0-hff4702e_0.conda",
+  "version": "2.10.0"
+}

@@ -42,6 +42,10 @@ namespace api.Data
                 .HasForeignKey(c => c.AppUserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Entity<Factor>()
+            .HasIndex(f => f.CodeKey)
+                .IsUnique(); // 确保 CodeKey 唯一
+
             List<IdentityRole> roles = new List<IdentityRole>
             {
                 new IdentityRole

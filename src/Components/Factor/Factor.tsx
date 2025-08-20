@@ -12,6 +12,7 @@ type Props = {
     id:string,
     category: string,
     code:string,
+    code_key:string,
     name?: string;            // 中文名称（如“12月动量”）
     weight?: number;
     description?: string;     // 简介

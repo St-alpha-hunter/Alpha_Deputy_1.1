@@ -14,6 +14,9 @@ namespace api.Models
         public int Id { get; set; } // 或 Guid 看你选哪个
         [Required]
         public string Name { get; set; } = string.Empty;
+        [Required]
+        [MaxLength(50)]
+        public string CodeKey { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string ComputeCode { get; set; } = string.Empty;

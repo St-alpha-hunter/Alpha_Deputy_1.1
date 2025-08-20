@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import  { StockSelectionForm } from '../../Service/StockSelection';
 import { StockSelectionModel } from '../../Service/StockSelection';
-
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../redux/features/store';
 
 type Props = {};
 
@@ -172,7 +173,9 @@ const StockSelection = (props: Props) => {
   const [maxIndustryExposure, setMaxIndustryExposure] = useState<number>(50);
 
   const allSelected = selectedIndustries.length === industries.length;
-
+  const session_id = useSelector((state: RootState) => state.session.session_id); // 从前端状态或后端获取
+  const start = "2020-08-10";
+  const end = "2024-06-30";
   const handleIndustryChange = (industry: string) => {
     setSelectedIndustries(prev =>
       prev.includes(industry)
@@ -193,7 +196,8 @@ const StockSelection = (props: Props) => {
       selectedIndustries,
       maxIndustryExposure
     );
-    StockSelectionForm(data)
+
+    StockSelectionForm(data, session_id, start, end)
       .then((res) => {
         if (res) {
           toast.success("Stock selection submitted successfully!");

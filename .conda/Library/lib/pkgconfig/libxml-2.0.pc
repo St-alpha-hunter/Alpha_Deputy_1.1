@@ -1,0 +1,11 @@
+prefix=D:/desktop/practice_dom/FINSHARK/Alpha-Deputy/.conda/Library 
+exec_prefix=D:/desktop/practice_dom/FINSHARK/Alpha-Deputy/.conda/Library 
+libdir=D:/desktop/practice_dom/FINSHARK/Alpha-Deputy/.conda/Library/lib 
+includedir=D:/desktop/practice_dom/FINSHARK/Alpha-Deputy/.conda/Library/include 
+modules=0 
+Name: libXML 
+Version: 2.13.8 
+Description: libXML library version2. 
+Requires: 
+Libs: -LD:/desktop/practice_dom/FINSHARK/Alpha-Deputy/.conda/Library/lib -lxml2 -liconv -lz 
+Cflags: -ID:/desktop/practice_dom/FINSHARK/Alpha-Deputy/.conda/Library/include/libxml2 -ID:/desktop/practice_dom/FINSHARK/Alpha-Deputy/.conda/Library/include 

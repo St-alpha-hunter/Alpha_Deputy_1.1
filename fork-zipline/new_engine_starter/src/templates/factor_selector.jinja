@@ -1,0 +1,11 @@
+# 因子参数
+factors = [
+{% for factor in factors %}
+    {
+        "name": "{{ factor.name }}",
+        "code_key": "{{ factor.code_key }}",
+        "weight": {{ factor.weight }},
+        "code": """{{ factor.code | replace('\n', '\n') }}"""
+    },
+{% endfor %}
+]

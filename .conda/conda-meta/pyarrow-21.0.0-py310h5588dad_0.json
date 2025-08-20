@@ -1,0 +1,41 @@
+{
+  "build": "py310h5588dad_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/win-64",
+  "constrains": [],
+  "depends": [
+    "libarrow-acero 21.0.0.*",
+    "libarrow-dataset 21.0.0.*",
+    "libarrow-substrait 21.0.0.*",
+    "libparquet 21.0.0.*",
+    "pyarrow-core 21.0.0 *_0_*",
+    "python >=3.10,<3.11.0a0",
+    "python_abi 3.10.* *_cp310"
+  ],
+  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\pyarrow-21.0.0-py310h5588dad_0",
+  "features": "",
+  "files": [
+    ".nonadmin"
+  ],
+  "fn": "pyarrow-21.0.0-py310h5588dad_0.conda",
+  "license": "Apache-2.0",
+  "link": {
+    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\pyarrow-21.0.0-py310h5588dad_0",
+    "type": 1
+  },
+  "md5": "ae787cb8f3c48d930f1b9673eb290b3b",
+  "name": "pyarrow",
+  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\pyarrow-21.0.0-py310h5588dad_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "requested_spec": "pyarrow",
+  "sha256": "b6e11384d412f480303e95082e73f0651a1cdb93a67b89167c0698453a901dc9",
+  "size": 26493,
+  "subdir": "win-64",
+  "timestamp": 1753372495000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/win-64/pyarrow-21.0.0-py310h5588dad_0.conda",
+  "version": "21.0.0"
+}

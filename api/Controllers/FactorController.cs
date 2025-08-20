@@ -41,11 +41,11 @@ namespace api.Controllers
 
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var factor = await _factorRepo.GetByIdAsync(id);
+            var factor = await _factorRepo.GetByIdAsync(new FactorQueryObject { Id = id });
             if (factor == null)
             {
                 return NotFound();
@@ -62,8 +62,10 @@ namespace api.Controllers
 
             // 关键：获取当前用户，并把 Id 写入外键
             var factor = createDto.ToEntity();
-            await _factorRepo.CreateAsync(factor);
-            return Ok(factor.ToFactorDto());
+            var result = await _factorRepo.CreateAsync(factor);
+            if (result == null)
+                return Conflict("Name or CodeKey already exists.");
+            return Ok(result.ToFactorDto());
         }
 
         [HttpPut("{id:int}")]

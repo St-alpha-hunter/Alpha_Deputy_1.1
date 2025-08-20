@@ -45,18 +45,33 @@ const FactorDeckPage = (props: Props) => {
         setfactor;
     }
    
-    const onSearchSubmit = async (e : SyntheticEvent) => {
-        e.preventDefault();
-            // 本地搜索 exampleFactors
-        const filtered = exampleFactors.filter((factor) =>
-        factor.name.toLowerCase().includes(search.toLowerCase()) 
-    );
+    // const onSearchSubmit = async (e : SyntheticEvent) => {
+    //     e.preventDefault();
+    //         // 本地搜索 exampleFactors
+    //     const filtered = exampleFactors.filter((factor) =>
+    //     factor.name.toLowerCase().includes(search.toLowerCase()) 
+    // );
 
-    // 类型转换，因为 searchResult 用的是 CompanySearch[]
-    // 暂时你可以把 searchResult 类型改成 FactorProps[]（或单独搞一个 searchFactorResult）
-    setSearchResult(filtered); 
-    };
+    // // 类型转换，因为 searchResult 用的是 CompanySearch[]
+    // // 暂时你可以把 searchResult 类型改成 FactorProps[]（或单独搞一个 searchFactorResult）
+    //     setSearchResult(filtered); 
+    // };
    
+
+    const onSearchSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    try {
+        const response = await fetch(`/api/factor?query=${search}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+        });
+        const data = await response.json();
+        setSearchResult(data); // data 是 factorDto 数组
+    } catch (err) {
+        toast.error("Search failed!");
+    }
+    };
+
 
     const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
                   setSearch(e.target.value);

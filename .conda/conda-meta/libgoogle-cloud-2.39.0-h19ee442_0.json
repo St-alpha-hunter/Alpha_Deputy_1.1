@@ -1,0 +1,44 @@
+{
+  "build": "h19ee442_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/win-64",
+  "constrains": [
+    "libgoogle-cloud 2.39.0 *_0"
+  ],
+  "depends": [
+    "libabseil * cxx17*",
+    "libabseil >=20250512.1,<20250513.0a0",
+    "libcurl >=8.14.1,<9.0a0",
+    "libgrpc >=1.73.1,<1.74.0a0",
+    "libprotobuf >=6.31.1,<6.31.2.0a0",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libgoogle-cloud-2.39.0-h19ee442_0",
+  "features": "",
+  "files": [
+    ".nonadmin"
+  ],
+  "fn": "libgoogle-cloud-2.39.0-h19ee442_0.conda",
+  "license": "Apache-2.0",
+  "link": {
+    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libgoogle-cloud-2.39.0-h19ee442_0",
+    "type": 1
+  },
+  "md5": "c2c512f98c5c666782779439356a1713",
+  "name": "libgoogle-cloud",
+  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libgoogle-cloud-2.39.0-h19ee442_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "requested_spec": "None",
+  "sha256": "8f5b26e9ea985c819a67e41664da82219534f9b9c8ba190f7d3c440361e5accb",
+  "size": 14952,
+  "subdir": "win-64",
+  "timestamp": 1752049549000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/win-64/libgoogle-cloud-2.39.0-h19ee442_0.conda",
+  "version": "2.39.0"
+}

@@ -12,6 +12,9 @@ namespace api.Dtos.Factor
         [MinLength(5, ErrorMessage = "Name must be 5 characters")]
         [MaxLength(50, ErrorMessage = "Name cannot be over 50 character")]
         public string Name { get; set; } = string.Empty;
+        [Required]
+        [MaxLength(50)]
+        public string CodeKey { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
 
         [MinLength(20, ErrorMessage = "Description must be 20 characters")]

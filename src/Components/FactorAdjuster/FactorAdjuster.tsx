@@ -97,6 +97,7 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
           name: f.name ?? "",
           weight: f.weight ?? 0,
           code: f.code as string,
+          code_key: f.code_key as string,
         }));
 
         FactorSelectionForm(data)

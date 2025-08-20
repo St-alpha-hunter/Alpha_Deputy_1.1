@@ -1,0 +1,224 @@
+{
+  "build": "py310ha8f682b_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/win-64",
+  "constrains": [],
+  "depends": [
+    "python >=3.10,<3.11.0a0",
+    "python_abi 3.10.* *_cp310",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.2,<15",
+    "vc14_runtime >=14.29.30139"
+  ],
+  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\httptools-0.6.4-py310ha8f682b_0",
+  "features": "",
+  "files": [
+    "Lib/site-packages/httptools-0.6.4.dist-info/INSTALLER",
+    "Lib/site-packages/httptools-0.6.4.dist-info/LICENSE",
+    "Lib/site-packages/httptools-0.6.4.dist-info/METADATA",
+    "Lib/site-packages/httptools-0.6.4.dist-info/RECORD",
+    "Lib/site-packages/httptools-0.6.4.dist-info/REQUESTED",
+    "Lib/site-packages/httptools-0.6.4.dist-info/WHEEL",
+    "Lib/site-packages/httptools-0.6.4.dist-info/direct_url.json",
+    "Lib/site-packages/httptools-0.6.4.dist-info/top_level.txt",
+    "Lib/site-packages/httptools/__init__.py",
+    "Lib/site-packages/httptools/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/httptools/__pycache__/_version.cpython-310.pyc",
+    "Lib/site-packages/httptools/_version.py",
+    "Lib/site-packages/httptools/parser/__init__.py",
+    "Lib/site-packages/httptools/parser/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/httptools/parser/__pycache__/errors.cpython-310.pyc",
+    "Lib/site-packages/httptools/parser/cparser.pxd",
+    "Lib/site-packages/httptools/parser/errors.py",
+    "Lib/site-packages/httptools/parser/parser.cp310-win_amd64.pyd",
+    "Lib/site-packages/httptools/parser/parser.pyx",
+    "Lib/site-packages/httptools/parser/python.pxd",
+    "Lib/site-packages/httptools/parser/url_cparser.pxd",
+    "Lib/site-packages/httptools/parser/url_parser.cp310-win_amd64.pyd",
+    "Lib/site-packages/httptools/parser/url_parser.pyx",
+    ".nonadmin"
+  ],
+  "fn": "httptools-0.6.4-py310ha8f682b_0.conda",
+  "license": "MIT",
+  "link": {
+    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\httptools-0.6.4-py310ha8f682b_0",
+    "type": 1
+  },
+  "md5": "d977e279142bc06502298339d5229068",
+  "name": "httptools",
+  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\httptools-0.6.4-py310ha8f682b_0.conda",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "Lib/site-packages/httptools-0.6.4.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "Lib/site-packages/httptools-0.6.4.dist-info/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "f4573e7cb7676745fb5b8d36fa548aa93e391cfb6872ddacd65130c45ea6a92d",
+        "sha256_in_prefix": "f4573e7cb7676745fb5b8d36fa548aa93e391cfb6872ddacd65130c45ea6a92d",
+        "size_in_bytes": 1093
+      },
+      {
+        "_path": "Lib/site-packages/httptools-0.6.4.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "569555f3b5894c32ad24ccc5d2e92a8109b2465f0b580139dc5b17317779c939",
+        "sha256_in_prefix": "569555f3b5894c32ad24ccc5d2e92a8109b2465f0b580139dc5b17317779c939",
+        "size_in_bytes": 3716
+      },
+      {
+        "_path": "Lib/site-packages/httptools-0.6.4.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "afd968749657910a4d13652864bfa906a5bc892164dd52655eb19ff256e54b52",
+        "sha256_in_prefix": "afd968749657910a4d13652864bfa906a5bc892164dd52655eb19ff256e54b52",
+        "size_in_bytes": 1858
+      },
+      {
+        "_path": "Lib/site-packages/httptools-0.6.4.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "Lib/site-packages/httptools-0.6.4.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "b5c77e1c3a6c92e813f066182b2ca277494e973a19b59756c1cae3e68ae6b5fa",
+        "sha256_in_prefix": "b5c77e1c3a6c92e813f066182b2ca277494e973a19b59756c1cae3e68ae6b5fa",
+        "size_in_bytes": 101
+      },
+      {
+        "_path": "Lib/site-packages/httptools-0.6.4.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "e1b62d9a080c48da1fd4b5b0c5caca5cb12794bcff9cf1593dd711afde481a8e",
+        "sha256_in_prefix": "e1b62d9a080c48da1fd4b5b0c5caca5cb12794bcff9cf1593dd711afde481a8e",
+        "size_in_bytes": 70
+      },
+      {
+        "_path": "Lib/site-packages/httptools-0.6.4.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "00f8c92936d9723d0e4387dd81fd9e4c293cda72b59f60455ce0fb932e3530f6",
+        "sha256_in_prefix": "00f8c92936d9723d0e4387dd81fd9e4c293cda72b59f60455ce0fb932e3530f6",
+        "size_in_bytes": 10
+      },
+      {
+        "_path": "Lib/site-packages/httptools/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "a65b773086ee78975ca3d0f2ef3a07de4b0b35eca2aea59a81ab79af0466023a",
+        "sha256_in_prefix": "a65b773086ee78975ca3d0f2ef3a07de4b0b35eca2aea59a81ab79af0466023a",
+        "size_in_bytes": 147
+      },
+      {
+        "_path": "Lib/site-packages/httptools/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "hardlink",
+        "sha256": "357f31b9ce29ee10733540652d32af6a24a7860e6ab8aaabf10004e97e842999",
+        "sha256_in_prefix": "357f31b9ce29ee10733540652d32af6a24a7860e6ab8aaabf10004e97e842999",
+        "size_in_bytes": 243
+      },
+      {
+        "_path": "Lib/site-packages/httptools/__pycache__/_version.cpython-310.pyc",
+        "path_type": "hardlink",
+        "sha256": "93752a7f11cd37884242d6aa360796cdd39d2a66c8dc8555aa06a6f530de4c12",
+        "sha256_in_prefix": "93752a7f11cd37884242d6aa360796cdd39d2a66c8dc8555aa06a6f530de4c12",
+        "size_in_bytes": 153
+      },
+      {
+        "_path": "Lib/site-packages/httptools/_version.py",
+        "path_type": "hardlink",
+        "sha256": "012a8e07c7cb4bb8f066c339e752dce3d5b160fca3b5eaa7cf58835a691af8a0",
+        "sha256_in_prefix": "012a8e07c7cb4bb8f066c339e752dce3d5b160fca3b5eaa7cf58835a691af8a0",
+        "size_in_bytes": 575
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "7d6c9ca273c41d9949a23cd1c2604a4a7e02f393865e6284c2211c7631ea5cef",
+        "sha256_in_prefix": "7d6c9ca273c41d9949a23cd1c2604a4a7e02f393865e6284c2211c7631ea5cef",
+        "size_in_bytes": 166
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "hardlink",
+        "sha256": "c4d1ac3236b1d2818edcac891c60bd55cab22fe84d7088c52f3a6ca7510c4cc0",
+        "sha256_in_prefix": "c4d1ac3236b1d2818edcac891c60bd55cab22fe84d7088c52f3a6ca7510c4cc0",
+        "size_in_bytes": 231
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/__pycache__/errors.cpython-310.pyc",
+        "path_type": "hardlink",
+        "sha256": "5845550ace3fa0793270635fb348cdcc60a524687677dae59ec899b1a1adaa3e",
+        "sha256_in_prefix": "5845550ace3fa0793270635fb348cdcc60a524687677dae59ec899b1a1adaa3e",
+        "size_in_bytes": 987
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/cparser.pxd",
+        "path_type": "hardlink",
+        "sha256": "e2a0719e66bcdd5cfce99f6c3994718ea623db403e68b4965465d981354b26a1",
+        "sha256_in_prefix": "e2a0719e66bcdd5cfce99f6c3994718ea623db403e68b4965465d981354b26a1",
+        "size_in_bytes": 4977
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/errors.py",
+        "path_type": "hardlink",
+        "sha256": "655aed375b263c86ffa2943651ddee09b1a534b32510260cdbee92eebe4b9c7b",
+        "sha256_in_prefix": "655aed375b263c86ffa2943651ddee09b1a534b32510260cdbee92eebe4b9c7b",
+        "size_in_bytes": 566
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/parser.cp310-win_amd64.pyd",
+        "path_type": "hardlink",
+        "sha256": "f86e098196c15d808e3a3ec10520dd5463bb2029255fb0b6f516904bbf06e1ca",
+        "sha256_in_prefix": "f86e098196c15d808e3a3ec10520dd5463bb2029255fb0b6f516904bbf06e1ca",
+        "size_in_bytes": 128512
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/parser.pyx",
+        "path_type": "hardlink",
+        "sha256": "c7405463d1331cd2820dac3e53c6e467531a286b6b390f225429b522e3ad1102",
+        "sha256_in_prefix": "c7405463d1331cd2820dac3e53c6e467531a286b6b390f225429b522e3ad1102",
+        "size_in_bytes": 15140
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/python.pxd",
+        "path_type": "hardlink",
+        "sha256": "cd609d199877e1fc9036ddc15072148cfa98f1ae6ca1d45491f740071a981e04",
+        "sha256_in_prefix": "cd609d199877e1fc9036ddc15072148cfa98f1ae6ca1d45491f740071a981e04",
+        "size_in_bytes": 138
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/url_cparser.pxd",
+        "path_type": "hardlink",
+        "sha256": "5f974323c03b4f49791cbfc2cedd264ecd25fddda55e75031f1d5337c2de8823",
+        "sha256_in_prefix": "5f974323c03b4f49791cbfc2cedd264ecd25fddda55e75031f1d5337c2de8823",
+        "size_in_bytes": 779
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/url_parser.cp310-win_amd64.pyd",
+        "path_type": "hardlink",
+        "sha256": "7a01f38197865d9e076c6d628ccb877226c3fdebb09ae57751c73df184b7ff94",
+        "sha256_in_prefix": "7a01f38197865d9e076c6d628ccb877226c3fdebb09ae57751c73df184b7ff94",
+        "size_in_bytes": 52736
+      },
+      {
+        "_path": "Lib/site-packages/httptools/parser/url_parser.pyx",
+        "path_type": "hardlink",
+        "sha256": "64955466aac80dd873568740eed4eda056f9ef46aff92733232876a006572b33",
+        "sha256_in_prefix": "64955466aac80dd873568740eed4eda056f9ef46aff92733232876a006572b33",
+        "size_in_bytes": 3758
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "None",
+  "sha256": "d5820922ed450ae68e4e99ce94264711f4374f9202da639515f8edd3ff4c9aac",
+  "size": 74096,
+  "subdir": "win-64",
+  "timestamp": 1732708154000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/win-64/httptools-0.6.4-py310ha8f682b_0.conda",
+  "version": "0.6.4"
+}

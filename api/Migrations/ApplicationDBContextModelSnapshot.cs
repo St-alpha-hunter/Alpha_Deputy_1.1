@@ -319,6 +319,11 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("CodeKey")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
                     b.Property<string>("ComputeCode")
                         .IsRequired()
                         .HasColumnType("text");
@@ -341,6 +346,9 @@ namespace api.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CodeKey")
+                        .IsUnique();
 
                     b.ToTable("Factors");
                 });

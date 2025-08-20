@@ -1,5 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface SessionState {
+  session_id: string;
+}
 
+const initialState: SessionState = {
+  session_id: "",
 };
+
+const sessionSlice = createSlice({
+  name: "session",
+  initialState,
+  reducers: {
+    setSessionId(state, action: PayloadAction<string>) {
+      state.session_id = action.payload;
+    },
+  },
+});
+
+export const { setSessionId } = sessionSlice.actions;
+export default sessionSlice.reducer;

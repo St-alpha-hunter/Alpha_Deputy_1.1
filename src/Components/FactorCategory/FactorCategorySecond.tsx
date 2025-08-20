@@ -42,6 +42,7 @@ const FactorCategorySecond = ({ category, ChoosingFactor}: Props) => {
                         <div key={factor.id} className="min-w-[120px] w-fit p-3">
                             <Factor
                                 {...factor}
+                                code_key={factor.code_key}
                                 code={factor.computeCode}
                                 ChoosingFactor={ChoosingFactor}
                             />

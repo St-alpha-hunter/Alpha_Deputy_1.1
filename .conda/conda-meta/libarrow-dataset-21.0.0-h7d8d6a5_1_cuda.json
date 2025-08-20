@@ -1,0 +1,100 @@
+{
+  "build": "h7d8d6a5_1_cuda",
+  "build_number": 1,
+  "channel": "https://conda.anaconda.org/conda-forge/win-64",
+  "constrains": [],
+  "depends": [
+    "libarrow 21.0.0 h50032ca_1_cuda",
+    "libarrow-acero 21.0.0 h7d8d6a5_1_cuda",
+    "libarrow-compute 21.0.0 h5929ab8_1_cuda",
+    "libparquet 21.0.0 h24c48c9_1_cuda",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libarrow-dataset-21.0.0-h7d8d6a5_1_cuda",
+  "features": "",
+  "files": [
+    "Library/bin/arrow_dataset.dll",
+    "Library/lib/arrow_dataset.lib",
+    "Library/lib/cmake/ArrowDataset/ArrowDatasetConfig.cmake",
+    "Library/lib/cmake/ArrowDataset/ArrowDatasetConfigVersion.cmake",
+    "Library/lib/cmake/ArrowDataset/ArrowDatasetTargets-release.cmake",
+    "Library/lib/cmake/ArrowDataset/ArrowDatasetTargets.cmake",
+    "Library/lib/pkgconfig/arrow-dataset.pc",
+    ".nonadmin"
+  ],
+  "fn": "libarrow-dataset-21.0.0-h7d8d6a5_1_cuda.conda",
+  "license": "Apache-2.0",
+  "link": {
+    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libarrow-dataset-21.0.0-h7d8d6a5_1_cuda",
+    "type": 1
+  },
+  "md5": "6e71d1f6cb2c14d9384f0009562da21b",
+  "name": "libarrow-dataset",
+  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\libarrow-dataset-21.0.0-h7d8d6a5_1_cuda.conda",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "Library/bin/arrow_dataset.dll",
+        "path_type": "hardlink",
+        "sha256": "d39d2bf2fcdeacee906b1d4888830f5d37bf1c4219095cfabefcf0c81f024ad0",
+        "sha256_in_prefix": "d39d2bf2fcdeacee906b1d4888830f5d37bf1c4219095cfabefcf0c81f024ad0",
+        "size_in_bytes": 1347584
+      },
+      {
+        "_path": "Library/lib/arrow_dataset.lib",
+        "path_type": "hardlink",
+        "sha256": "60b037bd68ea6844b0d18a48bd541cc2aafb44e6588eb7852f0a027c4e79306f",
+        "sha256_in_prefix": "60b037bd68ea6844b0d18a48bd541cc2aafb44e6588eb7852f0a027c4e79306f",
+        "size_in_bytes": 413512
+      },
+      {
+        "_path": "Library/lib/cmake/ArrowDataset/ArrowDatasetConfig.cmake",
+        "path_type": "hardlink",
+        "sha256": "8e48a28a1466851ef93501feacac15d200a476896f3177cfbc1e631be2f377c6",
+        "sha256_in_prefix": "8e48a28a1466851ef93501feacac15d200a476896f3177cfbc1e631be2f377c6",
+        "size_in_bytes": 2864
+      },
+      {
+        "_path": "Library/lib/cmake/ArrowDataset/ArrowDatasetConfigVersion.cmake",
+        "path_type": "hardlink",
+        "sha256": "2615c61906248bb0814e668e0d1c50fd7b428683774777f8d7df49ef0b926788",
+        "sha256_in_prefix": "2615c61906248bb0814e668e0d1c50fd7b428683774777f8d7df49ef0b926788",
+        "size_in_bytes": 2830
+      },
+      {
+        "_path": "Library/lib/cmake/ArrowDataset/ArrowDatasetTargets-release.cmake",
+        "path_type": "hardlink",
+        "sha256": "931f40725bf9467b81959de1e849ca11d643261d91668ba53749e38df43df90a",
+        "sha256_in_prefix": "931f40725bf9467b81959de1e849ca11d643261d91668ba53749e38df43df90a",
+        "size_in_bytes": 1034
+      },
+      {
+        "_path": "Library/lib/cmake/ArrowDataset/ArrowDatasetTargets.cmake",
+        "path_type": "hardlink",
+        "sha256": "eac46cbf80e987f13fa1e8fd66f3fc0a04e2244c2f267574ab89d8b35a1888ff",
+        "sha256_in_prefix": "eac46cbf80e987f13fa1e8fd66f3fc0a04e2244c2f267574ab89d8b35a1888ff",
+        "size_in_bytes": 4397
+      },
+      {
+        "_path": "Library/lib/pkgconfig/arrow-dataset.pc",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "prefix_placeholder": "C:/bld/apache-arrow_1754305172713/_h_env",
+        "sha256": "ee45d659bc708f1776b085f8418b83554c5bc0cd07ee87c42a80660f9bde72a0",
+        "sha256_in_prefix": "674dfc382fc2380efd32912d76397e9ce0c01a57b583345e2bbce9cfb533f85b",
+        "size_in_bytes": 1195
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "None",
+  "sha256": "6533d8c117a33cb16475a2270e8e167dd839b18b082ac3aa30cac12c97a7b0d1",
+  "size": 444369,
+  "subdir": "win-64",
+  "timestamp": 1754311459000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/win-64/libarrow-dataset-21.0.0-h7d8d6a5_1_cuda.conda",
+  "version": "21.0.0"
+}

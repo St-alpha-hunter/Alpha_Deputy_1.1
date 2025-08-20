@@ -1,0 +1,251 @@
+{
+  "build": "py310h8f3aa81_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/win-64",
+  "constrains": [],
+  "depends": [
+    "libta-lib >=0.6.4,<0.7.0a0",
+    "numpy >=1.21,<3",
+    "numpy >=2.0,<3.0",
+    "python >=3.10,<3.11.0a0",
+    "python_abi 3.10.* *_cp310",
+    "ucrt >=10.0.20348.0",
+    "vc >=14.3,<15",
+    "vc14_runtime >=14.44.35208"
+  ],
+  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\ta-lib-0.6.4-py310h8f3aa81_0",
+  "features": "",
+  "files": [
+    "Lib/site-packages/ta_lib-0.6.4.dist-info/INSTALLER",
+    "Lib/site-packages/ta_lib-0.6.4.dist-info/METADATA",
+    "Lib/site-packages/ta_lib-0.6.4.dist-info/RECORD",
+    "Lib/site-packages/ta_lib-0.6.4.dist-info/REQUESTED",
+    "Lib/site-packages/ta_lib-0.6.4.dist-info/WHEEL",
+    "Lib/site-packages/ta_lib-0.6.4.dist-info/direct_url.json",
+    "Lib/site-packages/ta_lib-0.6.4.dist-info/licenses/AUTHORS",
+    "Lib/site-packages/ta_lib-0.6.4.dist-info/licenses/LICENSE",
+    "Lib/site-packages/ta_lib-0.6.4.dist-info/top_level.txt",
+    "Lib/site-packages/talib/__init__.py",
+    "Lib/site-packages/talib/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/talib/__pycache__/abstract.cpython-310.pyc",
+    "Lib/site-packages/talib/__pycache__/deprecated.cpython-310.pyc",
+    "Lib/site-packages/talib/__pycache__/stream.cpython-310.pyc",
+    "Lib/site-packages/talib/_abstract.pxi",
+    "Lib/site-packages/talib/_common.pxi",
+    "Lib/site-packages/talib/_func.pxi",
+    "Lib/site-packages/talib/_stream.pxi",
+    "Lib/site-packages/talib/_ta_lib.c",
+    "Lib/site-packages/talib/_ta_lib.cp310-win_amd64.pyd",
+    "Lib/site-packages/talib/_ta_lib.pyi",
+    "Lib/site-packages/talib/_ta_lib.pyx",
+    "Lib/site-packages/talib/abstract.py",
+    "Lib/site-packages/talib/deprecated.py",
+    "Lib/site-packages/talib/py.typed",
+    "Lib/site-packages/talib/stream.py",
+    ".nonadmin"
+  ],
+  "fn": "ta-lib-0.6.4-py310h8f3aa81_0.conda",
+  "license": "BSD-2-Clause",
+  "link": {
+    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\ta-lib-0.6.4-py310h8f3aa81_0",
+    "type": 1
+  },
+  "md5": "7772124edf26beb22eb5f4a306966293",
+  "name": "ta-lib",
+  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\ta-lib-0.6.4-py310h8f3aa81_0.conda",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "Lib/site-packages/ta_lib-0.6.4.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "Lib/site-packages/ta_lib-0.6.4.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "a69865559d8070bab404535e236c990f53cefe93794efd1282e1344b264fd82d",
+        "sha256_in_prefix": "a69865559d8070bab404535e236c990f53cefe93794efd1282e1344b264fd82d",
+        "size_in_bytes": 24030
+      },
+      {
+        "_path": "Lib/site-packages/ta_lib-0.6.4.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "50f2337161ed61802de288222dcb5c3a51f528f5ac3f47216f21fe59bd1685e7",
+        "sha256_in_prefix": "50f2337161ed61802de288222dcb5c3a51f528f5ac3f47216f21fe59bd1685e7",
+        "size_in_bytes": 1935
+      },
+      {
+        "_path": "Lib/site-packages/ta_lib-0.6.4.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "Lib/site-packages/ta_lib-0.6.4.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "294b810ba97101b1c22a294ab9af11f56fd333bd7ffbd4a0e6e10fdee0d67285",
+        "sha256_in_prefix": "294b810ba97101b1c22a294ab9af11f56fd333bd7ffbd4a0e6e10fdee0d67285",
+        "size_in_bytes": 101
+      },
+      {
+        "_path": "Lib/site-packages/ta_lib-0.6.4.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "06fb7f4659cbca53d0abbeee8985ac9109f1623751903ccea8606f7dabdd823e",
+        "sha256_in_prefix": "06fb7f4659cbca53d0abbeee8985ac9109f1623751903ccea8606f7dabdd823e",
+        "size_in_bytes": 67
+      },
+      {
+        "_path": "Lib/site-packages/ta_lib-0.6.4.dist-info/licenses/AUTHORS",
+        "path_type": "hardlink",
+        "sha256": "d7c01547506b1c100661317fdf395260852eb2de76d5df2b6247796769a21814",
+        "sha256_in_prefix": "d7c01547506b1c100661317fdf395260852eb2de76d5df2b6247796769a21814",
+        "size_in_bytes": 174
+      },
+      {
+        "_path": "Lib/site-packages/ta_lib-0.6.4.dist-info/licenses/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "654bc6faa089488772423c7624c3191b8779cc61203d7d40068bd0cfeb7ede8b",
+        "sha256_in_prefix": "654bc6faa089488772423c7624c3191b8779cc61203d7d40068bd0cfeb7ede8b",
+        "size_in_bytes": 1201
+      },
+      {
+        "_path": "Lib/site-packages/ta_lib-0.6.4.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "64370deb0412617c71d32f68ba4828e3f9d38d300aeaa0942da33fe8cc2db62e",
+        "sha256_in_prefix": "64370deb0412617c71d32f68ba4828e3f9d38d300aeaa0942da33fe8cc2db62e",
+        "size_in_bytes": 6
+      },
+      {
+        "_path": "Lib/site-packages/talib/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "b02092831359182d44353328b79ba0a85716d42cbd593200a4216d3899e99a07",
+        "sha256_in_prefix": "b02092831359182d44353328b79ba0a85716d42cbd593200a4216d3899e99a07",
+        "size_in_bytes": 9536
+      },
+      {
+        "_path": "Lib/site-packages/talib/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "hardlink",
+        "sha256": "22cd55741ccbe0688a9ea4cad747a840d7c19341024d59f24594e3cbc172b376",
+        "sha256_in_prefix": "22cd55741ccbe0688a9ea4cad747a840d7c19341024d59f24594e3cbc172b376",
+        "size_in_bytes": 6493
+      },
+      {
+        "_path": "Lib/site-packages/talib/__pycache__/abstract.cpython-310.pyc",
+        "path_type": "hardlink",
+        "sha256": "2c22d775e0129ec9628a3e6a2c521f58c0d40b3a676a149909a340102a553448",
+        "sha256_in_prefix": "2c22d775e0129ec9628a3e6a2c521f58c0d40b3a676a149909a340102a553448",
+        "size_in_bytes": 863
+      },
+      {
+        "_path": "Lib/site-packages/talib/__pycache__/deprecated.cpython-310.pyc",
+        "path_type": "hardlink",
+        "sha256": "21b89fe79a2d71620d386c0f09b2a07f04bc84e0e71ea499511b4c6e00b3bd5a",
+        "sha256_in_prefix": "21b89fe79a2d71620d386c0f09b2a07f04bc84e0e71ea499511b4c6e00b3bd5a",
+        "size_in_bytes": 242
+      },
+      {
+        "_path": "Lib/site-packages/talib/__pycache__/stream.cpython-310.pyc",
+        "path_type": "hardlink",
+        "sha256": "e9973c13961e72f94c30647849bd67c73b55ec4a547c3364de373be487b4d9b6",
+        "sha256_in_prefix": "e9973c13961e72f94c30647849bd67c73b55ec4a547c3364de373be487b4d9b6",
+        "size_in_bytes": 289
+      },
+      {
+        "_path": "Lib/site-packages/talib/_abstract.pxi",
+        "path_type": "hardlink",
+        "sha256": "0fc8ba04b117e1cc3d8e9364d5e14fadb0a529098bad4352ee284ebd0cc540af",
+        "sha256_in_prefix": "0fc8ba04b117e1cc3d8e9364d5e14fadb0a529098bad4352ee284ebd0cc540af",
+        "size_in_bytes": 31158
+      },
+      {
+        "_path": "Lib/site-packages/talib/_common.pxi",
+        "path_type": "hardlink",
+        "sha256": "e8bffba521f2a406efbc947464c10ea7b1c766e9b700063fce2eeb21530c6b4c",
+        "sha256_in_prefix": "e8bffba521f2a406efbc947464c10ea7b1c766e9b700063fce2eeb21530c6b4c",
+        "size_in_bytes": 4942
+      },
+      {
+        "_path": "Lib/site-packages/talib/_func.pxi",
+        "path_type": "hardlink",
+        "sha256": "b3f61d1d2d97b853a4ebda4794400ee37342207090f9d76e0e9a8ddb67f13894",
+        "sha256_in_prefix": "b3f61d1d2d97b853a4ebda4794400ee37342207090f9d76e0e9a8ddb67f13894",
+        "size_in_bytes": 210567
+      },
+      {
+        "_path": "Lib/site-packages/talib/_stream.pxi",
+        "path_type": "hardlink",
+        "sha256": "422b1923aed96224a662593d525c3fcadfa31ea4d318c53cf18d6dacd10ae38c",
+        "sha256_in_prefix": "422b1923aed96224a662593d525c3fcadfa31ea4d318c53cf18d6dacd10ae38c",
+        "size_in_bytes": 179587
+      },
+      {
+        "_path": "Lib/site-packages/talib/_ta_lib.c",
+        "path_type": "hardlink",
+        "sha256": "f232ee5062bd93762114928bd52ade9f65782e880590b8ef8d4b1c9020cd12ad",
+        "sha256_in_prefix": "f232ee5062bd93762114928bd52ade9f65782e880590b8ef8d4b1c9020cd12ad",
+        "size_in_bytes": 5103804
+      },
+      {
+        "_path": "Lib/site-packages/talib/_ta_lib.cp310-win_amd64.pyd",
+        "path_type": "hardlink",
+        "sha256": "fd4697eeeb8719505ebba8a175b62c75667f5fed431bddb1228a31f109143197",
+        "sha256_in_prefix": "fd4697eeeb8719505ebba8a175b62c75667f5fed431bddb1228a31f109143197",
+        "size_in_bytes": 1614848
+      },
+      {
+        "_path": "Lib/site-packages/talib/_ta_lib.pyi",
+        "path_type": "hardlink",
+        "sha256": "fc2f68a3adad9c7560afe4ae5ff3071387f7fab1bbb4860bfea7fd8cc4109437",
+        "sha256_in_prefix": "fc2f68a3adad9c7560afe4ae5ff3071387f7fab1bbb4860bfea7fd8cc4109437",
+        "size_in_bytes": 54887
+      },
+      {
+        "_path": "Lib/site-packages/talib/_ta_lib.pyx",
+        "path_type": "hardlink",
+        "sha256": "93b6a53f9c788d19da3c6d89269365d5b81e286bd58bc84318612d6e6336eacf",
+        "sha256_in_prefix": "93b6a53f9c788d19da3c6d89269365d5b81e286bd58bc84318612d6e6336eacf",
+        "size_in_bytes": 178
+      },
+      {
+        "_path": "Lib/site-packages/talib/abstract.py",
+        "path_type": "hardlink",
+        "sha256": "b468b649c6d19551ee0b3ef04755f50e0a8a87aff1b3180b337ee2afc0fbb89b",
+        "sha256_in_prefix": "b468b649c6d19551ee0b3ef04755f50e0a8a87aff1b3180b337ee2afc0fbb89b",
+        "size_in_bytes": 799
+      },
+      {
+        "_path": "Lib/site-packages/talib/deprecated.py",
+        "path_type": "hardlink",
+        "sha256": "519e151a9aaa8598b90e3cba67d16cdbb3fb80fe8abe8f54c7bed59ac630ee98",
+        "sha256_in_prefix": "519e151a9aaa8598b90e3cba67d16cdbb3fb80fe8abe8f54c7bed59ac630ee98",
+        "size_in_bytes": 105
+      },
+      {
+        "_path": "Lib/site-packages/talib/py.typed",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "Lib/site-packages/talib/stream.py",
+        "path_type": "hardlink",
+        "sha256": "af1809e8906c7321e3f4a346435a7a3ed5864cd3cdb96cf1b947879e3ecd60f8",
+        "sha256_in_prefix": "af1809e8906c7321e3f4a346435a7a3ed5864cd3cdb96cf1b947879e3ecd60f8",
+        "size_in_bytes": 186
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "ta-lib",
+  "sha256": "c82b73ea77f32b9031ac55a587e9a5ef95ccb30bfc89c8613ef2646d34b4a2a3",
+  "size": 630701,
+  "subdir": "win-64",
+  "timestamp": 1754257271000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/win-64/ta-lib-0.6.4-py310h8f3aa81_0.conda",
+  "version": "0.6.4"
+}

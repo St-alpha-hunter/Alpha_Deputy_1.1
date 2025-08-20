@@ -23,7 +23,7 @@ namespace api.Repository
         }
         public async Task<Factor> CreateAsync(Factor factorModel)
         {
-            var exists = await _context.Factors.AnyAsync(f => f.Name == factorModel.Name);
+            var exists = await _context.Factors.AnyAsync(f => f.Name == factorModel.Name || f.CodeKey == factorModel.CodeKey);
             if (exists)
             {
                 return null; // 或者抛出自定义异常
@@ -38,6 +38,12 @@ namespace api.Repository
         {
             var existing = await _context.Factors.FindAsync(id);
             if (existing == null) return null;
+            // 检查 CodeKey 是否唯一
+            if (!string.IsNullOrEmpty(updateDto.CodeKey) &&
+                await _context.Factors.AnyAsync(f => f.CodeKey == updateDto.CodeKey && f.Id != id))
+            {
+                return null; // 或抛异常
+            }
 
             existing.UpdateEntity(updateDto);
             await _context.SaveChangesAsync();
@@ -68,6 +74,16 @@ namespace api.Repository
             {
                 factorModel = factorModel.Where(f => f.Category == queryFactor.Category);
             }
+            // 新增模糊搜索
+            if (!string.IsNullOrEmpty(queryFactor.Query))
+            {
+                factorModel = factorModel.Where(f =>
+                    f.Name.Contains(queryFactor.Query) ||
+                    f.Description.Contains(queryFactor.Query) ||
+                    f.CodeKey.Contains(queryFactor.Query)
+                );
+            }
+
 
             if (queryFactor.IsDecsending == true)
             {
@@ -76,9 +92,9 @@ namespace api.Repository
             return await factorModel.ToListAsync();
         }
 
-        public async Task<Factor?> GetByIdAsync(int id) 
+        public async Task<Factor?> GetByIdAsync(FactorQueryObject queryFactor)
         {
-            return await _context.Factors.FirstOrDefaultAsync(f => f.Id == id);
+            return await _context.Factors.FirstOrDefaultAsync(f => f.Id == queryFactor.Id);
         }
 
     }

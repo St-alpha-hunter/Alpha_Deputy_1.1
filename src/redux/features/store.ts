@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from "../api/apiSlice";
 import { saveToLocalStorage } from "../../Utils/localStorage";
-
+import sessionReducer from "../features/auth/authSlice";
 
 //各个模块
 import factorReducer from '../features/Factors/factorSlice';
@@ -11,6 +11,7 @@ import factorReducer from '../features/Factors/factorSlice';
 export const store = configureStore({
   reducer: {
     factor: factorReducer,
+    session: sessionReducer,
     // 其他slice可以按模块继续加
   },
 });

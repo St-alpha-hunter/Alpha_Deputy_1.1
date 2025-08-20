@@ -99,7 +99,7 @@ const handleSubmit = (e: React.FormEvent) => {
           onChange={e => setSlip(Number(e.target.value))}
         />
       </div>
-      <button type="submit" className='bg-red-500 text-white rounded-lg p-2'>Start Backtest</button>
+      <button type="submit" className='bg-red-500 text-white rounded-lg p-2'>Confirm Params</button>
     </form>
   );
 };
