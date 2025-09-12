@@ -6,7 +6,7 @@ import type { AxiosError } from "axios";
 
 
 export const handleError = (error: any) => {
-  if ((axios as AxiosError).isAxiosError(error)) {
+  if (axios.isAxiosError(error)) {
     var err = error.response;
     if (Array.isArray(err?.data.errors)) {
       for (let val of err?.data.errors) {

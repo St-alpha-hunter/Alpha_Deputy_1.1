@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from api.routes import router as api_router
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -12,8 +13,13 @@ def read_root():
     return {"message": "Welcome to the FastAPI application!"}
 
 
+@app.get("/healthz")
+def healthz():
+    return {"status": "ok"}
+
 app.add_middleware(
     CORSMiddleware,
+    ##allow_origins=["*"],
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],  # 两个都放行更稳
     allow_credentials=True,
     allow_methods=["*"],

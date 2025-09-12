@@ -11,6 +11,7 @@ import CashFlowStatement from "../Components/CashFlowStatement/CashFlowStatement
 import SessionPage from "../Pages/SessionPage/SessionPage";
 import AnalysisPage from "../Pages/AnalysisPage/AnalysisPage";
 import FactorDeckPage from "../Pages/FactorDeckPage/FactorDeckPage";
+import BacktestResultPage from "../Pages/BacktestResultPage/BacktestResultPage";
 import StrategyWarehouse from "../Pages/StrategyWarehouse/StrategyWarehouse";
 import CodeFactor from "../Pages/CodeFactor/CodeFactor";
 import LoginPage from "../Pages/LoginPage/LoginPage";
@@ -29,7 +30,6 @@ export const router = createBrowserRouter([
             { path: "company/:ticker", element:<ProtectedRoute><CompanyPage/></ProtectedRoute>},
             { path: "design-guide", element:<DesignGuide/>},
             { path: "session", element:<ProtectedRoute><SessionPage/></ProtectedRoute>},
-            { path: "report", element:<ProtectedRoute><AnalysisPage/></ProtectedRoute>},
             { path: "deck", element:<ProtectedRoute><FactorDeckPage/></ProtectedRoute>},
             { path: "strategy-warehouse", element: <StrategyWarehouse/>},
             { path: "coding", element: <CodeFactor/>},
@@ -47,7 +47,28 @@ export const router = createBrowserRouter([
                 {path: "balance-sheet", element: <BalanceSheet/>},
                 {path: "cashflow-statement", element: <CashFlowStatement/>} 
               ]
-            }            
+            },
+            
+            { 
+              path: "report", 
+              element: (
+                <ProtectedRoute>
+                  <AnalysisPage/>
+                </ProtectedRoute>
+              ),
+              children: [
+                { path: "{session_Id}", element: <CompanyProfile/> }
+              ]
+            },
+
+           {
+              path: "report/:session_id",
+              element: (
+                <ProtectedRoute>
+                  <BacktestResultPage/>
+                </ProtectedRoute>
+              )
+            }
        ],
     },
 ]);

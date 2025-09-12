@@ -7,7 +7,7 @@ import Factor from '../Factor/Factor';
 import { FactorSelectionForm } from '../../Service/FactorService';
 import type { FactorSelectionModel } from '../../Service/FactorService';
 import { toast } from 'react-toastify';
-
+import { setSessionId } from "../../redux/features/auth/authSlice";
 
 
 interface Props {
@@ -90,23 +90,29 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
 // undefined 时，才返回右侧的默认值；否则返回左侧值
 
 
-      const handleSubmit = (e: React.FormEvent) => {
+      const handleSubmit = async(e: React.FormEvent) => {
         e.preventDefault();
 
         const data: FactorSelectionModel[] = selectedFactors.map(f => ({
           name: f.name ?? "",
           weight: f.weight ?? 0,
-          code: f.code as string,
-          code_key: f.code_key as string,
+          CodeCompute: f.computeCode,
+          CodeKey: f.code_key as string,
         }));
 
-        FactorSelectionForm(data)
-          .then(response => {
-            toast.success("Factors submitted successfully!");
-          })
-          .catch(error => {
-            toast.error("Failed to submit factors.");
-          });
+        try {
+          const res = await FactorSelectionForm(data);
+          toast.success("Factors submitted successfully!");
+          console.log("Submitted Factors:", res);
+
+          // 如果后端返回 session_id，可以在这里处理
+          if (res?.session_id) {
+            dispatch(setSessionId(res.session_id));
+            localStorage.setItem("session_id", res.session_id);
+          }
+        } catch {
+          toast.error("Failed to submit factors.");
+        }
       };
 
       return (
@@ -151,11 +157,8 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
             </div>
           </form>
 
-
-
         </div>
       );
-
     }
 
 

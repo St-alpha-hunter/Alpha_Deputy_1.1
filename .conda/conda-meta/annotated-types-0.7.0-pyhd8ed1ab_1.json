@@ -20,7 +20,6 @@
     "Lib/site-packages/annotated_types/__init__.py",
     "Lib/site-packages/annotated_types/py.typed",
     "Lib/site-packages/annotated_types/test_cases.py",
-    ".nonadmin",
     "Lib/site-packages/annotated_types/__pycache__/__init__.cpython-310.pyc",
     "Lib/site-packages/annotated_types/__pycache__/test_cases.cpython-310.pyc"
   ],

@@ -1,5 +1,5 @@
 import type { JSX, SyntheticEvent } from 'react';
-import './card.css'
+import './Card.css'
 import type { CompanySearch } from '../../company';
 import AddPortfolio from '../Portfolio/AddPortfolio/AddPortfolio';
 import { Link } from 'react-router-dom';

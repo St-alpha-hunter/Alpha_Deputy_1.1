@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import  { StockSelectionForm } from '../../Service/StockSelection';
 import { StockSelectionModel } from '../../Service/StockSelection';
+import { FixParams } from '../../Service/StockSelection';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../redux/features/store';
+import type { StockSelectionResponse } from '../../Service/StockSelection';
 
-type Props = {};
+
+type Props = {
+  OnSubmit: (data: StockSelectionModel, fixParams: FixParams) => void;
+};
 
 const industries = [
     "Advertising Agencies",
@@ -167,15 +172,18 @@ const industries = [
 ];
 
 
-const StockSelection = (props: Props) => {
+const StockSelection = ( { OnSubmit }: Props) => {
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [poolSize, setPoolSize] = useState<number>(10);
   const [maxIndustryExposure, setMaxIndustryExposure] = useState<number>(50);
+  const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
 
+
+  
   const allSelected = selectedIndustries.length === industries.length;
   const session_id = useSelector((state: RootState) => state.session.session_id); // 从前端状态或后端获取
-  const start = "2020-08-10";
-  const end = "2024-06-30";
+  const start = "2020-08-06";
+  const end = "2022-12-31";
   const handleIndustryChange = (industry: string) => {
     setSelectedIndustries(prev =>
       prev.includes(industry)
@@ -194,18 +202,22 @@ const StockSelection = (props: Props) => {
     const data = new StockSelectionModel(
       poolSize,
       selectedIndustries,
-      maxIndustryExposure
+      maxIndustryExposure,
+      session_id
     );
 
-    StockSelectionForm(data, session_id, start, end)
-      .then((res) => {
-        if (res) {
-          toast.success("Stock selection submitted successfully!");
-        }
-      })
-      .catch((error) => {
-        toast.error("Failed to submit stock selection: " + error.message);
-      });
+    const fixParams = new FixParams(session_id, start, end);
+    OnSubmit(data, fixParams);
+    // StockSelectionForm(data, fixParams)
+    //   .then((res) => {
+    //     if (res) {
+    //       setSelectedStocks(res.selected_stocks);
+    //       toast.success("Stock selection submitted successfully!");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     toast.error("Failed to submit stock selection: " + error.message);
+    //   });
   };
 
 

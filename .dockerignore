@@ -1,0 +1,14 @@
+# 忽略 node_modules
+node_modules
+**/node_modules
+
+# 忽略日志
+*.log
+
+# 忽略 git
+.git
+.gitignore
+
+# 忽略 Docker 自身文件
+Dockerfile
+docker-compose.yml

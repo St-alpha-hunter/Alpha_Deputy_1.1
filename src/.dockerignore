@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.vite/
+coverage/
+
+# 环境文件（如果你的镜像构建期不需要）
+.env
+.env.*.local
+
+# Git / IDE / 系统
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Docker 自身文件（可选忽略）
+Dockerfile
+docker-compose.yml

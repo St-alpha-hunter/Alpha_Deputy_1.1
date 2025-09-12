@@ -93,5 +93,15 @@ namespace api.Controllers
             return Ok(factor);
         }
 
+        [HttpGet("GetByCategory")]
+        public async Task<IActionResult> GetByCategory([FromQuery] string category)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var factors = await _factorRepo.GetFactorsByCategoryAsync(category);
+            var factorDto = factors.Select(f => f.ToFactorDto());
+            return Ok(factorDto);
+        }
+
     }
 }

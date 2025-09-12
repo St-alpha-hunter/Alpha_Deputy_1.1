@@ -6,14 +6,15 @@ import Factor from "../Factor/Factor";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import type { MinimalFactor } from "../Factor/Factor";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 type DropZoneProps = {
     //Partial就是把所有的属性都变成可选的
   selectedFactors: FactorProps[];
-  onDropFactor?: (factor:  MinimalFactor) => void;
+  onDropFactor?: (factor:  FactorProps) => void;
   FactorDelete?: (factor:  MinimalFactor) => void;
 };
+
 
 
 
@@ -29,7 +30,7 @@ const FactorDropZone: FC<DropZoneProps> = ({ selectedFactors, onDropFactor, Fact
 
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: "FACTOR",
-    drop: (factor: { id: string; name?: string }) => {
+    drop: (factor: FactorProps) => {
     if(onDropFactor){
          onDropFactor(factor);
     }

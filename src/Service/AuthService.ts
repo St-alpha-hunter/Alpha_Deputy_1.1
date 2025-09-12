@@ -2,11 +2,13 @@ import axios from "axios";
 import { handleError } from "../Helpers/ErrorHandler";
 import  type { UserProfileToken } from "../Models/User";
 
-const api = "http://localhost:5213/api/";
+const api = `${import.meta.env.VITE_API_BASE}`;
+console.log('VITE_API_BASE:', import.meta.env.VITE_API_BASE);
+
 
 export const loginAPI = async (username: string, password: string) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "account/login", {
+    const data = await axios.post<UserProfileToken>(api + "/account/login", {
       username: username,
       password: password,
     });
@@ -22,7 +24,7 @@ export const registerAPI = async (
   password: string
 ) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "account/register", {
+    const data = await axios.post<UserProfileToken>(api + "/account/register", {
       EmailAddress: email,
       Username: username,
       Password: password,

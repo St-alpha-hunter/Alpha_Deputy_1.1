@@ -22,7 +22,6 @@
     "Lib/site-packages/typing_inspection/py.typed",
     "Lib/site-packages/typing_inspection/typing_objects.py",
     "Lib/site-packages/typing_inspection/typing_objects.pyi",
-    ".nonadmin",
     "Lib/site-packages/typing_inspection/__pycache__/__init__.cpython-310.pyc",
     "Lib/site-packages/typing_inspection/__pycache__/introspection.cpython-310.pyc",
     "Lib/site-packages/typing_inspection/__pycache__/typing_objects.cpython-310.pyc"

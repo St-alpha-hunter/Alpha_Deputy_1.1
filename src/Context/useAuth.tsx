@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import type { UserProfile } from "../Models/User";
 import { useNavigate } from "react-router-dom";
 import { loginAPI, registerAPI } from "../Service/AuthService";
+import { useDispatch } from "react-redux";
+import { setSessionId } from "../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import React from "react";
 import axios from "axios";
@@ -24,6 +26,7 @@ export const UserProvider = ({ children }: Props) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const user = localStorage.getItem("user");

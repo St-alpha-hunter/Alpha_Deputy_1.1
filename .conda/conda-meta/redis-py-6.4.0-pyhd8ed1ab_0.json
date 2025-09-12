@@ -1,0 +1,1051 @@
+{
+  "build": "pyhd8ed1ab_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/noarch",
+  "constrains": [],
+  "depends": [
+    "async-timeout >=4.0.3",
+    "python >=3.9"
+  ],
+  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\redis-py-6.4.0-pyhd8ed1ab_0",
+  "features": "",
+  "files": [
+    "Lib/site-packages/redis-6.4.0.dist-info/INSTALLER",
+    "Lib/site-packages/redis-6.4.0.dist-info/METADATA",
+    "Lib/site-packages/redis-6.4.0.dist-info/RECORD",
+    "Lib/site-packages/redis-6.4.0.dist-info/REQUESTED",
+    "Lib/site-packages/redis-6.4.0.dist-info/WHEEL",
+    "Lib/site-packages/redis-6.4.0.dist-info/direct_url.json",
+    "Lib/site-packages/redis-6.4.0.dist-info/licenses/LICENSE",
+    "Lib/site-packages/redis/__init__.py",
+    "Lib/site-packages/redis/_parsers/__init__.py",
+    "Lib/site-packages/redis/_parsers/base.py",
+    "Lib/site-packages/redis/_parsers/commands.py",
+    "Lib/site-packages/redis/_parsers/encoders.py",
+    "Lib/site-packages/redis/_parsers/helpers.py",
+    "Lib/site-packages/redis/_parsers/hiredis.py",
+    "Lib/site-packages/redis/_parsers/resp2.py",
+    "Lib/site-packages/redis/_parsers/resp3.py",
+    "Lib/site-packages/redis/_parsers/socket.py",
+    "Lib/site-packages/redis/asyncio/__init__.py",
+    "Lib/site-packages/redis/asyncio/client.py",
+    "Lib/site-packages/redis/asyncio/cluster.py",
+    "Lib/site-packages/redis/asyncio/connection.py",
+    "Lib/site-packages/redis/asyncio/lock.py",
+    "Lib/site-packages/redis/asyncio/retry.py",
+    "Lib/site-packages/redis/asyncio/sentinel.py",
+    "Lib/site-packages/redis/asyncio/utils.py",
+    "Lib/site-packages/redis/auth/__init__.py",
+    "Lib/site-packages/redis/auth/err.py",
+    "Lib/site-packages/redis/auth/idp.py",
+    "Lib/site-packages/redis/auth/token.py",
+    "Lib/site-packages/redis/auth/token_manager.py",
+    "Lib/site-packages/redis/backoff.py",
+    "Lib/site-packages/redis/cache.py",
+    "Lib/site-packages/redis/client.py",
+    "Lib/site-packages/redis/cluster.py",
+    "Lib/site-packages/redis/commands/__init__.py",
+    "Lib/site-packages/redis/commands/bf/__init__.py",
+    "Lib/site-packages/redis/commands/bf/commands.py",
+    "Lib/site-packages/redis/commands/bf/info.py",
+    "Lib/site-packages/redis/commands/cluster.py",
+    "Lib/site-packages/redis/commands/core.py",
+    "Lib/site-packages/redis/commands/helpers.py",
+    "Lib/site-packages/redis/commands/json/__init__.py",
+    "Lib/site-packages/redis/commands/json/_util.py",
+    "Lib/site-packages/redis/commands/json/commands.py",
+    "Lib/site-packages/redis/commands/json/decoders.py",
+    "Lib/site-packages/redis/commands/json/path.py",
+    "Lib/site-packages/redis/commands/redismodules.py",
+    "Lib/site-packages/redis/commands/search/__init__.py",
+    "Lib/site-packages/redis/commands/search/_util.py",
+    "Lib/site-packages/redis/commands/search/aggregation.py",
+    "Lib/site-packages/redis/commands/search/commands.py",
+    "Lib/site-packages/redis/commands/search/dialect.py",
+    "Lib/site-packages/redis/commands/search/document.py",
+    "Lib/site-packages/redis/commands/search/field.py",
+    "Lib/site-packages/redis/commands/search/index_definition.py",
+    "Lib/site-packages/redis/commands/search/profile_information.py",
+    "Lib/site-packages/redis/commands/search/query.py",
+    "Lib/site-packages/redis/commands/search/querystring.py",
+    "Lib/site-packages/redis/commands/search/reducers.py",
+    "Lib/site-packages/redis/commands/search/result.py",
+    "Lib/site-packages/redis/commands/search/suggestion.py",
+    "Lib/site-packages/redis/commands/sentinel.py",
+    "Lib/site-packages/redis/commands/timeseries/__init__.py",
+    "Lib/site-packages/redis/commands/timeseries/commands.py",
+    "Lib/site-packages/redis/commands/timeseries/info.py",
+    "Lib/site-packages/redis/commands/timeseries/utils.py",
+    "Lib/site-packages/redis/commands/vectorset/__init__.py",
+    "Lib/site-packages/redis/commands/vectorset/commands.py",
+    "Lib/site-packages/redis/commands/vectorset/utils.py",
+    "Lib/site-packages/redis/connection.py",
+    "Lib/site-packages/redis/crc.py",
+    "Lib/site-packages/redis/credentials.py",
+    "Lib/site-packages/redis/event.py",
+    "Lib/site-packages/redis/exceptions.py",
+    "Lib/site-packages/redis/lock.py",
+    "Lib/site-packages/redis/ocsp.py",
+    "Lib/site-packages/redis/py.typed",
+    "Lib/site-packages/redis/retry.py",
+    "Lib/site-packages/redis/sentinel.py",
+    "Lib/site-packages/redis/typing.py",
+    "Lib/site-packages/redis/utils.py",
+    "Lib/site-packages/redis/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/_parsers/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/_parsers/__pycache__/base.cpython-310.pyc",
+    "Lib/site-packages/redis/_parsers/__pycache__/commands.cpython-310.pyc",
+    "Lib/site-packages/redis/_parsers/__pycache__/encoders.cpython-310.pyc",
+    "Lib/site-packages/redis/_parsers/__pycache__/helpers.cpython-310.pyc",
+    "Lib/site-packages/redis/_parsers/__pycache__/hiredis.cpython-310.pyc",
+    "Lib/site-packages/redis/_parsers/__pycache__/resp2.cpython-310.pyc",
+    "Lib/site-packages/redis/_parsers/__pycache__/resp3.cpython-310.pyc",
+    "Lib/site-packages/redis/_parsers/__pycache__/socket.cpython-310.pyc",
+    "Lib/site-packages/redis/asyncio/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/asyncio/__pycache__/client.cpython-310.pyc",
+    "Lib/site-packages/redis/asyncio/__pycache__/cluster.cpython-310.pyc",
+    "Lib/site-packages/redis/asyncio/__pycache__/connection.cpython-310.pyc",
+    "Lib/site-packages/redis/asyncio/__pycache__/lock.cpython-310.pyc",
+    "Lib/site-packages/redis/asyncio/__pycache__/retry.cpython-310.pyc",
+    "Lib/site-packages/redis/asyncio/__pycache__/sentinel.cpython-310.pyc",
+    "Lib/site-packages/redis/asyncio/__pycache__/utils.cpython-310.pyc",
+    "Lib/site-packages/redis/auth/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/auth/__pycache__/err.cpython-310.pyc",
+    "Lib/site-packages/redis/auth/__pycache__/idp.cpython-310.pyc",
+    "Lib/site-packages/redis/auth/__pycache__/token.cpython-310.pyc",
+    "Lib/site-packages/redis/auth/__pycache__/token_manager.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/backoff.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/cache.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/client.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/cluster.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/bf/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/bf/__pycache__/commands.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/bf/__pycache__/info.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/__pycache__/cluster.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/__pycache__/core.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/__pycache__/helpers.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/json/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/json/__pycache__/_util.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/json/__pycache__/commands.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/json/__pycache__/decoders.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/json/__pycache__/path.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/__pycache__/redismodules.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/_util.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/aggregation.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/commands.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/dialect.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/document.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/field.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/index_definition.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/profile_information.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/query.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/querystring.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/reducers.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/result.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/search/__pycache__/suggestion.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/__pycache__/sentinel.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/timeseries/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/timeseries/__pycache__/commands.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/timeseries/__pycache__/info.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/timeseries/__pycache__/utils.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/vectorset/__pycache__/__init__.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/vectorset/__pycache__/commands.cpython-310.pyc",
+    "Lib/site-packages/redis/commands/vectorset/__pycache__/utils.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/connection.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/crc.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/credentials.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/event.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/exceptions.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/lock.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/ocsp.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/retry.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/sentinel.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/typing.cpython-310.pyc",
+    "Lib/site-packages/redis/__pycache__/utils.cpython-310.pyc"
+  ],
+  "fn": "redis-py-6.4.0-pyhd8ed1ab_0.conda",
+  "license": "MIT",
+  "link": {
+    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\redis-py-6.4.0-pyhd8ed1ab_0",
+    "type": 1
+  },
+  "md5": "fb15bbf18cd7f44daf7dd954f1898dcc",
+  "name": "redis-py",
+  "noarch": "python",
+  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\redis-py-6.4.0-pyhd8ed1ab_0.conda",
+  "package_type": "noarch_python",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "site-packages/redis-6.4.0.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "site-packages/redis-6.4.0.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "6cd5ffbb8f101740a8e8238ec01a397b2706d859416c11bc39e5a7cf6a4ef634",
+        "sha256_in_prefix": "6cd5ffbb8f101740a8e8238ec01a397b2706d859416c11bc39e5a7cf6a4ef634",
+        "size_in_bytes": 10784
+      },
+      {
+        "_path": "site-packages/redis-6.4.0.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "f8388655704ef1f6247ef2b0146e54c253647a9f624489c75686dc388fed49a1",
+        "sha256_in_prefix": "f8388655704ef1f6247ef2b0146e54c253647a9f624489c75686dc388fed49a1",
+        "size_in_bytes": 10659
+      },
+      {
+        "_path": "site-packages/redis-6.4.0.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/redis-6.4.0.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724",
+        "sha256_in_prefix": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724",
+        "size_in_bytes": 87
+      },
+      {
+        "_path": "site-packages/redis-6.4.0.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "d69d653e7a91d7585c2f8f3fe78da0c5dea5953ca33e4570e1218ad59df0bd83",
+        "sha256_in_prefix": "d69d653e7a91d7585c2f8f3fe78da0c5dea5953ca33e4570e1218ad59df0bd83",
+        "size_in_bytes": 104
+      },
+      {
+        "_path": "site-packages/redis-6.4.0.dist-info/licenses/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "a57b250a5bf03d7afe55b74063313f2adb7b00d546c0ab149a89398333fe3cc8",
+        "sha256_in_prefix": "a57b250a5bf03d7afe55b74063313f2adb7b00d546c0ab149a89398333fe3cc8",
+        "size_in_bytes": 1074
+      },
+      {
+        "_path": "site-packages/redis/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "7c3fc01594611d178531ba66445a923da96dc66b5aa5f20f5b2155ce225dd1e2",
+        "sha256_in_prefix": "7c3fc01594611d178531ba66445a923da96dc66b5aa5f20f5b2155ce225dd1e2",
+        "size_in_bytes": 2048
+      },
+      {
+        "_path": "site-packages/redis/_parsers/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "8327f9769f75f0db8902458597cb17d59faa02f6d7ff8d3effb6024cce91be37",
+        "sha256_in_prefix": "8327f9769f75f0db8902458597cb17d59faa02f6d7ff8d3effb6024cce91be37",
+        "size_in_bytes": 693
+      },
+      {
+        "_path": "site-packages/redis/_parsers/base.py",
+        "path_type": "hardlink",
+        "sha256": "93a9fbfa84e69b30148a2669681e957e3ce58ffb68af006c68f04461d3930da9",
+        "sha256_in_prefix": "93a9fbfa84e69b30148a2669681e957e3ce58ffb68af006c68f04461d3930da9",
+        "size_in_bytes": 9908
+      },
+      {
+        "_path": "site-packages/redis/_parsers/commands.py",
+        "path_type": "hardlink",
+        "sha256": "a66478865e2ef7752f0a678381e3c715cea9583af8b25aca12f0ac74c9ad8ff3",
+        "sha256_in_prefix": "a66478865e2ef7752f0a678381e3c715cea9583af8b25aca12f0ac74c9ad8ff3",
+        "size_in_bytes": 11052
+      },
+      {
+        "_path": "site-packages/redis/_parsers/encoders.py",
+        "path_type": "hardlink",
+        "sha256": "5f48ef4e9f84e13654959c55e4b249f3c4ee56b175be5cb9b6e0b4c63c466927",
+        "sha256_in_prefix": "5f48ef4e9f84e13654959c55e4b249f3c4ee56b175be5cb9b6e0b4c63c466927",
+        "size_in_bytes": 1734
+      },
+      {
+        "_path": "site-packages/redis/_parsers/helpers.py",
+        "path_type": "hardlink",
+        "sha256": "63a9f5e1f13478261b1774c1b89c61c9c9c9d721ca898a0026b38251a896a258",
+        "sha256_in_prefix": "63a9f5e1f13478261b1774c1b89c61c9c9c9d721ca898a0026b38251a896a258",
+        "size_in_bytes": 29223
+      },
+      {
+        "_path": "site-packages/redis/_parsers/hiredis.py",
+        "path_type": "hardlink",
+        "sha256": "8948cb4f9384803e33a85fed8374b39a0d5cffbdd1a335f28e3005b1560a0963",
+        "sha256_in_prefix": "8948cb4f9384803e33a85fed8374b39a0d5cffbdd1a335f28e3005b1560a0963",
+        "size_in_bytes": 10893
+      },
+      {
+        "_path": "site-packages/redis/_parsers/resp2.py",
+        "path_type": "hardlink",
+        "sha256": "7f6da41fefd93f688db4e9fac4e7bae4c4b2fdf269bbc3849f5bbf86079ea232",
+        "sha256_in_prefix": "7f6da41fefd93f688db4e9fac4e7bae4c4b2fdf269bbc3849f5bbf86079ea232",
+        "size_in_bytes": 4813
+      },
+      {
+        "_path": "site-packages/redis/_parsers/resp3.py",
+        "path_type": "hardlink",
+        "sha256": "b626516f22409ce6ea965d8b409e7b06bfb78f1c1070ca1c57819013f2e90ba8",
+        "sha256_in_prefix": "b626516f22409ce6ea965d8b409e7b06bfb78f1c1070ca1c57819013f2e90ba8",
+        "size_in_bytes": 9883
+      },
+      {
+        "_path": "site-packages/redis/_parsers/socket.py",
+        "path_type": "hardlink",
+        "sha256": "08a0fc416ff0152365219cf195b35db9a1a98afd08f3005cb06b802288c37c98",
+        "sha256_in_prefix": "08a0fc416ff0152365219cf195b35db9a1a98afd08f3005cb06b802288c37c98",
+        "size_in_bytes": 5403
+      },
+      {
+        "_path": "site-packages/redis/asyncio/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "ba80c3f176158b42a3ea672e7d8c0b0d44d05e6051c7b6b46e1285f6cb59afb2",
+        "sha256_in_prefix": "ba80c3f176158b42a3ea672e7d8c0b0d44d05e6051c7b6b46e1285f6cb59afb2",
+        "size_in_bytes": 1489
+      },
+      {
+        "_path": "site-packages/redis/asyncio/client.py",
+        "path_type": "hardlink",
+        "sha256": "e9ae7eb7161c44cb4e6e46fb05f8b4f0c290418d35a32e4d2a91c095f84814d3",
+        "sha256_in_prefix": "e9ae7eb7161c44cb4e6e46fb05f8b4f0c290418d35a32e4d2a91c095f84814d3",
+        "size_in_bytes": 61905
+      },
+      {
+        "_path": "site-packages/redis/asyncio/cluster.py",
+        "path_type": "hardlink",
+        "sha256": "d278a50cccb3fe86dabf125eb4edd2f1f801a1bf17ef0e0a21d7f174a7edb19c",
+        "sha256_in_prefix": "d278a50cccb3fe86dabf125eb4edd2f1f801a1bf17ef0e0a21d7f174a7edb19c",
+        "size_in_bytes": 90146
+      },
+      {
+        "_path": "site-packages/redis/asyncio/connection.py",
+        "path_type": "hardlink",
+        "sha256": "0f6f0e79c7ee7d27fa736809f14849868ae158ca477851f1c48696c6fbd01e87",
+        "sha256_in_prefix": "0f6f0e79c7ee7d27fa736809f14849868ae158ca477851f1c48696c6fbd01e87",
+        "size_in_bytes": 49197
+      },
+      {
+        "_path": "site-packages/redis/asyncio/lock.py",
+        "path_type": "hardlink",
+        "sha256": "1b1815e84b322a932387be0ab5a38fc61e1f34fbb0029cfa4e1e3aaa1beb030b",
+        "sha256_in_prefix": "1b1815e84b322a932387be0ab5a38fc61e1f34fbb0029cfa4e1e3aaa1beb030b",
+        "size_in_bytes": 12801
+      },
+      {
+        "_path": "site-packages/redis/asyncio/retry.py",
+        "path_type": "hardlink",
+        "sha256": "2249b4aecbe7148b6b69c03cf4374f71e8cba9bfd2af8401cfbdcec3f2d49b05",
+        "sha256_in_prefix": "2249b4aecbe7148b6b69c03cf4374f71e8cba9bfd2af8401cfbdcec3f2d49b05",
+        "size_in_bytes": 1880
+      },
+      {
+        "_path": "site-packages/redis/asyncio/sentinel.py",
+        "path_type": "hardlink",
+        "sha256": "3e993e8e54ee6dc1e96b496f8a7675a4f4ed439ac51d766491a099ec6fd3090b",
+        "sha256_in_prefix": "3e993e8e54ee6dc1e96b496f8a7675a4f4ed439ac51d766491a099ec6fd3090b",
+        "size_in_bytes": 14868
+      },
+      {
+        "_path": "site-packages/redis/asyncio/utils.py",
+        "path_type": "hardlink",
+        "sha256": "df5c45cd77330e0491c9fea14a38b0b9ed5e0d0fd794ffce25da7974ac56fda1",
+        "sha256_in_prefix": "df5c45cd77330e0491c9fea14a38b0b9ed5e0d0fd794ffce25da7974ac56fda1",
+        "size_in_bytes": 718
+      },
+      {
+        "_path": "site-packages/redis/auth/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/redis/auth/err.py",
+        "path_type": "hardlink",
+        "sha256": "59891bb83233c29d52f9e02fb326ba40c94eea0f502176f33084ceb13597d319",
+        "sha256_in_prefix": "59891bb83233c29d52f9e02fb326ba40c94eea0f502176f33084ceb13597d319",
+        "size_in_bytes": 694
+      },
+      {
+        "_path": "site-packages/redis/auth/idp.py",
+        "path_type": "hardlink",
+        "sha256": "20c0c821bf6aef6bdb230b4537cbcf75a00a6554dd8741ee0b9ba3e6e7ea9b0e",
+        "sha256_in_prefix": "20c0c821bf6aef6bdb230b4537cbcf75a00a6554dd8741ee0b9ba3e6e7ea9b0e",
+        "size_in_bytes": 631
+      },
+      {
+        "_path": "site-packages/redis/auth/token.py",
+        "path_type": "hardlink",
+        "sha256": "a98c00831156dd2f7740352aa75053b23ecf8fd6688678b119e397d2cec0b236",
+        "sha256_in_prefix": "a98c00831156dd2f7740352aa75053b23ecf8fd6688678b119e397d2cec0b236",
+        "size_in_bytes": 3317
+      },
+      {
+        "_path": "site-packages/redis/auth/token_manager.py",
+        "path_type": "hardlink",
+        "sha256": "4a106c61788164124138c07f63ea577cbc0438099cf6cd6891a0840a29cd67b8",
+        "sha256_in_prefix": "4a106c61788164124138c07f63ea577cbc0438099cf6cd6891a0840a29cd67b8",
+        "size_in_bytes": 12018
+      },
+      {
+        "_path": "site-packages/redis/backoff.py",
+        "path_type": "hardlink",
+        "sha256": "b5033a2e1da0d858cc1fc89783de1baf6b14f5eae2e26116f456ceaccb746b3b",
+        "sha256_in_prefix": "b5033a2e1da0d858cc1fc89783de1baf6b14f5eae2e26116f456ceaccb746b3b",
+        "size_in_bytes": 5285
+      },
+      {
+        "_path": "site-packages/redis/cache.py",
+        "path_type": "hardlink",
+        "sha256": "ebcac90cda20bcdc2076005e97acd25fd43388bd75aac2883219af42f1efce73",
+        "sha256_in_prefix": "ebcac90cda20bcdc2076005e97acd25fd43388bd75aac2883219af42f1efce73",
+        "size_in_bytes": 9549
+      },
+      {
+        "_path": "site-packages/redis/client.py",
+        "path_type": "hardlink",
+        "sha256": "5e6a3abdaf282a0ee4b03f2dbf9f8412b085ab73a1a5f7884ae47e9d60484520",
+        "sha256_in_prefix": "5e6a3abdaf282a0ee4b03f2dbf9f8412b085ab73a1a5f7884ae47e9d60484520",
+        "size_in_bytes": 62463
+      },
+      {
+        "_path": "site-packages/redis/cluster.py",
+        "path_type": "hardlink",
+        "sha256": "0a0286167a6bce2623b2bfbea966e163efb6a1a6964116ee2a87e2d50afd9b97",
+        "sha256_in_prefix": "0a0286167a6bce2623b2bfbea966e163efb6a1a6964116ee2a87e2d50afd9b97",
+        "size_in_bytes": 124120
+      },
+      {
+        "_path": "site-packages/redis/commands/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "713507f8c1af68b612d16ba8cadcaab4dd709e2c3603529b9145dca6f3926372",
+        "sha256_in_prefix": "713507f8c1af68b612d16ba8cadcaab4dd709e2c3603529b9145dca6f3926372",
+        "size_in_bytes": 576
+      },
+      {
+        "_path": "site-packages/redis/commands/bf/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "aa4e0303d2ac3223f8598a9878fd53e52701c1cb6c56d94bc8c86b608caad597",
+        "sha256_in_prefix": "aa4e0303d2ac3223f8598a9878fd53e52701c1cb6c56d94bc8c86b608caad597",
+        "size_in_bytes": 8019
+      },
+      {
+        "_path": "site-packages/redis/commands/bf/commands.py",
+        "path_type": "hardlink",
+        "sha256": "c5e2adf04ec6f0707e97ddb62740cb834ec210865354d1b1ff62dfcb0d6021c9",
+        "sha256_in_prefix": "c5e2adf04ec6f0707e97ddb62740cb834ec210865354d1b1ff62dfcb0d6021c9",
+        "size_in_bytes": 21283
+      },
+      {
+        "_path": "site-packages/redis/commands/bf/info.py",
+        "path_type": "hardlink",
+        "sha256": "fce076bff8403c8f66755362071f2352d1f632132872df59466f9ef089fac10a",
+        "sha256_in_prefix": "fce076bff8403c8f66755362071f2352d1f632132872df59466f9ef089fac10a",
+        "size_in_bytes": 3355
+      },
+      {
+        "_path": "site-packages/redis/commands/cluster.py",
+        "path_type": "hardlink",
+        "sha256": "bdd59da65e263f9d68a9f6016478390945edea33da369eda08b1f24e2783aedf",
+        "sha256_in_prefix": "bdd59da65e263f9d68a9f6016478390945edea33da369eda08b1f24e2783aedf",
+        "size_in_bytes": 31248
+      },
+      {
+        "_path": "site-packages/redis/commands/core.py",
+        "path_type": "hardlink",
+        "sha256": "46355b4f17bfbdf9eb6953aa4441faa1f354d8b317f3e646480cdde60df2a6f1",
+        "sha256_in_prefix": "46355b4f17bfbdf9eb6953aa4441faa1f354d8b317f3e646480cdde60df2a6f1",
+        "size_in_bytes": 241132
+      },
+      {
+        "_path": "site-packages/redis/commands/helpers.py",
+        "path_type": "hardlink",
+        "sha256": "542a0f741302af8c31756070d4407d47b6416d03347b1006d64c2ce17c2c0882",
+        "sha256_in_prefix": "542a0f741302af8c31756070d4407d47b6416d03347b1006d64c2ce17c2c0882",
+        "size_in_bytes": 3318
+      },
+      {
+        "_path": "site-packages/redis/commands/json/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "6f39d784b611eb9dab7cb7cba7c733d1937462bf08471e0580e37fb6af7fd88a",
+        "sha256_in_prefix": "6f39d784b611eb9dab7cb7cba7c733d1937462bf08471e0580e37fb6af7fd88a",
+        "size_in_bytes": 4845
+      },
+      {
+        "_path": "site-packages/redis/commands/json/_util.py",
+        "path_type": "hardlink",
+        "sha256": "848050d532c24e05227dc2ec834c7c90995e731997840f48d333271e5424d07a",
+        "sha256_in_prefix": "848050d532c24e05227dc2ec834c7c90995e731997840f48d333271e5424d07a",
+        "size_in_bytes": 137
+      },
+      {
+        "_path": "site-packages/redis/commands/json/commands.py",
+        "path_type": "hardlink",
+        "sha256": "8a1f2ea67c5e3a98cf65735fa9e1416318823760a6caff141aedc09509d3e894",
+        "sha256_in_prefix": "8a1f2ea67c5e3a98cf65735fa9e1416318823760a6caff141aedc09509d3e894",
+        "size_in_bytes": 15723
+      },
+      {
+        "_path": "site-packages/redis/commands/json/decoders.py",
+        "path_type": "hardlink",
+        "sha256": "6bf228315ff081e2725227c3e0fe874dc33db3a161ae27309b341c65199cf86c",
+        "sha256_in_prefix": "6bf228315ff081e2725227c3e0fe874dc33db3a161ae27309b341c65199cf86c",
+        "size_in_bytes": 1411
+      },
+      {
+        "_path": "site-packages/redis/commands/json/path.py",
+        "path_type": "hardlink",
+        "sha256": "d3368eebfabf155324d4192191bed672bf001764dfafaf558642b2d480558690",
+        "sha256_in_prefix": "d3368eebfabf155324d4192191bed672bf001764dfafaf558642b2d480558690",
+        "size_in_bytes": 393
+      },
+      {
+        "_path": "site-packages/redis/commands/redismodules.py",
+        "path_type": "hardlink",
+        "sha256": "fa42cce1106494384d87e3170ab6bcd594d2b2d210fae95169beafd1d6144dd0",
+        "sha256_in_prefix": "fa42cce1106494384d87e3170ab6bcd594d2b2d210fae95169beafd1d6144dd0",
+        "size_in_bytes": 2573
+      },
+      {
+        "_path": "site-packages/redis/commands/search/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "85aa69405545d23ecff3ba7b2d0b142b900ad24b9e9bd700fb1bd545d416a68b",
+        "sha256_in_prefix": "85aa69405545d23ecff3ba7b2d0b142b900ad24b9e9bd700fb1bd545d416a68b",
+        "size_in_bytes": 5744
+      },
+      {
+        "_path": "site-packages/redis/commands/search/_util.py",
+        "path_type": "hardlink",
+        "sha256": "f4ca7bd8e3b921be546df37bb976fe881ee14029b58d02d5f749acd8ff574865",
+        "sha256_in_prefix": "f4ca7bd8e3b921be546df37bb976fe881ee14029b58d02d5f749acd8ff574865",
+        "size_in_bytes": 219
+      },
+      {
+        "_path": "site-packages/redis/commands/search/aggregation.py",
+        "path_type": "hardlink",
+        "sha256": "476ba5dba987d74750c5475034aa87f8eb35b613b3f3c9b8b5a4cad3c9218997",
+        "sha256_in_prefix": "476ba5dba987d74750c5475034aa87f8eb35b613b3f3c9b8b5a4cad3c9218997",
+        "size_in_bytes": 11564
+      },
+      {
+        "_path": "site-packages/redis/commands/search/commands.py",
+        "path_type": "hardlink",
+        "sha256": "e259cbecc5eca7d5ea3325203f127d4baa7c0519ec22b8d7bb0bd24cbf6aa371",
+        "sha256_in_prefix": "e259cbecc5eca7d5ea3325203f127d4baa7c0519ec22b8d7bb0bd24cbf6aa371",
+        "size_in_bytes": 38436
+      },
+      {
+        "_path": "site-packages/redis/commands/search/dialect.py",
+        "path_type": "hardlink",
+        "sha256": "fbb33a924af7df1d0590cb4a994b1b791004eaac4b51ba9d242a88a3450a217a",
+        "sha256_in_prefix": "fbb33a924af7df1d0590cb4a994b1b791004eaac4b51ba9d242a88a3450a217a",
+        "size_in_bytes": 105
+      },
+      {
+        "_path": "site-packages/redis/commands/search/document.py",
+        "path_type": "hardlink",
+        "sha256": "83647e3d182afa3377dff18b5f36afbec7b872920704c7e33df3caeed9c4f467",
+        "sha256_in_prefix": "83647e3d182afa3377dff18b5f36afbec7b872920704c7e33df3caeed9c4f467",
+        "size_in_bytes": 413
+      },
+      {
+        "_path": "site-packages/redis/commands/search/field.py",
+        "path_type": "hardlink",
+        "sha256": "83d2352c7ad524a3b52ad894c28b71ad0be983cf5efacc76ea80a51ee68a4e7f",
+        "sha256_in_prefix": "83d2352c7ad524a3b52ad894c28b71ad0be983cf5efacc76ea80a51ee68a4e7f",
+        "size_in_bytes": 5935
+      },
+      {
+        "_path": "site-packages/redis/commands/search/index_definition.py",
+        "path_type": "hardlink",
+        "sha256": "54bd823338f13741c421a4e7f3c7af9c75f57c2126cad6e2938bc09a2898482f",
+        "sha256_in_prefix": "54bd823338f13741c421a4e7f3c7af9c75f57c2126cad6e2938bc09a2898482f",
+        "size_in_bytes": 2489
+      },
+      {
+        "_path": "site-packages/redis/commands/search/profile_information.py",
+        "path_type": "hardlink",
+        "sha256": "c3d49b3221db719d53a6c64c7bc70c2323b5846926e4686767f1aa8357de2ed7",
+        "sha256_in_prefix": "c3d49b3221db719d53a6c64c7bc70c2323b5846926e4686767f1aa8357de2ed7",
+        "size_in_bytes": 249
+      },
+      {
+        "_path": "site-packages/redis/commands/search/query.py",
+        "path_type": "hardlink",
+        "sha256": "31b4acf9c63b846d4e1243be8ba2c9fd48b50f77765720d35cfae66feaedcbbc",
+        "sha256_in_prefix": "31b4acf9c63b846d4e1243be8ba2c9fd48b50f77765720d35cfae66feaedcbbc",
+        "size_in_bytes": 12199
+      },
+      {
+        "_path": "site-packages/redis/commands/search/querystring.py",
+        "path_type": "hardlink",
+        "sha256": "744e7bee43aa90212b3603be217238c4554723c91013e2621f965123f08a8c71",
+        "sha256_in_prefix": "744e7bee43aa90212b3603be217238c4554723c91013e2621f965123f08a8c71",
+        "size_in_bytes": 7597
+      },
+      {
+        "_path": "site-packages/redis/commands/search/reducers.py",
+        "path_type": "hardlink",
+        "sha256": "49c71eca5c7c063caa4be4c939d84d5bade7ead79c2fda23b785394aa868e546",
+        "sha256_in_prefix": "49c71eca5c7c063caa4be4c939d84d5bade7ead79c2fda23b785394aa868e546",
+        "size_in_bytes": 4220
+      },
+      {
+        "_path": "site-packages/redis/commands/search/result.py",
+        "path_type": "hardlink",
+        "sha256": "8aeaa6c0e782368ffb3786bf631c43cd574e4e96f07c5d53daebaae6c4eaccca",
+        "sha256_in_prefix": "8aeaa6c0e782368ffb3786bf631c43cd574e4e96f07c5d53daebaae6c4eaccca",
+        "size_in_bytes": 2624
+      },
+      {
+        "_path": "site-packages/redis/commands/search/suggestion.py",
+        "path_type": "hardlink",
+        "sha256": "57fadeeacb830a835cd044e7fcfd6de7515e2b8a426a63f0c59471098f23b1c1",
+        "sha256_in_prefix": "57fadeeacb830a835cd044e7fcfd6de7515e2b8a426a63f0c59471098f23b1c1",
+        "size_in_bytes": 1612
+      },
+      {
+        "_path": "site-packages/redis/commands/sentinel.py",
+        "path_type": "hardlink",
+        "sha256": "4355eec3ba970346116571a520ab2e3ad6a1f147c5d109e42f2c0e4d1be388c6",
+        "sha256_in_prefix": "4355eec3ba970346116571a520ab2e3ad6a1f147c5d109e42f2c0e4d1be388c6",
+        "size_in_bytes": 5299
+      },
+      {
+        "_path": "site-packages/redis/commands/timeseries/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "938f76ff113f9410f4715497f364d6062371396b830ebad56548c8362dcb6527",
+        "sha256_in_prefix": "938f76ff113f9410f4715497f364d6062371396b830ebad56548c8362dcb6527",
+        "size_in_bytes": 3450
+      },
+      {
+        "_path": "site-packages/redis/commands/timeseries/commands.py",
+        "path_type": "hardlink",
+        "sha256": "f19d811323f6dea4d808947f7bdcdd1b5d725a6203c0604c3b63c934bb4ad810",
+        "sha256_in_prefix": "f19d811323f6dea4d808947f7bdcdd1b5d725a6203c0604c3b63c934bb4ad810",
+        "size_in_bytes": 47147
+      },
+      {
+        "_path": "site-packages/redis/commands/timeseries/info.py",
+        "path_type": "hardlink",
+        "sha256": "99e65876eec857d29a51630a66cf6a5b8be8dd0f4cc21758f8406d290ce5b39a",
+        "sha256_in_prefix": "99e65876eec857d29a51630a66cf6a5b8be8dd0f4cc21758f8406d290ce5b39a",
+        "size_in_bytes": 3223
+      },
+      {
+        "_path": "site-packages/redis/commands/timeseries/utils.py",
+        "path_type": "hardlink",
+        "sha256": "34bc12392e43cfd37c758412cc4c8122fac8b4e5b07d0d318038fcba7eb1ddd5",
+        "sha256_in_prefix": "34bc12392e43cfd37c758412cc4c8122fac8b4e5b07d0d318038fcba7eb1ddd5",
+        "size_in_bytes": 1319
+      },
+      {
+        "_path": "site-packages/redis/commands/vectorset/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "fdf33451d623bb3b3c6162148d0187f505f91702344a8f3f0fee402d65ab5857",
+        "sha256_in_prefix": "fdf33451d623bb3b3c6162148d0187f505f91702344a8f3f0fee402d65ab5857",
+        "size_in_bytes": 1322
+      },
+      {
+        "_path": "site-packages/redis/commands/vectorset/commands.py",
+        "path_type": "hardlink",
+        "sha256": "c577d0a88eff5566d4b3207051ae45a192c5d746a524332d6686bf1f955b1854",
+        "sha256_in_prefix": "c577d0a88eff5566d4b3207051ae45a192c5d746a524332d6686bf1f955b1854",
+        "size_in_bytes": 12763
+      },
+      {
+        "_path": "site-packages/redis/commands/vectorset/utils.py",
+        "path_type": "hardlink",
+        "sha256": "37ec74511ca0efa5c2dfd08d7c1ca6e85905095826e4db61cd62819dcd87d177",
+        "sha256_in_prefix": "37ec74511ca0efa5c2dfd08d7c1ca6e85905095826e4db61cd62819dcd87d177",
+        "size_in_bytes": 2981
+      },
+      {
+        "_path": "site-packages/redis/connection.py",
+        "path_type": "hardlink",
+        "sha256": "793e0c6e3e698c19bf47949242bac39258c9faa0b19ec8154410e56f0ac60ec5",
+        "sha256_in_prefix": "793e0c6e3e698c19bf47949242bac39258c9faa0b19ec8154410e56f0ac60ec5",
+        "size_in_bytes": 67042
+      },
+      {
+        "_path": "site-packages/redis/crc.py",
+        "path_type": "hardlink",
+        "sha256": "67791716d918d8b76079f9d032e775c6be2f1b9518bc0f4b08ca8d317d72c2ee",
+        "sha256_in_prefix": "67791716d918d8b76079f9d032e775c6be2f1b9518bc0f4b08ca8d317d72c2ee",
+        "size_in_bytes": 729
+      },
+      {
+        "_path": "site-packages/redis/credentials.py",
+        "path_type": "hardlink",
+        "sha256": "18e9cedfe2d25b7e1e7c7688ad46d2ef8d8cc3c97bd2647317a52b2a2299b0c6",
+        "sha256_in_prefix": "18e9cedfe2d25b7e1e7c7688ad46d2ef8d8cc3c97bd2647317a52b2a2299b0c6",
+        "size_in_bytes": 1828
+      },
+      {
+        "_path": "site-packages/redis/event.py",
+        "path_type": "hardlink",
+        "sha256": "75db089b7b8fd4f6a0b0df686326e513bbc4ea7f550c27b9719571754a206c24",
+        "sha256_in_prefix": "75db089b7b8fd4f6a0b0df686326e513bbc4ea7f550c27b9719571754a206c24",
+        "size_in_bytes": 12133
+      },
+      {
+        "_path": "site-packages/redis/exceptions.py",
+        "path_type": "hardlink",
+        "sha256": "6f738ef3b82770d091527c7577b3b9ecdda49233fe7de5e7ef47cf9171da2e64",
+        "sha256_in_prefix": "6f738ef3b82770d091527c7577b3b9ecdda49233fe7de5e7ef47cf9171da2e64",
+        "size_in_bytes": 5789
+      },
+      {
+        "_path": "site-packages/redis/lock.py",
+        "path_type": "hardlink",
+        "sha256": "1abbcf4b168ea8aa3b8802f6a22e595043ec3a4c405c7544fd3a757a380ed9f6",
+        "sha256_in_prefix": "1abbcf4b168ea8aa3b8802f6a22e595043ec3a4c405c7544fd3a757a380ed9f6",
+        "size_in_bytes": 12760
+      },
+      {
+        "_path": "site-packages/redis/ocsp.py",
+        "path_type": "hardlink",
+        "sha256": "b5e61298a9c2b64e81de324b74d61b64de0e1349b182ca6ddb350f6e4210ce2a",
+        "sha256_in_prefix": "b5e61298a9c2b64e81de324b74d61b64de0e1349b182ca6ddb350f6e4210ce2a",
+        "size_in_bytes": 11452
+      },
+      {
+        "_path": "site-packages/redis/py.typed",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/redis/retry.py",
+        "path_type": "hardlink",
+        "sha256": "a12d277349d8c4441a0f8b7de4712bd4686f8693a69d328c9cdb479fc16acf1a",
+        "sha256_in_prefix": "a12d277349d8c4441a0f8b7de4712bd4686f8693a69d328c9cdb479fc16acf1a",
+        "size_in_bytes": 3405
+      },
+      {
+        "_path": "site-packages/redis/sentinel.py",
+        "path_type": "hardlink",
+        "sha256": "0cfd57b4ed4745e99931a982d5314783f841251bfd7a84204cc9597cf611528f",
+        "sha256_in_prefix": "0cfd57b4ed4745e99931a982d5314783f841251bfd7a84204cc9597cf611528f",
+        "size_in_bytes": 15013
+      },
+      {
+        "_path": "site-packages/redis/typing.py",
+        "path_type": "hardlink",
+        "sha256": "cf92508c690dcde8c4cdbdb2ed35dcb7bb52e72cc07cb42877da37ecc875fd48",
+        "sha256_in_prefix": "cf92508c690dcde8c4cdbdb2ed35dcb7bb52e72cc07cb42877da37ecc875fd48",
+        "size_in_bytes": 1953
+      },
+      {
+        "_path": "site-packages/redis/utils.py",
+        "path_type": "hardlink",
+        "sha256": "bcefa78de1789ed44ea3539179488ab5c63bd88d8970465803adbefecb105b9d",
+        "sha256_in_prefix": "bcefa78de1789ed44ea3539179488ab5c63bd88d8970465803adbefecb105b9d",
+        "size_in_bytes": 8495
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/_parsers/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/_parsers/__pycache__/base.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/_parsers/__pycache__/commands.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/_parsers/__pycache__/encoders.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/_parsers/__pycache__/helpers.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/_parsers/__pycache__/hiredis.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/_parsers/__pycache__/resp2.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/_parsers/__pycache__/resp3.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/_parsers/__pycache__/socket.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/asyncio/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/asyncio/__pycache__/client.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/asyncio/__pycache__/cluster.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/asyncio/__pycache__/connection.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/asyncio/__pycache__/lock.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/asyncio/__pycache__/retry.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/asyncio/__pycache__/sentinel.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/asyncio/__pycache__/utils.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/auth/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/auth/__pycache__/err.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/auth/__pycache__/idp.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/auth/__pycache__/token.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/auth/__pycache__/token_manager.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/backoff.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/cache.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/client.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/cluster.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/bf/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/bf/__pycache__/commands.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/bf/__pycache__/info.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/__pycache__/cluster.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/__pycache__/core.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/__pycache__/helpers.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/json/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/json/__pycache__/_util.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/json/__pycache__/commands.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/json/__pycache__/decoders.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/json/__pycache__/path.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/__pycache__/redismodules.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/_util.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/aggregation.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/commands.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/dialect.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/document.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/field.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/index_definition.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/profile_information.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/query.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/querystring.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/reducers.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/result.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/search/__pycache__/suggestion.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/__pycache__/sentinel.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/timeseries/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/timeseries/__pycache__/commands.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/timeseries/__pycache__/info.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/timeseries/__pycache__/utils.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/vectorset/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/vectorset/__pycache__/commands.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/commands/vectorset/__pycache__/utils.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/connection.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/crc.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/credentials.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/event.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/exceptions.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/lock.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/ocsp.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/retry.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/sentinel.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/typing.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/redis/__pycache__/utils.cpython-310.pyc",
+        "path_type": "pyc_file"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "redis-py",
+  "sha256": "6fc456336653f9854073fedfe2f3ae67b3a448056d3bfb97fbba5314f36f82e1",
+  "size": 187610,
+  "subdir": "noarch",
+  "timestamp": 1754587534000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/redis-py-6.4.0-pyhd8ed1ab_0.conda",
+  "version": "6.4.0"
+}

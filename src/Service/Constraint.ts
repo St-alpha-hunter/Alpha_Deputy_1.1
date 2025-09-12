@@ -8,6 +8,7 @@ class PortfolioConstraintModel {
     positionLimit: number;
     commission: number;
     slip: number;
+    session_id: string;
 
     constructor(
         rebalanceFreq: string,
@@ -15,7 +16,8 @@ class PortfolioConstraintModel {
         riskFreeRatio: number,
         positionLimit: number,
         commission: number,
-        slip: number
+        slip: number,
+        session_id: string
     ) {
         this.rebalanceFreq = rebalanceFreq;
         this.maxPositionPerChase = maxPositionPerChase;
@@ -23,15 +25,27 @@ class PortfolioConstraintModel {
         this.positionLimit = positionLimit;
         this.commission = commission;
         this.slip = slip;
+        this.session_id = session_id;
+    }
+}
+
+export class BacktestResponse {
+    session_id: string;
+    results: any;
+
+    constructor(session_id: string, results: any) {
+        this.session_id = session_id;
+        this.results = results;
     }
 }
    
-const api = "http://localhost:8000/portfolio_constraint"
+//const ziplineBase = import.meta.env.VITE_ZIPLINE_BASE;
+const api = `${import.meta.env.VITE_ZIPLINE_BASE}/portfolio_constraint`;
 
 export const PortfolioConstraint = async (data: PortfolioConstraintModel) => {
     try {
-        const response = await axios.post(api, data);
-        return response.data;
+        const response = await axios.post(api, data, { params: { 'session_id': data.session_id } });
+        return response.data as BacktestResponse;
     } catch (error) {
         handleError(error);
     }

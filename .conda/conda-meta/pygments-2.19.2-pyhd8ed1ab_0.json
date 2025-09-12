@@ -6,7 +6,7 @@
   "depends": [
     "python >=3.9"
   ],
-  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\pygments-2.19.2-pyhd8ed1ab_0",
+  "extracted_package_dir": "c:\\Users\\K.Hawk\\miniconda3\\pkgs\\pygments-2.19.2-pyhd8ed1ab_0",
   "features": "",
   "files": [
     "Lib/site-packages/pygments-2.19.2.dist-info/INSTALLER",
@@ -356,7 +356,6 @@
     "Lib/site-packages/pygments/token.py",
     "Lib/site-packages/pygments/unistring.py",
     "Lib/site-packages/pygments/util.py",
-    ".nonadmin",
     "Lib/site-packages/pygments/__pycache__/__init__.cpython-310.pyc",
     "Lib/site-packages/pygments/__pycache__/__main__.cpython-310.pyc",
     "Lib/site-packages/pygments/__pycache__/cmdline.cpython-310.pyc",
@@ -701,13 +700,13 @@
   "fn": "pygments-2.19.2-pyhd8ed1ab_0.conda",
   "license": "BSD-2-Clause",
   "link": {
-    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\pygments-2.19.2-pyhd8ed1ab_0",
+    "source": "c:\\Users\\K.Hawk\\miniconda3\\pkgs\\pygments-2.19.2-pyhd8ed1ab_0",
     "type": 1
   },
   "md5": "6b6ece66ebcae2d5f326c77ef2c5a066",
   "name": "pygments",
   "noarch": "python",
-  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\pygments-2.19.2-pyhd8ed1ab_0.conda",
+  "package_tarball_full_path": "c:\\Users\\K.Hawk\\miniconda3\\pkgs\\pygments-2.19.2-pyhd8ed1ab_0.conda",
   "package_type": "noarch_python",
   "paths_data": {
     "paths": [

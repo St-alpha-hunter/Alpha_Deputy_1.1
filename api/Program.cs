@@ -118,13 +118,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapGet("/healthz", () => Results.Ok("Healthy"));
+
 app.UseHttpsRedirection();
 
+// app.UseCors(x => x
+//     .AllowAnyMethod()
+//     .AllowAnyHeader()
+//     .AllowCredentials()
+//     .SetIsOriginAllowed(origin => true));
+
 app.UseCors(x => x
+    .WithOrigins("http://localhost:5173")
     .AllowAnyMethod()
     .AllowAnyHeader()
-    .AllowCredentials()
-    .SetIsOriginAllowed(origin => true));
+    .AllowCredentials());
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -1,4 +1,5 @@
 import axios from "axios";
+// ...existing code...
 import type { AxiosError } from "axios";
 import type {
   CompanyBalanceSheet, 
@@ -25,7 +26,7 @@ export const searchCompanies = async (query: string) => {
     );
     return data;
   } catch (error) {
-    if ((axios as AxiosError).isAxiosError(error)) {
+    if (axios.isAxiosError(error)) {
         const err = error as any
         //增加断言进行保护
       console.log("error message: ", err.message);

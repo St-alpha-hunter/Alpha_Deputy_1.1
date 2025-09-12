@@ -7,7 +7,7 @@
     "python >=3.9",
     "typing_extensions >=4.6.0"
   ],
-  "extracted_package_dir": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\exceptiongroup-1.3.0-pyhd8ed1ab_0",
+  "extracted_package_dir": "c:\\Users\\K.Hawk\\miniconda3\\pkgs\\exceptiongroup-1.3.0-pyhd8ed1ab_0",
   "features": "",
   "files": [
     "Lib/site-packages/exceptiongroup-1.3.0.dist-info/INSTALLER",
@@ -24,7 +24,6 @@
     "Lib/site-packages/exceptiongroup/_suppress.py",
     "Lib/site-packages/exceptiongroup/_version.py",
     "Lib/site-packages/exceptiongroup/py.typed",
-    ".nonadmin",
     "Lib/site-packages/exceptiongroup/__pycache__/__init__.cpython-310.pyc",
     "Lib/site-packages/exceptiongroup/__pycache__/_catch.cpython-310.pyc",
     "Lib/site-packages/exceptiongroup/__pycache__/_exceptions.cpython-310.pyc",
@@ -35,13 +34,13 @@
   "fn": "exceptiongroup-1.3.0-pyhd8ed1ab_0.conda",
   "license": "MIT and PSF-2.0",
   "link": {
-    "source": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\exceptiongroup-1.3.0-pyhd8ed1ab_0",
+    "source": "c:\\Users\\K.Hawk\\miniconda3\\pkgs\\exceptiongroup-1.3.0-pyhd8ed1ab_0",
     "type": 1
   },
   "md5": "72e42d28960d875c7654614f8b50939a",
   "name": "exceptiongroup",
   "noarch": "python",
-  "package_tarball_full_path": "C:\\Users\\K.Hawk\\miniconda3\\pkgs\\exceptiongroup-1.3.0-pyhd8ed1ab_0.conda",
+  "package_tarball_full_path": "c:\\Users\\K.Hawk\\miniconda3\\pkgs\\exceptiongroup-1.3.0-pyhd8ed1ab_0.conda",
   "package_type": "noarch_python",
   "paths_data": {
     "paths": [

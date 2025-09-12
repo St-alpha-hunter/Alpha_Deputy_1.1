@@ -1,0 +1,23 @@
+# .NET 构建产物/IDE
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.swp
+*.pdb
+
+# 日志
+*.log
+
+# Git / IDE / 系统
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Docker 自身文件（可选忽略）
+Dockerfile
+docker-compose.yml

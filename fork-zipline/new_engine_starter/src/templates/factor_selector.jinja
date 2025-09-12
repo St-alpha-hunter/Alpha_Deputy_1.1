@@ -3,9 +3,9 @@ factors = [
 {% for factor in factors %}
     {
         "name": "{{ factor.name }}",
-        "code_key": "{{ factor.code_key }}",
+        "code_key": "{{ factor.CodeKey }}",
         "weight": {{ factor.weight }},
-        "code": """{{ factor.code | replace('\n', '\n') }}"""
+        "code": "{{ factor.CodeCompute | replace('\n', '\n') }}"
     },
 {% endfor %}
 ]

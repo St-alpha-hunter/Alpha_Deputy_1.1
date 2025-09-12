@@ -9,11 +9,15 @@ max_industry_exposure = {{ stock_selection.maxIndustryExposure }}
 
 
 # 选股逻辑示例（可根据实际需求替换）
-selected_stocks = []
-{% for factor in factors %}
+selected_stocks = [
+{% for s in selected_stocks %}
+"{{ s }}",
+{% endfor %}
+]
+{# {% for factor in factors %}
 # 应用因子: {{ factor.name }}
 {{ factor.code | indent(0) }}
-{% endfor %}
+{% endfor %} #}
 
 # 行业筛选与限制（伪代码）
 # selected_stocks = [s for s in all_stocks if s.industry in selected_industries]
@@ -21,4 +25,3 @@ selected_stocks = []
 # ...（具体逻辑可根据 max_industry_exposure 实现）
 
 # 最终选出 number_of_stocks 个股票
-# selected_stocks =

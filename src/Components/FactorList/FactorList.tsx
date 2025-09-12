@@ -20,7 +20,7 @@ const FactorList: React.FC<Props> = ({ searchResults }: Props): JSX.Element => {
           code_key={result.code_key}
           key = {result.id}
           category={result.category}
-          code = {result.code}
+          computeCode = {result.computeCode}
           description= {result.description}
           />
         )

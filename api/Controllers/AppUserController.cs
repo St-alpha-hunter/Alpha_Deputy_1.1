@@ -83,12 +83,20 @@ namespace api.Controllers
                     }
                     else
                     {
-                        return StatusCode(500, roleResult.Errors);
+                        return StatusCode(500, new
+                        {
+                            message = "Register failed. Username may already exist.",
+                            errors = roleResult.Errors
+                        });
                     }
                 }
                 else
                 {
-                    return StatusCode(500, createdUser.Errors);
+                    return StatusCode(500, new
+                    {
+                        message = "Register failed. Password format may be incorrect or username may already exist.",
+                        errors = createdUser.Errors
+                    });
                 }
             }
             catch (Exception e)

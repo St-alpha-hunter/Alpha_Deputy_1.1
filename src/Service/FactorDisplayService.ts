@@ -1,19 +1,25 @@
 import axios from "axios";
 import type { FactorGet } from "../Models/Factor";
 import { handleError } from "../Helpers/ErrorHandler";
+import { mapFactorFromApi } from "../Models/Factor";
 
-const api = "http://localhost:5213/api/factor";
 
-export const getFactors = async (name: string, category: string, computeCode: string) => {
+//const apiBase = import.meta.env.VITE_API_BASE;
+const baseApi = `${import.meta.env.VITE_API_BASE}/api/factor`;
+
+export const getFactors = async (category?: string) => {
   try {
-    const params: { [key: string]: string } = {};
-    if (name) params.name = name;
-    if (category) params.category = category;
-    if (computeCode) params.computeCode = computeCode;
+    let url = baseApi
+    let params = {};
+    if (category) {
+      url = `${baseApi}/GetByCategory`;
+      params = { category };
+    }
 
-    const response = await axios.get<FactorGet[]>(api, { params });
-    return response.data;
+    const response = await axios.get<FactorGet[]>(url, { params });
+    return response.data.map(mapFactorFromApi);
   } catch (error) {
     handleError(error);
+    return[]
   }
 }

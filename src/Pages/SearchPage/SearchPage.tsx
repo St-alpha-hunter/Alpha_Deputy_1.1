@@ -15,7 +15,7 @@ type Props = {}
 const SearchPage = (props: Props) => {
 
           const [search, setSearch] = useState<string>("");
-          const [portfolioValues, setPortfolioValues] = useState<PortfolioGet[] | null>([]);
+          const [portfolioValues, setPortfolioValues] = useState<PortfolioGet[]>([]);
           const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
           const [serverError, setServerError] = useState<string>("");
     
@@ -46,6 +46,9 @@ const SearchPage = (props: Props) => {
               if (typeof result === "string") {
                 setServerError(result);
               } else if (Array.isArray(result.data)) {
+                setSearchResult(result.data);
+              }
+                else if (result && Array.isArray(result.data)) {
                 setSearchResult(result.data);
               }
               console.log(searchResult);

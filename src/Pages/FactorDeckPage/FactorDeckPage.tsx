@@ -12,7 +12,7 @@ import type { MinimalFactor } from "../../Components/Factor/Factor";
 
 //用例调用
 import { exampleCategory } from "./exampleCategory";
-import { exampleFactors } from "../../Components/Factor/examplefactors"
+
 
 //区域管理
 import FactorDropZone from "../../Components/FactorDropZone/FactorDropZone"
@@ -99,14 +99,21 @@ const FactorDeckPage = (props: Props) => {
     // });
     // };
 
-    const handleDropFactor = (factor: MinimalFactor) => {
-    dispatch(addFactor(factor as FactorProps));
+    const handleDropFactor = (factor: FactorProps) => {
+        if (selectedFactors.some(f => f.id === factor.id)) {
+            toast.error(`${factor.name} is already in your list 📋`);
+            return; // 不再添加
+        }
+        
+        const { ChoosingFactor, CheckingFactor, ...serializableFactor } = factor;
+        dispatch(addFactor(serializableFactor as FactorProps));
+        toast.success("Factor added successfully!");
     };
 
-    
-     const FactorDelete = (deletefactor : MinimalFactor) =>{
 
+     const FactorDelete = (deletefactor : MinimalFactor) =>{
         dispatch(removeFactor(deletefactor.id));
+        toast.success("Factor deleted successfully!");
    };
 
 

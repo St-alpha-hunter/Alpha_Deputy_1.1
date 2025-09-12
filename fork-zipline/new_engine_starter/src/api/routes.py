@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import importlib
+import traceback
 from typing import Any, List
 from fastapi import APIRouter
 from pathlib import Path as FilePath
@@ -11,12 +13,11 @@ from fastapi.templating import Jinja2Templates
 
 from typing import Dict, List, Optional
 import json, uuid, redis
+from zipline import get_calendar, run_algorithm
+from zipline import run_algorithm
 
-from services.draw import render_strategy_selector, render_strategy_executor, render_factor_executor
+
 from fastapi.responses import PlainTextResponse
-
-from services.compute import compute_many
-
 
 ##Compute Factors
 import pandas as pd
@@ -64,9 +65,9 @@ def _get(key: str) -> Optional[dict]:
 ##因子的Json
 class FactorSelectionModel(BaseModel):
     name: str
-    code_key:str
+    CodeKey:str
     weight: float
-    code: str
+    CodeCompute: str
 
 ##因子的选择
 class FactorSelection(BaseModel):
@@ -126,7 +127,7 @@ def post_factors(data: FactorSelection, session_id: Optional[str] = None):
     key = f"{session_id}:factors"
     payload = data.dict()
     _set(key, payload)
-    # 渲染模板,获取因子
+    # 渲染模板,获取因子，加入session,区别用户
     factor_selection = _get(f"{session_id}:factors") or {}
     rendered = templates.get_template("factor_selector.jinja").render(
         factors=factor_selection.get("selectedFactors", [])
@@ -135,7 +136,7 @@ def post_factors(data: FactorSelection, session_id: Optional[str] = None):
     strategy_path = BASE_DIR / "strategy_pre" / f"strategy_{session_id}.py"
     with open(strategy_path, "w", encoding="utf-8") as f:
         f.write(rendered)
-    return PlainTextResponse(rendered)
+    return JSONResponse({"session_id": session_id, "rendered": rendered})
 
 
 # @router.get("/factor_selection/{session_id}")
@@ -165,7 +166,7 @@ def post_stock(data: StockSelection, session_id: Optional[str] = None):
     (BASE_DIR / "strategy_pre").mkdir(exist_ok=True)
     strategy_path = BASE_DIR / "strategy_pre" / f"strategy_{session_id}.py"
     try:
-        with open(strategy_path, "w", encoding="utf-8") as f:
+        with open(strategy_path, "a", encoding="utf-8") as f:
             f.write(rendered)
     except Exception as e:
         return {"error": str(e)}
@@ -194,11 +195,30 @@ def post_constraint(data: PortfolioConstraint, session_id: Optional[str] = None)
     (BASE_DIR / "strategy_pre").mkdir(exist_ok=True)
     strategy_path = BASE_DIR / "strategy_pre" / f"strategy_{session_id}.py"
     try:
-        with open(strategy_path, "w", encoding="utf-8") as f:
+        with open(strategy_path, "a", encoding="utf-8") as f:
             f.write(rendered)
+        try:
+            spec = importlib.util.spec_from_file_location("strategy", strategy_path)
+            strategy_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(strategy_module)
+            results = run_algorithm(
+                    start=pd.Timestamp("2020-08-06", tz="UTC"),
+                    end=pd.Timestamp("2022-12-31", tz="UTC"),
+                    bundle="csvdir",
+                    initialize=strategy_module.initialize,
+                    before_trading_start=strategy_module.before_trading_start,
+                    handle_data=strategy_module.handle_data if hasattr(strategy_module, "handle_data") else None,
+                    capital_base=1e6,
+                    data_frequency="daily",
+                    trading_calendar= get_calendar("XNYS")
+                )
+            return JSONResponse({"session_id": session_id, "results": results})
+        except Exception as e:
+            traceback.print_exc()
+            return {"error": str(e)}
     except Exception as e:
+        traceback.print_exc()
         return {"error": str(e)}
-    return PlainTextResponse(rendered)
 
 # @router.get("/portfolio_constraint/{session_id}")
 # def get_constraint(session_id: str):
@@ -207,40 +227,44 @@ def post_constraint(data: PortfolioConstraint, session_id: Optional[str] = None)
 #         raise HTTPException(404, "portfolio_constraint not found")
 #     return {"session_id": session_id, "portfolio_constraint": data}
 
-
-class ComputeReq(BaseModel):
-    factor_keys: List[str]
-    tickers: List[str]
-    start: str        # "2024-01-01"
-    end: str          # "2024-12-31"
-    # 可选：频率/数据源等，将来扩展
-    # frequency: Optional[str] = "D"
+# class ComputeReq(BaseModel):
+#     factor_keys: List[str]
+#     tickers: List[str]
+#     start: str        # "2024-01-01"
+#     end: str          # "2024-12-31"
+#     # 可选：频率/数据源等，将来扩展
+#     # frequency: Optional[str] = "D"
 
     
-class ComputeResp(BaseModel):
-    # {factor_key: {ticker: [[date, value], ...]}}
-    values: Dict[str, Dict[str, List[List[Any]]]]
 
-@router.post("/factors/compute", response_model=ComputeResp)
-def compute_factors(req: ComputeReq):
-    # 1. 加载面板数据（假设你已读入 DataFrame panel）
-    # 这里举例：你可以根据 req.tickers, req.start, req.end 过滤 panel
-    panel = pd.read_parquet(BASE_DIR/"ultimate_data"/"merged_data.parquet")
-    panel = panel[
-        (panel["symbol"].isin(req.tickers)) &
-        (panel["date"] >= req.start) &
-        (panel["date"] <= req.end)
-    ]
-    # 2. 计算
-    results = compute_many(panel, factor_keys=req.factor_keys)
-    # 3. 整理为 JSON 格式
-    out = {}
-    for key, symbol_dict in results.items():
-        out[key] = {}
-        for symbol, series in symbol_dict.items():
-            # series: pd.Series, index=date, value=factor
-            out[key][symbol] = [[str(idx), val if pd.notna(val) else None] for idx, val in series.items()]
-    return {"values": out}
+
+# class ComputeResp(BaseModel):
+#     # {factor_key: {ticker: [[date, value], ...]}}
+#     values: Dict[str, Dict[str, List[List[Any]]]]
+
+# @router.post("/factors/compute", response_model=ComputeResp)
+# def compute_factors(req: ComputeReq):
+#     # 1. 加载面板数据（假设你已读入 DataFrame panel）
+#     # 这里举例：你可以根据 req.tickers, req.start, req.end 过滤 panel
+#     panel = pd.read_parquet(BASE_DIR/"ultimate_data"/"merged_data.parquet")
+#     panel = panel[
+#         (panel["symbol"].isin(req.tickers)) &
+#         (panel["date"] >= req.start) &
+#         (panel["date"] <= req.end)
+#     ]
+#     # 2. 计算
+#     results = compute_many(panel, factor_keys=req.factor_keys)
+#     # 3. 整理为 JSON 格式
+#     out = {}
+#     for key, symbol_dict in results.items():
+#         out[key] = {}
+#         for symbol, series in symbol_dict.items():
+#             # series: pd.Series, index=date, value=factor
+#             out[key][symbol] = [[str(idx), val if pd.notna(val) else None] for idx, val in series.items()]
+#     return {"values": out}
+
+
+
 
 
 # class ComputeSelect(BaseModel):
@@ -251,22 +275,45 @@ class StockSelectionReq(BaseModel):
     start:str
     end:str
 
+
+from fastapi import HTTPException
+
+
 from strategy.stock_selector import select_stocks
 @router.post("/compute_factors_select_stocks")
-def select_stocks(req: StockSelectionReq):
-    # 读取股票池子
-    with open(BASE_DIR / "symbols_from_asset.txt", "r", encoding="utf-8") as f:
-         symbols = [line.strip() for line in f if line.strip()]
-    # 加载面板数据
-    panel = pd.read_parquet(BASE_DIR / "ultimate_data" / "merged_data.parquet")
-    panel = panel[
-        (panel["symbol"].isin(symbols)) &
-        (panel["date"] >= req.start) &
-        (panel["date"] <= req.end)
-    ]
-    # 调用选股逻辑
-    selected_stocks = select_stocks(panel, req.session_id)
-    return {"selected_stocks": selected_stocks}
+def select_stocks_my(req: StockSelectionReq):
+    try:
+        # 读取股票池子
+        with open(BASE_DIR / "symbols_from_asset.txt", "r", encoding="utf-8") as f:
+            symbols = [line.strip() for line in f if line.strip()]
+        print("DEBUG symbols count:", len(symbols))
+        # 加载面板数据
+        panel = pd.read_parquet(BASE_DIR / "ultimate_data" / "merged_ultimate_with_flag_trimmed.parquet")
+        print("DEBUG parquet_path:", panel.shape)
+        stock_selection = _get(f"{req.session_id}:stock")
+        panel = panel[
+            (panel["symbol"].isin(symbols)) &
+            (panel["date"] >= req.start) &
+            (panel["date"] <= req.end)
+        ]
+        # 调用选股逻辑
+        print("DEBUG filtered panel shape:", panel.shape)
+        selected_stocks = select_stocks(panel, req.session_id)
+        strategy_path = BASE_DIR / "strategy_pre" / f"strategy_{req.session_id}.py"
+        rendered = templates.get_template("strategy_selector.jinja").render(
+            selected_stocks=selected_stocks,
+            stock_selection=stock_selection,
+        )
+        with open(strategy_path, "a", encoding="utf-8") as f:
+            f.write(rendered)
+
+        print("DEBUG selected_stocks:", selected_stocks)
+        return {"selected_stocks": selected_stocks}
+    except Exception as e:
+        import traceback
+        print("ERROR:", traceback.format_exc())
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 # class Backtest(BaseModel):
 #     session_id: str

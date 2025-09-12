@@ -68,11 +68,12 @@ namespace api.Repository
             if (queryFactor.Id != 0)
             {
                 factorModel = factorModel.Where(f => f.Id == queryFactor.Id);
-            };
+            }
+            ;
 
             if (!string.IsNullOrEmpty(queryFactor.Category))
             {
-                factorModel = factorModel.Where(f => f.Category == queryFactor.Category);
+                factorModel = factorModel.Where(f => f.Category.ToLower() == queryFactor.Category.ToLower());
             }
             // 新增模糊搜索
             if (!string.IsNullOrEmpty(queryFactor.Query))
@@ -95,6 +96,13 @@ namespace api.Repository
         public async Task<Factor?> GetByIdAsync(FactorQueryObject queryFactor)
         {
             return await _context.Factors.FirstOrDefaultAsync(f => f.Id == queryFactor.Id);
+        }
+
+
+        public async Task<List<Factor>> GetFactorsByCategoryAsync(string category)
+        {
+            return await _context.Factors
+            .Where(f => f.Category.ToLower() == category.ToLower()).ToListAsync();
         }
 
     }

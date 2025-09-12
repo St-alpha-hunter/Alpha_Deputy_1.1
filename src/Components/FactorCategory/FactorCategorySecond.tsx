@@ -20,15 +20,35 @@ export type { Props as FactorCategorySecondProps };
 //     category: string;
 // }
 
+
+
+// type Props = {
+//     id:string,
+//     category: string,
+//     code:string,
+//     code_key:string,
+//     name: string;            // 中文名称（如“12月动量”）
+//     weight?: number;
+//     description?: string;     // 简介
+//     tags?: string[];          // 标签（如 ["动量", "技术"]）
+//     ChoosingFactor?: (e: SyntheticEvent) => void;
+//     CheckingFactor?: (factor: MinimalFactor) => void;
+// }
+
 const FactorCategorySecond = ({ category, ChoosingFactor}: Props) => {
+
+    
     const [factors, setFactors] = useState<FactorGet[]>([]);
     
     useEffect(() => {
-        getFactors("", category, "").then((res) => {
-        if (res) setFactors(res);
+        console.log("请求类别:", category);
+        getFactors(category).then((res) => {
+            if (res) 
+                // 映射字段名
+                setFactors(res);
+                console.log("拿到的因子Fetched Factors:", res);
         });
     }, [category]);
-    
 
     return (
         <div className="factor-category">
@@ -42,8 +62,9 @@ const FactorCategorySecond = ({ category, ChoosingFactor}: Props) => {
                         <div key={factor.id} className="min-w-[120px] w-fit p-3">
                             <Factor
                                 {...factor}
+                                category={factor.category}
                                 code_key={factor.code_key}
-                                code={factor.computeCode}
+                                computeCode={factor.computeCode}
                                 ChoosingFactor={ChoosingFactor}
                             />
                         </div>

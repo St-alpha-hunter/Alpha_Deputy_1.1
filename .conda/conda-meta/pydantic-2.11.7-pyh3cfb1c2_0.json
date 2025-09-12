@@ -127,7 +127,6 @@
     "Lib/site-packages/pydantic/validators.py",
     "Lib/site-packages/pydantic/version.py",
     "Lib/site-packages/pydantic/warnings.py",
-    ".nonadmin",
     "Lib/site-packages/pydantic/__pycache__/__init__.cpython-310.pyc",
     "Lib/site-packages/pydantic/_internal/__pycache__/__init__.cpython-310.pyc",
     "Lib/site-packages/pydantic/_internal/__pycache__/_config.cpython-310.pyc",
@@ -1456,7 +1455,7 @@
     ],
     "paths_version": 1
   },
-  "requested_spec": "None",
+  "requested_spec": "pydantic",
   "sha256": "ee7823e8bc227f804307169870905ce062531d36c1dcf3d431acd65c6e0bd674",
   "size": 307333,
   "subdir": "noarch",

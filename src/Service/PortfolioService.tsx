@@ -2,7 +2,8 @@ import axios from "axios";
 import type { PortfolioGet, PortfolioPost } from "../Models/Portfolio";
 import { handleError } from "../Helpers/ErrorHandler";
 
-const api = "http://localhost:5213/api/portfolio/";
+
+const api = `${import.meta.env.VITE_API_BASE}/api/portfolio`;
 
 export const portfolioAddAPI = async (symbol: string) => {
   try {
