@@ -25,6 +25,7 @@ const LoginPage = (props: Props) => {
   } = useForm<LoginFormsInputs>({ resolver: yupResolver(validation) });
 
   const handleLogin = (form: LoginFormsInputs) => {
+    console.log("SUBMIT FIRED 提交");
     loginUser(form.userName, form.password);
   };
   return (
@@ -41,7 +42,7 @@ const LoginPage = (props: Props) => {
             >
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="username"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Username
@@ -54,7 +55,7 @@ const LoginPage = (props: Props) => {
                   {...register("userName")}
                 />
                 {errors.userName ? (
-                  <p className="text-white">{errors.userName.message}</p>
+                  <p className="text-red-500">{errors.userName.message}</p>
                 ) : (
                   ""
                 )}

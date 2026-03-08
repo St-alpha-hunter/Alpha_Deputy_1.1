@@ -16,18 +16,18 @@ const factorSlice = createSlice({
   reducers: {
 
     addFactor(state, action: PayloadAction<FactorProps>) {
-      const exists = state.selectedFactors.some(f => f.id === action.payload.id);
+      const exists = state.selectedFactors.some(f => f.code_key === action.payload.code_key);
       if (!exists) {
         state.selectedFactors.push(action.payload);
       }
     },
 
-    removeFactor(state, action: PayloadAction<string>) {
-      state.selectedFactors = state.selectedFactors.filter(f => f.id !== action.payload);
+    removeFactor(state, action: PayloadAction<{ code_key: string }>) {
+      state.selectedFactors = state.selectedFactors.filter(f => f.code_key !== action.payload.code_key);
     },
 
-    setFactorWeight(state, action: PayloadAction<{ id: string; weight: number }>) {
-      const factor = state.selectedFactors.find(f => f.id === action.payload.id);
+    setFactorWeight(state, action: PayloadAction<{ code_key: string; weight: number }>) {
+      const factor = state.selectedFactors.find(f => f.code_key === action.payload.code_key);
       if (factor) {
         factor.weight = action.payload.weight;
       }

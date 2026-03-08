@@ -18,6 +18,9 @@ import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
 
+import BacktestForm from "../Pages/SessionPage/Console";
+//替换之前的SessionPage
+
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -29,7 +32,7 @@ export const router = createBrowserRouter([
             { path: "register", element: <RegisterPage /> },
             { path: "company/:ticker", element:<ProtectedRoute><CompanyPage/></ProtectedRoute>},
             { path: "design-guide", element:<DesignGuide/>},
-            { path: "session", element:<ProtectedRoute><SessionPage/></ProtectedRoute>},
+            { path: "session", element:<ProtectedRoute><BacktestForm/></ProtectedRoute>},
             { path: "deck", element:<ProtectedRoute><FactorDeckPage/></ProtectedRoute>},
             { path: "strategy-warehouse", element: <StrategyWarehouse/>},
             { path: "coding", element: <CodeFactor/>},

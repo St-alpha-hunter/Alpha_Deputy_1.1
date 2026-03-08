@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\desktop\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\api.csproj": {}
+    "D:\\desktop\\Files(2024-2025)\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\api.csproj": {}
   },
   "projects": {
-    "D:\\desktop\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\api.csproj": {
+    "D:\\desktop\\Files(2024-2025)\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\desktop\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\api.csproj",
+        "projectUniqueName": "D:\\desktop\\Files(2024-2025)\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "D:\\desktop\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\api.csproj",
+        "projectPath": "D:\\desktop\\Files(2024-2025)\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\api.csproj",
         "packagesPath": "C:\\Users\\K.Hawk\\.nuget\\packages\\",
-        "outputPath": "D:\\desktop\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\obj\\",
+        "outputPath": "D:\\desktop\\Files(2024-2025)\\practice_dom\\FINSHARK\\Alpha-Deputy\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\visual studio shared\\NuGetPackages"

@@ -34,7 +34,7 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
       const avg = 1 / selectedFactors.length;
       selectedFactors.forEach(f => {
         const w = f.weight == null ? avg : f.weight;
-        dispatch(setFactorWeight({ id: f.id, weight: w }));
+        dispatch(setFactorWeight({ code_key: f.id, weight: w }));
       });
       // 这里不加依赖；如果依赖 selectedFactors，会重复平均。根据你的业务改成合适的依赖。
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,7 +73,7 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
 
         // 批量更新Redux仓库
         updated.forEach(f => {
-          dispatch(setFactorWeight({ id: f.id, weight: f.weight! }));
+          dispatch(setFactorWeight({ code_key: f.id, weight: f.weight! }));
         });
 
         // 需要的话把 updated 回传给父组件

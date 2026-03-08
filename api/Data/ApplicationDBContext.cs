@@ -19,6 +19,8 @@ namespace api.Data
         public DbSet<Portfolio> Portfolios { get; set; }
         public DbSet<Asset> Assets { get; internal set; }
         public DbSet<Factor> Factors { get; internal set; }
+        public DbSet<BacktestTask> BacktestTasks => Set<BacktestTask>();
+
         public DbSet<Report> Reports { get; internal set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,6 +47,15 @@ namespace api.Data
             builder.Entity<Factor>()
             .HasIndex(f => f.CodeKey)
                 .IsUnique(); // 确保 CodeKey 唯一
+
+            var e = builder.Entity<BacktestTask>();
+            e.HasIndex(x => x.IdempotencyKey).IsUnique();
+            // enum -> string
+            e.Property(x => x.Status)
+                .HasConversion<string>()
+                .HasMaxLength(16);
+            e.Property(x => x.CreatedAt)
+                .HasDefaultValueSql("now()");
 
             List<IdentityRole> roles = new List<IdentityRole>
             {

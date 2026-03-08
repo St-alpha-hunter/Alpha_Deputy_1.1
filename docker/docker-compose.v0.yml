@@ -1,0 +1,77 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: Alpha-Deputy
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: wanglihao998734
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks: [alpha_net]
+
+  redis:
+    image: redis:7-alpine
+    networks: [alpha_net]
+
+  api-dotnet:
+    build:
+      context: ../api
+      dockerfile: ../docker/api-dotnet.Dockerfile
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+      # ConnectionStrings__Default: Host=postgres;Port=5432;Database=alpha;Username=postgres;Password=postgres
+      ConnectionStrings__Default: Host=postgres;Port=5432;Database=Alpha-Deputy;Username=postgres;Password=wanglihao998734
+      ENGINE_API_BASE: http://engine-api:8001
+    depends_on:
+      - postgres
+    ports:
+      - 5000:8080   # 开发期方便，后面可删  ##我访问5000, 宿主机.NET 在容器里监听 8080（由 ASPNETCORE_URLS 决定）
+    networks: [alpha_net]
+
+  engine-api:
+    build:
+      context: ..
+      dockerfile: docker/engine-api.Dockerfile
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      PG_DSN: postgresql://postgres:wanglihao998734@postgres:5432/Alpha-Deputy
+      QUEUE_KEY: "backtest:queue"
+    depends_on:
+      - redis
+      - postgres
+    networks: [alpha_net]
+
+  engine-runner:
+    build:
+      context: ..
+      dockerfile: docker/engine-runner.Dockerfile
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      PG_DSN: postgresql://postgres:wanglihao998734@postgres:5432/Alpha-Deputy
+      QUEUE_KEY: "backtest:queue"
+    depends_on:
+      - redis
+      - postgres
+    networks: [alpha_net]
+
+  # frontend:
+  #   build:
+  #     context:
+  #     dockerfile: frontend.Dockerfile
+  #   container_name: frontend
+  #   environment:
+  #     VITE_API_BASE:"http://localhost:5000/api"
+  #   ports:
+  #     - "3000:80"             
+  #   depends_on:
+  #     - api
+  #   networks:
+  #     - [alpha_net]
+
+networks:
+  alpha_net:
+
+volumes:
+  pgdata:

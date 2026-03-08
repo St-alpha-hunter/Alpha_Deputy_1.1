@@ -100,7 +100,7 @@ const FactorDeckPage = (props: Props) => {
     // };
 
     const handleDropFactor = (factor: FactorProps) => {
-        if (selectedFactors.some(f => f.id === factor.id)) {
+        if (selectedFactors.some(f => f.code_key === factor.code_key)) {
             toast.error(`${factor.name} is already in your list 📋`);
             return; // 不再添加
         }
@@ -111,11 +111,15 @@ const FactorDeckPage = (props: Props) => {
     };
 
 
-     const FactorDelete = (deletefactor : MinimalFactor) =>{
-        dispatch(removeFactor(deletefactor.id));
-        toast.success("Factor deleted successfully!");
-   };
+//      const FactorDelete = (deletefactor : MinimalFactor) =>{
+//         dispatch(removeFactor(deletefactor.id));
+//         toast.success("Factor deleted successfully!");
+//    };
 
+        const FactorDelete = (factor : FactorProps) =>{
+            dispatch(removeFactor({ code_key: factor.code_key }));
+            toast.success("Factor deleted successfully!");      
+    };
 
     return (
     <div className = "ml-[260px] grid grid-cols-12 h-screen relative">

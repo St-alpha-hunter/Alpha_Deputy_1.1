@@ -1,3 +1,4 @@
+# LEGACY / for reference (do not use in v0)
 FROM python:3.11-slim
 
 ENV PYTHONPATH=/app/new_engine_starter/src

@@ -10,11 +10,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using api.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
+using api.Backtest.Application;
+using api.Backtest.Interface;
+using api.Backtest.Infrastructure.Queue;
+using api.Backtest.Infrastructure.Storage;
+using api.Backtest.Contracts;
+using api.Backtest.Runner;
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -57,7 +65,9 @@ builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
     });
+
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
@@ -93,6 +103,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+//
+// 1️⃣ 数据库（EF Core）
+//
+
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -103,6 +117,47 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 builder.Services.AddScoped<IFactorRepository, FactorRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddScoped<IBacktestRepository, BacktestRepository>();
+
+
+// 2️⃣ 回测服务
+
+builder.Services.AddScoped<IBacktestService, BacktestService>();
+
+// 4️⃣ 回测队列（当前 InMemory 实现）
+//   以后换成 Redis / RabbitMQ 只改这一行
+
+builder.Services.AddSingleton<IBacktestQueue>(_ => new InMemoryBacktestQueue(_.GetRequiredService<ILogger<InMemoryBacktestQueue>>(), capacity: 10_000));
+
+// 5️⃣ 回测执行器（当前假实现）
+builder.Services.AddScoped<IBacktestRunner, PythonBacktestRunner>();
+
+
+// 6️⃣ 回测结果存储（当前本地文件实现）
+// 结果目录建议放到配置里：例如 "Storage:BacktestResultsDir"
+var resultsDir = builder.Configuration["Storage:BacktestResultsDir"]
+                ?? Path.Combine(AppContext.BaseDirectory, "backtest-results");
+
+builder.Services.AddSingleton<IBacktestResultStore>(_ => new LocalFileBacktestResultStore(resultsDir));
+
+
+// 7️⃣ 回测工作器选项
+builder.Services.AddSingleton(new BacktestWorkerOptions
+{
+    MaxParallelism = 2,
+    DequeueWait = TimeSpan.FromSeconds(2),
+    MaxAttempts = 3,
+    BaseRetryDelay = TimeSpan.FromSeconds(2),
+});
+
+
+// 8️⃣ 回测工作器（后台服务），一直在监听队列并执行回测任务
+builder.Services.AddHostedService<BacktestWorker>();
+
+
+//
+// 其他服务
+//
 
 builder.Services.AddScoped<IFMPService, FMPService>();
 builder.Services.AddHttpClient<IFMPService, FMPService>();
@@ -110,6 +165,10 @@ builder.Services.AddHttpClient<IFMPService, FMPService>();
 builder.Services.AddSingleton<AssetSidService>();
 
 var app = builder.Build();
+
+//
+// 7️⃣ 中间件
+//
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -161,6 +220,9 @@ app.MapControllers();
 
 app.Run();
 
+
+
+//测试用例
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);

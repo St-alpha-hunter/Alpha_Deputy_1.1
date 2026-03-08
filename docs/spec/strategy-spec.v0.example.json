@@ -1,0 +1,21 @@
+{
+  "name": "alpha_v0",
+  "universe": "CSI300",
+  "dataVersion": "v2026_02_01",
+  "rebalance": {
+    "freq": "W",
+    "dayOfWeek": 1
+  },
+  "signal": {
+    "type": "linear_weight",
+    "inputs": [
+      { "factor": "mom_20", "weight": 0.6 },
+      { "factor": "vol_20", "weight": -0.4 }
+    ]
+  },
+  "portfolio": {
+    "selector": { "type": "topk", "k": 50 },
+    "weighting": { "type": "equal" },
+    "cash": 0.0
+  }
+}

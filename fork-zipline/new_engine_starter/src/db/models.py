@@ -18,4 +18,4 @@ class Asset(Base):
 
 
     def __repr__(self):
-        return f"<Asset(Symbol='{self.Symbol}', StartDate={self.StartDate})>"
+        return f"<Asset(Symbol='{self.symbol}', StartDate={self.startdate})>"

@@ -70,3 +70,14 @@ obj/
 *.suo
 *.user
 *.vs/
+
+
+.conda/
+.venv/
+venv/
+env/
+node_modules/
+__pycache__/
+.ipynb_checkpoints/
+dist/
+build/
