@@ -11,18 +11,21 @@ namespace api.Backtest.Application
     {
         private readonly IBacktestRepository _repo;
 
+        private readonly ILogger<BacktestService> _logger;
         private readonly IBacktestQueue _queue;
         private const int SystemMaxRunning = 10;
-        private const int UserMaxRunning = 1;
+        private const int UserMaxRunning = 3;
 
         private const string DataVersion = "data_v1";
         private const string EngineVersion = "engine_v1";
 
         // ✅ 构造函数名必须等于类名 BacktestService
-        public BacktestService(IBacktestRepository repo, IBacktestQueue queue) {
-                _repo = repo;
-                _queue = queue;
-            }
+        public BacktestService(IBacktestRepository repo, IBacktestQueue queue, ILogger<BacktestService> logger)
+        {
+            _repo = repo;
+            _queue = queue;
+            _logger = logger;
+        }
 
         public async Task<CreateBacktestResponse> CreateAsync(Guid userId, CreateBacktestRequest req, CancellationToken ct = default)
         {
@@ -63,10 +66,26 @@ namespace api.Backtest.Application
                 // 但要 repo 提供一个 FindAnyByKeyAsync，这里先不扩展
                 throw;
             }
+            //返回创建成功的消息
 
-            return BacktestTaskMapper.ToCreateResponse(entity, false);
+            var response = BacktestTaskMapper.ToCreateResponse(entity, false);
+
+
+            _logger.LogInformation("Created backtest task.查看一下创建任务成功了返回什么 TaskId={TaskId}, UserId={UserId}, IsDuplicate={IsDuplicate}, ErrorMessage={ErrorMessage}, ResultUri={ResultUri}, Status={Status}"
+            ,
+                response.TaskId,
+                userId,
+                response.IsDuplicate,
+                response.ErrorMessage,
+                response.ResultUri,
+                response.Status
+            );
+
+            return response;
         }
 
+
+        /// 查找任务
         public async Task<BacktestTaskResponse?> GetAsync(Guid userId, Guid taskId, CancellationToken ct = default)
         {
             var task = await _repo.FindByIdAsync(taskId, ct);

@@ -10,10 +10,13 @@ import ExecuteSection from '../../Components/Console/ExecuteSection';
 import RiskSection from '../../Components/Console/RiskSection';
 import { useNavigate } from 'react-router-dom'; 
 
-import { createBacktest } from '../../Service/NewBacktestService';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../redux/features/store';
+import { createBacktest, type BacktestResult } from '../../Service/NewBacktestService';
+
 import RebalanceSection from '../../Components/Console/RebalanceSection';
+
+import taskReducer, { setCurrentTaskId, } from '../../redux/features/Task/taskSlice';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../redux/features/store";
 
 
 
@@ -27,9 +30,11 @@ const BacktestForm = (props: Props) => {
 
     const [spec, setSpec] = useState<StrategySpecV0>(makeDefaultStrategySpecV0());
     const [isBacktesting, setIsBacktesting] = useState(false);
+    const [backtestResult, setBacktestResult] = useState<BacktestResult | null>(null);
 
-
-
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
     const selectedFactors = useSelector((s: RootState) => s.factor.selectedFactors);
     
     const buildSpecForSubmit = (spec: StrategySpecV0): StrategySpecV0 => {
@@ -56,18 +61,24 @@ const BacktestForm = (props: Props) => {
         //先确保提交成功 //提交滑动因子
         const finalSpec = buildSpecForSubmit(spec);
         console.log("finalSpec 检查一下提交的是啥", JSON.stringify(finalSpec, null, 2));
-        toast.success("正在提交参数，回测已开始！");
+        
 
-    try { const backtest = await createBacktest(finalSpec)
-            .then((res) => {
-                toast.success("回测完成！");
-                setIsBacktesting(false);
-                console.log("回测结果：", res);
-                if (res && res.resultUrl) { }
-                    //回测结果呈现 
-                })
-            } catch(error:any) {
-                toast.error("回测失败: " + error.message);
+    try { const res = await createBacktest(finalSpec)
+              e.preventDefault
+                //setIsBacktesting(false);
+                if (res.taskId) {
+                    dispatch(setCurrentTaskId(res.taskId)); // 把 taskId 存到 Redux 里
+                    toast.success("回测请求提交成功，正在回测中...");
+                    console.log("返回的东西是啥createBacktest response", JSON.stringify(res, null, 2));
+                    navigate(`/backtests/${res.taskId}`);
+                  //  navigate(`/report/${res.taskId}`);
+                 }
+                else 
+            {
+            toast.error(res.errorMessage || "回测任务创建失败，请检查参数");
+             }
+         }catch(error:any) {
+                toast.error("回测任务创建失败: " + error.message);
             } finally {
                 setIsBacktesting(false);
             };

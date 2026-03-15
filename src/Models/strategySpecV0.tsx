@@ -2,7 +2,7 @@
 // 目标：100% 对齐后端 StrategySpecV0 的 JSON 结构与字段名（JsonPropertyName）
 
 /** ---------- string-literal enums (用于下拉菜单) ---------- */
-export type RebalanceFreq = "W" | "M";
+export type RebalanceFreq = "Weekly" | "Monthly";
 
 export type HolidayPolicy = "next_trading_day" | "prev_trading_day" | "skip";
 
@@ -44,7 +44,7 @@ export interface StrategySpecV0 {
 
 //调仓策略  --已经完成
 export interface RebalanceSpec {
-  freq:  "W" | "M";
+  freq:  "Weekly" | "Monthly";
   /** 1=Mon ... 7=Sun */ //每周几调仓
   dayOfWeek?: number;
   dayOfMonth?: number;
@@ -132,8 +132,8 @@ export interface OutputSpec {
 /** ---------- Dropdown Options (直接给 UI 用) ---------- */
 export const RebalanceFreqOptions: Array<{ value: RebalanceFreq; label: string }> =
   [
-    { value: "W", label: "Weekly" },
-    { value: "M", label: "Monthly" },
+    { value: "Weekly", label: "Weekly" },
+    { value: "Monthly", label: "Monthly" },
   ];
 
 export const HolidayPolicyOptions: Array<{ value: HolidayPolicy; label: string }> =
@@ -171,7 +171,7 @@ export function makeDefaultStrategySpecV0(
     dataVersion: "data_v1",
 
     rebalance: {
-      freq: "W",
+      freq: "Weekly",
       dayOfWeek: 1,
       holidayPolicy: "next_trading_day",
     },
@@ -179,18 +179,18 @@ export function makeDefaultStrategySpecV0(
     signal: {
       type: "linear_weight",
       inputs: [
-        { codeKey: "mom_12m", factor: "12-Month Momentum", weight: 0.5 },
-        { codeKey: "eps", factor: "Earnings Per Share", weight: 0.5 }
+        { codeKey: "mom_5", factor: "5日动量因子", weight: 0.5 },
+        { codeKey: "mom_12", factor: "12月动量因子", weight: 0.5 }
       ],
       lookback: 20,
       lag: 1,
     },
 
     portfolio: {
-      selector: { type: "topk", k: 50 },
+      selector: { type: "topk", k: 0 },
       weighting: {type: "equal"},
       initialCash: 10000000,
-      targetCashWeight: 0.02,
+      targetCashWeight: 0,
     },
 
     timeRange: {
@@ -201,8 +201,8 @@ export function makeDefaultStrategySpecV0(
 
     execute: {
       priceType: "next_open",
-      commissionBps: 0.01,
-      slippageBps: 0.01,
+      commissionBps: 0.0001,
+      slippageBps: 0.0001,
       allowShort: false,
     },
 

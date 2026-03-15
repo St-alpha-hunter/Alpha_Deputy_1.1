@@ -8,6 +8,7 @@ using api.Models;
 using api.Mappers;
 using api.Migrations;
 
+///左边是entity，右边是dto
 namespace api.Mappers
 {
     public static class ReportMappers
@@ -16,15 +17,10 @@ namespace api.Mappers
         {
             return new ReportDto
             {
-                Id = report.Id,
+                ReportId = report.ReportId,
+                AppUserId = report.AppUserId,
                 StrategyName = report.StrategyName,
-                StartDate = report.StartDate,
-                EndDate = report.EndDate,
-                MetricsJson = report.MetricsJson,
-                ChartBase64 = report.ChartBase64,
-                PositionsJson = report.PositionsJson,
-                CreatedAt = report.CreatedAt,
-                Status = report.Status
+                ResultJson = report.ResultJson
             };
         }
 
@@ -32,30 +28,23 @@ namespace api.Mappers
         {
             return new Report
             {
-                Id = Guid.NewGuid(),
+                ReportId = Guid.NewGuid(),
                 AppUserId = userId,
                 StrategyName = dto.StrategyName,
-                StartDate = dto.StartDate,
-                EndDate = dto.EndDate,
-                MetricsJson = dto.MetricsJson,
-                ChartBase64 = dto.ChartBase64,
-                PositionsJson = dto.PositionsJson,
-                CreatedAt = DateTime.UtcNow,
-                Status = dto.Status
+                ResultJson = dto.ResultJson
             };
         }
 
 
-        public static void UpdateEntity(this Report report, UpdateReportDto dto)
+        public static Report ToUpdateEntity(this Report report, UpdateReportDto dto)
         {
-            report.StrategyName = dto.StrategyName;
-            report.StartDate = dto.StartDate;
-            report.EndDate = dto.EndDate;
-            report.MetricsJson = dto.MetricsJson;
-            report.ChartBase64 = dto.ChartBase64;
-            report.PositionsJson = dto.PositionsJson;
-            report.Status = dto.Status;
+            return new Report
+            {
+                ReportId = dto.ReportId,
+                AppUserId = dto.AppUserId,
+                StrategyName = dto.StrategyName,
+                ResultJson = dto.ResultJson
+            };
         }
-
     }
 }

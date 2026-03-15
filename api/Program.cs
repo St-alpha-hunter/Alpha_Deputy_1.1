@@ -13,7 +13,8 @@ using api.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
+using System.Text.Json.Serialization;
+using api.Contracts;
 using api.Backtest.Application;
 using api.Backtest.Interface;
 using api.Backtest.Infrastructure.Queue;
@@ -28,6 +29,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 //
 builder.Services.AddSwaggerGen(option =>
@@ -62,11 +67,16 @@ builder.Services.AddSwaggerGen(option =>
 });
 
 builder.Services.AddControllers()
-    .AddNewtonsoftJson(options =>
+    .AddJsonOptions(options =>
     {
-        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-        options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+        //options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.Converters.Add(new EnumMemberJsonConverterFactory());
     });
+// .AddNewtonsoftJson(options =>
+// {
+//     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+//     options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+// });
 
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -131,6 +141,12 @@ builder.Services.AddSingleton<IBacktestQueue>(_ => new InMemoryBacktestQueue(_.G
 
 // 5️⃣ 回测执行器（当前假实现）
 builder.Services.AddScoped<IBacktestRunner, PythonBacktestRunner>();
+
+
+//注册环境调用PythonRunner的配置项
+builder.Services.Configure<PythonBacktestRunnerOptions>(
+    builder.Configuration.GetSection("PythonBacktestRunner"));
+
 
 
 // 6️⃣ 回测结果存储（当前本地文件实现）

@@ -11,29 +11,21 @@ namespace api.Dtos.Report
     {
         [Required]
         public string StrategyName { get; set; } = string.Empty;
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string MetricsJson { get; set; } = string.Empty;
-        public string ChartBase64 { get; set; } = string.Empty;
-        public string PositionsJson { get; set; } = string.Empty;
-        public string Status { get; set; } = string.Empty;
+        public string? ResultJson { get; set; }
 
-        public api.Models.Report ToEntity(string appUserId)
-        {
-            return new api.Models.Report
-            {
-                Id = Guid.NewGuid(),
-                AppUserId = appUserId,
-                StrategyName = this.StrategyName,
-                StartDate = this.StartDate,
-                EndDate = this.EndDate,
-                MetricsJson = this.MetricsJson,
-                ChartBase64 = this.ChartBase64,
-                PositionsJson = this.PositionsJson,
-                Status = this.Status,
-                CreatedAt = DateTime.UtcNow
-            };
-        }
+        // public api.Models.Report ToEntity(string appUserId)
+        // {
+        //     return new api.Models.Report
+        //     {
+        //         Id = Guid.NewGuid(),
+        //         AppUserId = appUserId,
+        //         StrategyName = this.StrategyName,
+        //         ResultJson = this.ResultJson,
+
+        //     };
+        // }
     }
 }
 
+//Request DTO 本质是：定义客户端请求 JSON 的结构
+//Response DTO：定义服务器返回给客户端 JSON 的结构

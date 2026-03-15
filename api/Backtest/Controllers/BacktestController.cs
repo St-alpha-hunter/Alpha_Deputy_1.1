@@ -43,8 +43,9 @@ namespace api.Backtest.Controllers
 
                 _logger.LogInformation(
                 "接收到的输入Inputs received: {Inputs}",
-                System.Text.Json.JsonSerializer.Serialize(request.StrategySpec.Signal.Inputs)
+                System.Text.Json.JsonSerializer.Serialize(request.StrategySpec)
             );
+
             var response = await _service.CreateAsync(userId, request, ct);
             return Ok(response);
          }
@@ -69,7 +70,7 @@ namespace api.Backtest.Controllers
          [HttpGet("{taskId:guid}")]
          [Authorize]
          public async Task<ActionResult<BacktestTaskResponse>> Get(
-             [FromBody] CreateBacktestResponse response,
+             // [FromBody] CreateBacktestResponse response,
              [FromRoute] Guid taskId,
              CancellationToken ct)
          {
@@ -83,21 +84,6 @@ namespace api.Backtest.Controllers
 
              return Ok(result);
          }
-
-
-        // [HttpGet("{taskId:guid}")]
-        // [Authorize]
-        // public async Task<ActionResult<BacktestTaskResponse>> Get([FromRoute] Guid taskId, CancellationToken ct)
-        // {
-        //     var username = User.GetUsername();
-        //     var appUser = await _userManager.FindByNameAsync(username);
-
-        //     var resp = await _service.GetAsync(userId, taskId, ct);
-        //     if (resp is null)
-        //         return NotFound();
-
-        //     return Ok(resp);
-        // }
 
         private bool TryGetUserId(out Guid userId)
         {

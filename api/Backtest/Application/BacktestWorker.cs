@@ -171,13 +171,6 @@ namespace api.Backtest.Contracts
 
                     if (!string.IsNullOrWhiteSpace(runRes.SummaryJson))
                     {
-                        // 例：把 summary.json 存进去（可选）
-                        // finalPath = await _resultStore.WriteTextAsync(
-                        //     taskId: taskId,
-                        //     fileName: "summary.json",
-                        //     content: runRes.SummaryJson!,
-                        //     ct: ct);
-
                         finalPath = await _resultStore.SaveAsync(
                             taskId: taskId.ToString(),
                             fileName:$"_summary.json",
@@ -185,15 +178,32 @@ namespace api.Backtest.Contracts
                             //文件和对象存储（本地文件、S3、OSS、MinIO）本质上都是存“字节流”，不是存 string
                             contentType: "application/json",
                             ct: ct);
-                        
+
                     }
+                    string? resultJson = null;
+
+                    if (!string.IsNullOrWhiteSpace(runRes.ResultPath) && File.Exists(runRes.ResultPath))
+                    {
+                        resultJson = await File.ReadAllTextAsync(runRes.ResultPath, ct);
+                    }
+                    // if (!string.IsNullOrWhiteSpace(runRes.RawResultJson))
+                    // {
+                    //     finalPath = await _resultStore.SaveAsync(
+                    //         taskId: taskId.ToString(),
+                    //         fileName: "output.json",
+                    //         content: Encoding.UTF8.GetBytes(runRes.RawResultJson),
+                    //         contentType: "application/json",
+                    //         ct: ct);
+                    // }
 
                     // 5) 更新任务成功
                     await repo.MarkSucceededAsync(
                         taskId: taskId,
                         finishedAt: DateTimeOffset.UtcNow,
                         resultPath: finalPath,
+                        resultJson: resultJson,
                         ct: ct);
+
 
                     _log.LogInformation("Task succeeded. taskId={TaskId} path={Path}", taskId, finalPath);
                     return;

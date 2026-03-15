@@ -19,6 +19,7 @@ import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
 
 import BacktestForm from "../Pages/SessionPage/Console";
+import ReportPage from "../Pages/ReportPage/ReportPage";
 //替换之前的SessionPage
 
 export const router = createBrowserRouter([
@@ -58,20 +59,34 @@ export const router = createBrowserRouter([
                 <ProtectedRoute>
                   <AnalysisPage/>
                 </ProtectedRoute>
-              ),
-              children: [
-                { path: "{session_Id}", element: <CompanyProfile/> }
-              ]
+              )
             },
 
-           {
-              path: "report/:session_id",
+            {
+                path: "report/:reportId",
+                element: (
+                  <ProtectedRoute>
+                    <ReportPage />
+                  </ProtectedRoute>
+              )
+              },
+
+            {
+              path: "backtests/:taskId",
               element: (
                 <ProtectedRoute>
                   <BacktestResultPage/>
                 </ProtectedRoute>
               )
             }
+          //  {
+          //     path: "report/:session_id",
+          //     element: (
+          //       <ProtectedRoute>
+                  
+          //       </ProtectedRoute>
+          //     )
+          //   }
        ],
     },
 ]);

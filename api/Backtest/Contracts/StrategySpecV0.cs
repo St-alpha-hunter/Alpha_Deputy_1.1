@@ -131,7 +131,7 @@ public sealed class PortfolioSpec
 
     [JsonPropertyName("initialCash")]
     [Range(1000000,100000000)]
-    public double Cash { get; init; } = 1000000;
+    public double InitialCash { get; init; } = 1000000;
 
     [JsonPropertyName("targetCashWeight")]
     [Range(0,1)]
@@ -155,7 +155,7 @@ public sealed class SelectorSpec
     public SelectorType Type { get; init; } = SelectorType.TopK;
 
     [JsonPropertyName("k")]
-    [Range(30,5000)]
+    [Range(10, 50)]
     public int K { get; init; }
 }
 
@@ -189,11 +189,11 @@ public sealed class ExecuteSpec
     [JsonPropertyName("commissionBps")]
 
     [Required]
-    [Range(0,0.05)]
+    [Range(0, 0.003)]
     public double CommissionBps { get; init; }
 
     [JsonPropertyName("slippageBps")]
-    [Range(0,0.05)]
+    [Range(0, 0.003)]
     [Required]
     public double SlippageBps { get; init; } 
 
@@ -213,7 +213,7 @@ public sealed class RiskMangementSpec
 
     // max_position_weight 单票上限
     [JsonPropertyName("maxPositionWeight")]
-    [Range(0,0.2)]
+    [Range(0, 0.4)]
     public double MaxPositionWeight { get; init; }
 
     //最大换手
@@ -340,9 +340,11 @@ public enum PriceType
 
 public enum RebalanceFreq
 {
-    [EnumMember(Value = "W")]
     Weekly,
-
-    [EnumMember(Value = "M")]
     Monthly
+    // [EnumMember(Value = "W")]
+    // Weekly,
+
+    // [EnumMember(Value = "M")]
+    // Monthly
 }

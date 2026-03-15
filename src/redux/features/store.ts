@@ -6,12 +6,16 @@ import sessionReducer from "../features/auth/authSlice";
 
 //各个模块
 import factorReducer from '../features/Factors/factorSlice';
+import taskReducer from '../features/Task/taskSlice';
+import userReducer from '../features/user/userSlice';
 
 //const initialFavorites = saveToLocalStorage
 export const store = configureStore({
   reducer: {
     factor: factorReducer,
     session: sessionReducer,
+    taskId: taskReducer,
+    username:userReducer
     // 其他slice可以按模块继续加
   },
 });

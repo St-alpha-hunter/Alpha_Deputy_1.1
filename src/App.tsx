@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import { Toaster } from 'react-hot-toast';
 import { UserProvider } from './Context/useAuth';
+import TaskFloatingPanel from './Components/TaskFloatingPanel/TaskFloatingPanel';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
                 <Toaster position="top-center" />
                   <Navbar/>
                   <Outlet/>
+                  <TaskFloatingPanel />
                 <ToastContainer/>
             </UserProvider>
           </>

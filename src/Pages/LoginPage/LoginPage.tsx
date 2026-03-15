@@ -3,6 +3,9 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../Context/useAuth";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../../redux/features/store";
+import { setUserName } from "../../redux/features/user/userSlice";
 
 type Props = {};
 
@@ -26,8 +29,12 @@ const LoginPage = (props: Props) => {
 
   const handleLogin = (form: LoginFormsInputs) => {
     console.log("SUBMIT FIRED 提交");
+    const dispatch = useDispatch();
     loginUser(form.userName, form.password);
+    dispatch(setUserName(form.userName)); // 将用户名存入 Redux
   };
+  
+    
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

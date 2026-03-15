@@ -24,9 +24,9 @@ namespace api.Backtest.Interface
 
     Task MarkRunningAsync(Guid taskId, DateTimeOffset startedAt, CancellationToken ct = default);
 
-    Task MarkSucceededAsync(Guid taskId, DateTimeOffset finishedAt, string? resultPath, CancellationToken ct = default);
+        Task MarkSucceededAsync(Guid taskId, DateTimeOffset finishedAt, string? resultPath, string? resultJson, CancellationToken ct = default);
 
-    Task MarkFailedAsync(Guid taskId, DateTimeOffset finishedAt, string errorMessage, CancellationToken ct = default);
+        Task MarkFailedAsync(Guid taskId, DateTimeOffset finishedAt, string errorMessage, CancellationToken ct = default);
     
     Task AddAsync(BacktestTask task, CancellationToken ct = default);
     Task SaveChangesAsync(CancellationToken ct = default);

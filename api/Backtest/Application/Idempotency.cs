@@ -6,9 +6,9 @@ namespace api.Backtest.Application
 {
     public static class Idempotency
     {
-        public static string ComputeKey(Guid userId, object strategySpec, object @params, string dataVersion)
+        public static string ComputeKey(Guid taskId, object strategySpec, object @params, string dataVersion)
         {
-            var payload = JsonSerializer.Serialize(new { userId, strategySpec, @params, dataVersion });
+            var payload = JsonSerializer.Serialize(new { taskId, strategySpec, @params, dataVersion });
             var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(payload));
             return Convert.ToHexString(bytes).ToLowerInvariant();
         }

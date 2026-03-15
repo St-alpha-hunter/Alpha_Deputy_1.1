@@ -48,8 +48,8 @@ const PortfolioSection = ({ spec, setSpec }: Props) => {
     }
 
     const handleMaxPositionWeight = (value: number) => {
-        if (value < 0 || value > 0.2) {
-            toast.error("单只股票最大权重应该设定在0-0.2之间");
+        if (value < 0 || value > 0.4) {
+            toast.error("单只股票最大权重应该设定在0-0.4之间");
             return;
         }
             
@@ -86,11 +86,11 @@ const PortfolioSection = ({ spec, setSpec }: Props) => {
                 <NumberField
                     className="text-red-500 font-bold"
                     value={spec.portfolio.selector.k}
-                    min={30}
-                    max={5000}
-                    step={10}
-                    normalize={(v) => Math.round(v / 100) * 100}
-                    validate={(v) => (v < 30 || v > 5000 ? "选股数量至少30只,且不超过5000只" : null)}
+                    min={10}
+                    max={50}
+                    step={1}
+                    normalize={(v) => Math.round(v)}
+                    validate={(v) => (v < 10 || v > 50 ? "选股数量至少10只,且不超过50只" : null)}
                     onInvalid={(msg) => toast.error(msg)}
                     onCommit={(k) =>
                         setSpec((prev) => ({
@@ -106,7 +106,7 @@ const PortfolioSection = ({ spec, setSpec }: Props) => {
 
 
             
-                <h3>优化器</h3>
+                <h3>组合优化</h3>
                 <select className = "text-red-500 font-bold"
                         value={spec.portfolio.weighting.type}
                         onChange={(e) =>
@@ -140,7 +140,7 @@ const PortfolioSection = ({ spec, setSpec }: Props) => {
 
 
             
-                    <h3> 无风险资金%</h3>
+                    <h3> 无风险资金</h3>
                         <NumberField
                             className="text-red-500 font-bold"
                             value={spec.portfolio.targetCashWeight}

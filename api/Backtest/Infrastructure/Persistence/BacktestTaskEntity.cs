@@ -49,6 +49,9 @@ public class BacktestTask
     [MaxLength(512)]
     public string? ResultUri { get; set; }
 
+    [Column("result_json", TypeName = "jsonb")]
+    public string? ResultJson { get; set; }
+
     [Column("error_message")]
     public string? ErrorMessage { get; set; }
 

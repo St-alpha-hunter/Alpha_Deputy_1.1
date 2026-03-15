@@ -14,10 +14,10 @@ namespace api.Backtest.Runner
     public sealed class PythonBacktestRunnerOptions
     {
         public string PythonExe { get; set; } = "python";
-        public string ScriptPath { get; set; } = "python_runner/runner.py";
+        public string ScriptPath { get; set; } = "execute/python_runner/runner.py";
         //Python 脚本的路径。这个路径可以是绝对路径，也可以是相对于 WorkingDirectory 的路径。比如如果 WorkingDirectory 是 /app，那么 ScriptPath 是 python_runner/runner.py 就表示 /app/python_runner/runner.py
-        public string WorkingDirectory { get; set; } = AppContext.BaseDirectory;
-        public int TimeoutSeconds { get; set; } = 100000;
+        public string WorkingDirectory { get; set; } = "";
+        public int TimeoutSeconds { get; set; } = 600;
     }
 
     public sealed class PythonRunnerOutput
@@ -25,10 +25,9 @@ namespace api.Backtest.Runner
         public bool Success { get; set; }
         public string? Message { get; set; }
         //仔细看看BackTrader要求什么返回类型
-        public Dictionary<string, object>? Metrics { get; set; }
-        public object? EquityCurve { get; set; }
-        public object? TradeList { get; set; }
-        public string? RawJson { get; set; }
+        public JsonElement? Metrics { get; set; }
+        public JsonElement? TradeList { get; set; }
+        public JsonElement? RawSpec { get; set; }
     }
 
     public sealed class PythonBacktestRunner : IBacktestRunner
@@ -48,44 +47,64 @@ namespace api.Backtest.Runner
             BacktestRunRequest req,
             CancellationToken ct = default)
         {
+            _logger.LogInformation(
+                "调用执行器的路径PythonRunner config: PythonExe={PythonExe}, ScriptPath={ScriptPath}, WorkingDirectory={WorkingDirectory}, TimeoutSeconds={TimeoutSeconds}",
+                _options.PythonExe,
+                _options.ScriptPath,
+                _options.WorkingDirectory,
+                _options.TimeoutSeconds);
+
+
+
             if (req is null) throw new ArgumentNullException(nameof(req));
             if (req.StrategySpec is null)
                 throw new InvalidOperationException("StrategySpec is null.");
             //拼接出工作目录
+            var workingDirectory = _options.WorkingDirectory;
+
+            if (string.IsNullOrWhiteSpace(workingDirectory))
+            {
+                // 从 api/bin/Debug/net8.0 回到项目根 Alpha-Deputy
+                workingDirectory = Path.GetFullPath(
+                    Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
+            }
 
             _logger.LogInformation(
                 "实际工作目录是 WorkingDirectory={WorkingDirectory}, BaseDirectory={BaseDirectory}",
-                _options.WorkingDirectory, AppContext.BaseDirectory);
-/// 实际工作目录是 WorkingDirectory=D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\, 
-/// BaseDirectory=D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0
-            var runRoot = Path.Combine(
-                _options.WorkingDirectory,
-                "backtest_runs",
-                req.TaskId.ToString());
-            //创建目录
-            //如果目录已存在，也不会报错。
-            Directory.CreateDirectory(runRoot);
+                workingDirectory, AppContext.BaseDirectory);
 
+            var runRoot = Path.Combine(
+                workingDirectory,
+                "api",
+                "Backtest_runs",
+                req.TaskId.ToString());
+
+            Directory.CreateDirectory(runRoot);
             var inputPath = Path.Combine(runRoot, "input.json");
             var outputPath = Path.Combine(runRoot, "output.json");
             var stderrPath = Path.Combine(runRoot, "stderr.log");
             var stdoutPath = Path.Combine(runRoot, "stdout.log");
 
-            // input.json：传给 Python 的输入
-            // output.json：Python 生成的输出
-            // stderr.log：Python 标准错误日志
-            // stdout.log：Python 标准输出日志
-
 
             //把策略写入 input.json
             await File.WriteAllTextAsync(inputPath, JsonSerializer.Serialize(req.StrategySpec), Encoding.UTF8, ct);
+
+
+            var scriptFullPath = Path.GetFullPath(
+                 Path.Combine(workingDirectory, _options.ScriptPath));
+
+            _logger.LogInformation(
+                "执行器路径 Python script resolved: {ScriptFullPath}, Exists={Exists}",
+                scriptFullPath,
+                File.Exists(scriptFullPath));
+
 
             //构造启动Python函数
             var psi = new ProcessStartInfo
             {
                 FileName = _options.PythonExe,
                 //指定进程工作目录,而不是脚本工作目录
-                WorkingDirectory = _options.WorkingDirectory,
+                WorkingDirectory = Path.GetDirectoryName(scriptFullPath)!,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 RedirectStandardInput = false,
@@ -95,20 +114,10 @@ namespace api.Backtest.Runner
             };
 
             // runner.py --input xxx --output yyy --task-id zzz
-
-            var scriptFullPath = Path.GetFullPath(
-                Path.Combine(_options.WorkingDirectory, _options.ScriptPath));
-
-            _logger.LogInformation(
-                "执行器路径 Python script resolved: {ScriptFullPath}, Exists={Exists}",
-                scriptFullPath,
-                File.Exists(scriptFullPath));
-
-
             //  添加命令行参数
             //psi.ArgumentList.Add(_options.ScriptPath); 把python_runner抽象了出来，所以改个位置
-            
-            
+
+
             psi.ArgumentList.Add(scriptFullPath);
             psi.ArgumentList.Add("--input");
             psi.ArgumentList.Add(inputPath);
@@ -143,6 +152,16 @@ namespace api.Backtest.Runner
             //try 块：真正执行 Python
             try
             {
+                _logger.LogInformation(
+                    "启动命令Python launch command: PythonExe={PythonExe}, WorkDir={WorkDir}, Script={Script}, Input={Input}, Output={Output}, TaskId={TaskId}",
+                    _options.PythonExe,
+                    psi.WorkingDirectory,
+                    scriptFullPath,
+                    inputPath,
+                    outputPath,
+                    req.TaskId);
+
+
                 if (!process.Start())
                     throw new InvalidOperationException("加载失败 Failed to start python process.");
                 //开始异步读取输出流

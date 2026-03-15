@@ -17,7 +17,7 @@ const clampInt = (n: number, min: number, max: number) => {
 
 const RebalanceSection = ({ spec, setSpec }: Props) => {
 
-  const onFreqChange = (v: "W" | "M") => {
+  const onFreqChange = (v: "Weekly" | "Monthly") => {
     setSpec((prev) => {
       const next = {
         ...prev,
@@ -27,7 +27,7 @@ const RebalanceSection = ({ spec, setSpec }: Props) => {
         },
       };
 
-      if (v === "W") {
+      if (v === "Weekly") {
         const dow = clampInt(prev.rebalance.dayOfWeek ?? 1, 1, 5);
         return {
           ...next,
@@ -70,14 +70,14 @@ const RebalanceSection = ({ spec, setSpec }: Props) => {
             <select
               className="text-red-500"
               value={spec.rebalance.freq}
-              onChange={(e) => onFreqChange(e.target.value as "W" | "M")}
+              onChange={(e) => onFreqChange(e.target.value as "Weekly" | "Monthly")}
             >
-              <option value="W">每周 Weekly</option>
-              <option value="M">每月 Monthly</option>
+              <option value="Weekly">每周 Weekly</option>
+              <option value="Monthly">每月 Monthly</option>
             </select>
 
             {/* day：根据 freq 切换 */}
-            {spec.rebalance.freq === "W" ? (
+            {spec.rebalance.freq === "Weekly" ? (
               <select
                 className="text-red-500"
                 value={spec.rebalance.dayOfWeek ?? 1}

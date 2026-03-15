@@ -8,14 +8,13 @@ namespace api.Dtos.Report
 {
     public class ReportDto
     {
-        public Guid Id { get; set; }
-        public string StrategyName { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string MetricsJson { get; set; }
-        public string ChartBase64 { get; set; }
-        public string PositionsJson { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public string Status { get; set; }
+        [Key]
+        public Guid ReportId { get; set; }
+        [Required]
+        public string AppUserId { get; set; } = string.Empty; // 外键，关联 AppUser
+        [Required]
+        public string StrategyName { get; set; } = string.Empty;
+
+        public string? ResultJson { get; set; }
     }
 }

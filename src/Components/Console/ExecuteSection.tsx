@@ -61,9 +61,9 @@ const ExecuteSection = ({ spec, setSpec }: Props) => {
                         className = "text-red-500 font-bold"
                         value={spec.execute.commissionBps}
                         min={0}
-                        max={0.05}
-                        step={0.001}
-                        validate={(v) => (v < 0 || v > 0.05 ? "交易费率应该设定在0-0.05之间" : null)}
+                        max={0.003}
+                        step={0.0001}
+                        validate={(v) => (v < 0 || v > 0.003 ? "交易费率应该设定在0-0.003之间" : null)}
                         onInvalid={(msg) => toast.error(msg)}
                         onCommit={(commissionBps) =>
                             setSpec((prev) => ({
@@ -79,9 +79,9 @@ const ExecuteSection = ({ spec, setSpec }: Props) => {
                         className = "text-red-500 font-bold"
                         value={spec.execute.slippageBps}
                         min={0}
-                        max={0.05}
-                        step={0.001}
-                        validate={(v) => (v < 0 || v > 0.05 ? "滑点应该设定在0-0.05之间" : null)}
+                        max={0.003}
+                        step={0.0001}
+                        validate={(v) => (v < 0 || v > 0.003 ? "滑点应该设定在0-0.003之间" : null)}
                         onInvalid={(msg) => toast.error(msg)}
                         onCommit={(slippageBps) =>
                             setSpec((prev) => ({

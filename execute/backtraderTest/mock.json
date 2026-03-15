@@ -1,0 +1,63 @@
+{
+  "name": "mq_smoke_test",
+  "universe": "SP500_20",
+  "dataVersion": "data_v1",
+
+  "rebalance": {
+    "freq": "Monthly",
+    "dayOfWeek": null,
+    "dayOfMonth": 1,
+    "holidayPolicy": 0
+  },
+
+  "signal": {
+    "type": 0,
+    "lookback": 20,
+    "lag": 1,
+    "inputs": [
+      {
+        "codeKey": "mom_60",
+        "factor": "3-Month Momentum",
+        "weight": 0.8
+      },
+      {
+        "codeKey": "mom_5",
+        "factor": "5-Day Momentum",
+        "weight": 0.2
+      }
+    ]
+  },
+
+  "portfolio": {
+    "selector": {
+      "type": 0,
+      "k": 10
+    },
+    "weighting": {
+      "type": 0
+    },
+    "initialCash": 1000000,
+    "targetCashWeight": 0.02
+  },
+
+  "timeRange": {
+    "startDate": "2020-03-14T00:00:00.000Z",
+    "endDate": "2025-12-31T00:00:00.000Z",
+    "calendar": "XNYS"
+  },
+
+  "execute": {
+    "priceType": 0,
+    "commissionBps": 0.0001,
+    "slippageBps": 0.0001,
+    "allowShort": false
+  },
+
+  "riskManagement": {
+    "maxDrawdown": 0.2,
+    "maxPositionWeight": 0.1,
+    "maxTurnover": 0.5,
+    "maxLeverage": 1,
+    "volTarget": 0.15
+  }
+}

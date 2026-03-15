@@ -9,8 +9,8 @@ namespace api.Backtest.Interface
 {
 public interface IBacktestService
 {
-    Task<CreateBacktestResponse> CreateAsync(Guid userId, CreateBacktestRequest req, CancellationToken ct = default);
-    Task<BacktestTaskResponse?> GetAsync(Guid userId, Guid taskId, CancellationToken ct = default);
-}
+        Task<CreateBacktestResponse> CreateAsync(Guid userId, CreateBacktestRequest req, CancellationToken ct = default);
+        Task<BacktestTaskResponse?> GetAsync(Guid userId, Guid taskId, CancellationToken ct = default);
+    }
 
 }

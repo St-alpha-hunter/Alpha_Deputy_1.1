@@ -1,0 +1,5 @@
+﻿{
+  "success": false,
+  "message": "'mom_3' is not in list",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\desktop\\Files(2024-2025)\\practice_dom\\FINSHARK\\Alpha-Deputy\\execute\\python_runner\\runner.py\", line 58, in main\n    results = cerebro.run()\n  File \"C:\\Users\\K.Hawk\\miniconda3\\envs\\backtrader-env\\lib\\site-packages\\backtrader\\cerebro.py\", line 1132, in run\n    runstrat = self.runstrategies(iterstrat)\n  File \"C:\\Users\\K.Hawk\\miniconda3\\envs\\backtrader-env\\lib\\site-packages\\backtrader\\cerebro.py\", line 1215, in runstrategies\n    data._start()\n  File \"C:\\Users\\K.Hawk\\miniconda3\\envs\\backtrader-env\\lib\\site-packages\\backtrader\\feed.py\", line 203, in _start\n    self.start()\n  File \"C:\\Users\\K.Hawk\\miniconda3\\envs\\backtrader-env\\lib\\site-packages\\backtrader\\feeds\\pandafeed.py\", line 230, in start\n    raise e  # let user now something failed\n  File \"C:\\Users\\K.Hawk\\miniconda3\\envs\\backtrader-env\\lib\\site-packages\\backtrader\\feeds\\pandafeed.py\", line 222, in start\n    v = colnames.index(v.lower())\nValueError: 'mom_3' is not in list\n"
+}

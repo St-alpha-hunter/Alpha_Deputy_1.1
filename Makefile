@@ -9,9 +9,9 @@
 .PHONY: up dev engine backend frontend install install-frontend install-backend
 
 # ========= 可按需改这里 =========
-ENGINE_DIR := fork-zipline\new_engine_starter\src
-ENGINE_ENV := zipenv
-ENGINE_CMD := uvicorn main:app --reload
+# ENGINE_DIR := fork-zipline\new_engine_starter\src
+# ENGINE_ENV := zipenv
+# ENGINE_CMD := uvicorn main:app --reload
 
 BACKEND_DIR := api
 BACKEND_CMD := dotnet run
@@ -31,16 +31,16 @@ install-backend:
 
 # 一键启动：分别打开三个 cmd 窗口，各跑各的
 up dev:
-	start "alpha-engine"  cmd /k "cd /d $(ENGINE_DIR) && call conda activate $(ENGINE_ENV) && $(ENGINE_CMD)"
+# 	start "alpha-engine"  cmd /k "cd /d $(ENGINE_DIR) && call conda activate $(ENGINE_ENV) && $(ENGINE_CMD)"
 	start "alpha-backend" cmd /k "cd /d $(BACKEND_DIR) && $(BACKEND_CMD)"
 	start "alpha-frontend" cmd /k "cd /d $(FRONTEND_DIR) && $(FRONTEND_CMD)"
 
 # 单独启动（在当前窗口跑，适合调试）
-engine:
-	cd /d $(ENGINE_DIR) && call conda activate $(ENGINE_ENV) && $(ENGINE_CMD)
+# engine:
+# 	cd /d $(ENGINE_DIR) && call conda activate $(ENGINE_ENV) && $(ENGINE_CMD)
 
 backend:
 	cd /d $(BACKEND_DIR) && $(BACKEND_CMD)
 
 frontend:
-	cd /d $(FRONTEND_DIR) && $(FRONTEND_CMD)
+	cd /d $(FRONTENDkeDIR) && $(FRONTEND_CMD)

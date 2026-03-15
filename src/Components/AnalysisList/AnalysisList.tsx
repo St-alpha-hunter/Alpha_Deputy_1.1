@@ -7,22 +7,21 @@ type Props = {
     id: string;
     title: string;
     author: string;
+    onClick: () => void;
 }
 
 
 
-const AnalysisList = ({ id, title, author}: Props) => {
-    const navigate = useNavigate();
-    const session_id = useSelector((state: RootState) => state.session.session_id);
-    const handleClick = (e: SyntheticEvent) => {
-        e.preventDefault();
-        navigate(`report/${session_id}`);
-    }
+const AnalysisList = ({ id, title, author, onClick }: Props) => {
 
   return (
-    <div className="flex flex-row p-4 border border-lightGreen rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300" onClick={handleClick}>
-      <h2 className="block" >{title}</h2>
-      <h2 className="block">By: {author}</h2>
+    <div onClick={onClick} className="flex flex-row p-4 border gap-10 border-lightGreen rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300" >
+      <div>
+         <h2 className="block text-black" >{title}</h2>
+      </div>
+      <div>
+        <h2 className="block text-black">By: {author}</h2>
+      </div>
     </div>
   )
 }

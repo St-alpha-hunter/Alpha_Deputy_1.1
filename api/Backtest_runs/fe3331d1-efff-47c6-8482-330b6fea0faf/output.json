@@ -1,0 +1,83 @@
+﻿{
+  "success": true,
+  "message": "python runner received task fe3331d1-efff-47c6-8482-330b6fea0faf",
+  "metrics": {
+    "sharpe 夏普比率": {
+      "sharperatio": -0.5405394329402518
+    },
+    "maxDrawdown 最大回撤": {
+      "len": 66,
+      "drawdown": 29.697432834704017,
+      "moneydown": 2969743.2834704015,
+      "max": {
+        "len": 66,
+        "drawdown": 29.831997775308192,
+        "moneydown": 2983199.777530819
+      }
+    },
+    "returns 累计收益率": {
+      "rtot": -0.35236187055092927,
+      "ravg": -0.00027592942094826096,
+      "rnorm": -0.06717178301970961,
+      "rnorm100": -6.717178301970961
+    }
+  },
+  "tradeList": [],
+  "rawSpec": {
+    "name": "mq_smoke_test",
+    "universe": "SP500_20",
+    "dataVersion": "data_v1",
+    "rebalance": {
+      "freq": 0,
+      "dayOfWeek": 1,
+      "dayOfMonth": null,
+      "holidayPolicy": 0
+    },
+    "signal": {
+      "type": 0,
+      "inputs": [
+        {
+          "codeKey": "mom_120",
+          "factor": "6月动量因子",
+          "weight": 0.275
+        },
+        {
+          "codeKey": "mom_20",
+          "factor": "1月动量因子",
+          "weight": 0.275
+        }
+      ],
+      "lookback": 20,
+      "lag": 1
+    },
+    "portfolio": {
+      "selector": {
+        "type": 0,
+        "k": 15
+      },
+      "weighting": {
+        "type": 0
+      },
+      "initialCash": 10000000,
+      "targetCashWeight": 0
+    },
+    "timeRange": {
+      "startDate": "2015-01-01T00:00:00+00:00",
+      "endDate": "2026-02-02T00:00:00+00:00",
+      "calendar": "XNYS"
+    },
+    "execute": {
+      "priceType": 0,
+      "commissionBps": 0.0001,
+      "slippageBps": 0.0001,
+      "allowShort": false
+    },
+    "riskManagement": {
+      "maxDrawdown": 0.2,
+      "maxPositionWeight": 0.1,
+      "maxTurnover": 0.5,
+      "maxLeverage": 1,
+      "volTarget": 0.15
+    }
+  }
+}

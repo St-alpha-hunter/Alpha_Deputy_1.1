@@ -41,3 +41,13 @@ export const removeFromLocalStorage = (key: string): void => {
     console.error(`[localStorage] Remove error for key "${key}":`, err);
   }
 };
+
+
+export const saveBacktestTasksToLocalStorage = (tasks: string[]) => {
+  try {    localStorage.setItem("runningTasks", JSON.stringify(tasks));
+  }
+  catch (err) {
+    console.error("保存 runningTasks 到 localStorage 失败:", err);
+  }
+} 
+

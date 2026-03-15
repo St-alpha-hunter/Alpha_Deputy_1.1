@@ -1,23 +1,13 @@
 export type ReportGet = {
-    id: string;
-    title: string;
+    reportId: string;
     appUserId: string;
-    startname: string;
-    endname: string;
-    metrics_json: JSON;
-    chartbase: string;
-    positions_json: JSON;
-    createdAt: Date;
-    updatedAt: Date;
+    strategyName: string;
+    resultJson: string;
 }
 
 
 export type ReportCreate = {
-    title: string;
     appUserId: string;
-    startname: string;
-    endname: string;
-    metrics_json: JSON;
-    chartbase: string;
-    positions_json: JSON;
+    strategyName: string;
+    resultJson: string;
 }

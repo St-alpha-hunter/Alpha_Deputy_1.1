@@ -40,7 +40,9 @@ namespace api.Repository
         {
             var existing = await _context.Reports.FindAsync(id);
             if (existing == null) return null;
-            existing.UpdateEntity(updateDto);
+            existing.AppUserId = updateDto.AppUserId;
+            existing.StrategyName = updateDto.StrategyName;
+            existing.ResultJson = updateDto.ResultJson;
             await _context.SaveChangesAsync();
             return existing;
         }

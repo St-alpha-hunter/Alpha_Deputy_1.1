@@ -31,7 +31,8 @@ public static class BacktestTaskMapper
         {
             Status = task.Status.ToString(),
             ResultUri = task.ResultUri,
-            ErrorMessage = task.ErrorMessage
+            ErrorMessage = task.ErrorMessage,
+            ResultJson = task.ResultJson
         };
     }
 

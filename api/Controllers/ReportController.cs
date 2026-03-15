@@ -34,10 +34,10 @@ namespace api.Controllers
             return Ok(reportDtos);
         }
 
-        [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        [HttpGet("{reportId}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid reportId)
         {
-            var report = await _reportRepo.GetByIdAsync(id);
+            var report = await _reportRepo.GetByIdAsync(reportId);
             if (report == null) return NotFound();
             return Ok(report.ToReportDto());
         }
@@ -58,19 +58,19 @@ namespace api.Controllers
 
 
 
-        [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateReportDto updateDto)
+        [HttpPut("{reportId}")]
+        public async Task<IActionResult> Update([FromRoute] Guid reportId, [FromBody] UpdateReportDto updateDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var updated = await _reportRepo.UpdateAsync(id, updateDto);
+            var updated = await _reportRepo.UpdateAsync(reportId, updateDto);
             if (updated == null) return NotFound();
             return Ok(updated.ToReportDto());
         }
 
-        [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        [HttpDelete("{reportId}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid reportId)
         {
-            var deleted = await _reportRepo.DeleteAsync(id);
+            var deleted = await _reportRepo.DeleteAsync(reportId);
             if (deleted == null) return NotFound();
             return Ok(deleted.ToReportDto());
         }

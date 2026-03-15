@@ -29,7 +29,7 @@ namespace api.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at")
@@ -51,7 +51,7 @@ namespace api.Migrations
                         .HasColumnType("text")
                         .HasColumnName("error_message");
 
-                    b.Property<DateTime?>("FinishedAt")
+                    b.Property<DateTimeOffset?>("FinishedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("finished_at");
 
@@ -66,12 +66,16 @@ namespace api.Migrations
                         .HasColumnType("jsonb")
                         .HasColumnName("params_json");
 
+                    b.Property<string>("ResultJson")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("result_json");
+
                     b.Property<string>("ResultUri")
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)")
                         .HasColumnName("result_uri");
 
-                    b.Property<DateTime?>("StartedAt")
+                    b.Property<DateTimeOffset?>("StartedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("started_at");
 
@@ -446,7 +450,7 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Report", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ReportId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -454,38 +458,14 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ChartBase64")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("MetricsJson")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PositionsJson")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
+                    b.Property<string>("ResultJson")
                         .HasColumnType("text");
 
                     b.Property<string>("StrategyName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
+                    b.HasKey("ReportId");
 
                     b.ToTable("Reports");
                 });
@@ -608,17 +588,6 @@ namespace api.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Stock");
-                });
-
-            modelBuilder.Entity("api.Models.Report", b =>
-                {
-                    b.HasOne("api.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("api.Models.AppUser", b =>

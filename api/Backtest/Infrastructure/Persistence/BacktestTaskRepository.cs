@@ -59,14 +59,15 @@ public class BacktestRepository : IBacktestRepository  //为了实现接口IBack
                 throw new InvalidOperationException($"BacktestTask not found: {taskId}");
         }
 
-    public async Task MarkSucceededAsync(Guid taskId, DateTimeOffset finishedAt, string? resultPath, CancellationToken ct = default)
-        {
+    public async Task MarkSucceededAsync(Guid taskId, DateTimeOffset finishedAt, string? resultPath, string? resultJson, CancellationToken ct = default)
+    {
             var affected = await _db.BacktestTasks
                 .Where(x => x.Id == taskId)
                 .ExecuteUpdateAsync(setters => setters
                     .SetProperty(x => x.Status, BacktestStatus.SUCCEEDED)
                     .SetProperty(x => x.FinishedAt, finishedAt)
                     .SetProperty(x => x.ResultUri, resultPath)
+                    .SetProperty(x => x.ResultJson, resultJson)
                     .SetProperty(x => x.ErrorMessage, (string?)null)
                     , ct);
 
