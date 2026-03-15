@@ -34,7 +34,7 @@ namespace api.Backtest.Application
                 throw new InvalidOperationException("System at capacity.");
 
             if (await _repo.CountUserRunningAsync(userId, ct) >= UserMaxRunning)
-                throw new InvalidOperationException("You already have a running backtest.");
+                throw new InvalidOperationException("You already have three running backtest.");
 
             // 幂等 key
             var key = Idempotency.ComputeKey(userId, req.StrategySpec, req.Params, DataVersion);
