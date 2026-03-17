@@ -111,7 +111,7 @@ namespace api.Backtest.Contracts
         {
 
             using var scope = _scopeFactory.CreateScope();
-
+            //创建Scope
             var repo = scope.ServiceProvider.GetRequiredService<IBacktestRepository>();
             var runner = scope.ServiceProvider.GetRequiredService<IBacktestRunner>();
 

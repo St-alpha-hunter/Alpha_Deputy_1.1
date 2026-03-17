@@ -35,8 +35,9 @@ public class BacktestRepository : IBacktestRepository  //为了实现接口IBack
 
     public async Task<bool> TryAcquireAsync(Guid taskId, CancellationToken ct = default)
         {
-            // EF Core 7+ 推荐用 ExecuteUpdateAsync（不会先查出来再改，直接在 DB 做原子更新）
-            var affected = await _db.BacktestTasks
+        //利用数据库的原子更新能力，来实现并发控制
+        // EF Core 7+ 推荐用 ExecuteUpdateAsync（不会先查出来再改，直接在 DB 做原子更新）
+        var affected = await _db.BacktestTasks
                 .Where(x => x.Id == taskId && x.Status == BacktestStatus.QUEUED)
                 .ExecuteUpdateAsync(setters => setters
                     .SetProperty(x => x.Status, BacktestStatus.RUNNING)
