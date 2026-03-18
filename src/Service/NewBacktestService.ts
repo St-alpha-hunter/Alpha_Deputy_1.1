@@ -53,6 +53,13 @@ export const getBacktestResult = async (taskId: string): Promise<BacktestResultR
   }
 }
 
+export const deleteBacktest = async (taskId: string): Promise<void> => {
+  try {
+    await axios.delete(`${api}/${taskId}`);
+  } catch (error) {
+    handleError(error);
+  }
+};
 
 
 export interface BacktestResultResponse {

@@ -53,7 +53,8 @@ EOF
 *.tsv
 *.tmp
 *.bak
-
+input.json
+output.json
 # ===== OS 生成的文件 =====
 ehthumbs.db
 Icon?
