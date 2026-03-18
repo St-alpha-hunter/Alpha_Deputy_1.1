@@ -1,11 +1,14 @@
 import { useAuth } from "../../Context/useAuth";
 import logo from "./logo.png";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next'
+import i18n from 'i18next';
 
 interface Props {}
 
 const Navbar = (props: Props) => {
   const { isLoggedIn, user, logout } = useAuth();
+  const { t } = useTranslation();
   return (
     <nav className="relative container mx-auto p-6">
         <div className="flex items-center justify-between">
@@ -17,26 +20,31 @@ const Navbar = (props: Props) => {
 
                 <div className=" font-bold lg:flex">
                   <Link to ="/search" className="text-black hover:text-darkBlue">
-                          Search Stock
+                          {t('searchStock')}
                   </Link>
                 </div>
 
                 <div className=" font-bold lg:flex">
                   <Link to ="/deck" className="text-black hover:text-darkBlue">
-                          FactorDeck
+                          {t('factorHouse')}
                   </Link>
                 </div>
 
                 <div className=" font-bold lg:flex">
                   <Link to ="/session" className="text-black hover:text-darkBlue">
-                         Session
+                         {t('session')}
                   </Link>
                 </div>
 
                 <div className=" font-bold lg:flex">
                   <Link to ="/report" className="text-black hover:text-darkBlue">
-                         My Team's Reports
+                         {t('teamReport')}
                   </Link>
+                </div>
+
+                <div className = "flex flex-row gap-2 font-bold text-blue-500 lg:flex">
+                  <button onClick={() => i18n.changeLanguage('zh')}>中文</button>
+                  <button onClick={() => i18n.changeLanguage('en')}>EN</button>
                 </div>
           </div>
 
@@ -47,20 +55,20 @@ const Navbar = (props: Props) => {
               onClick={logout}
               className="px-8 py-3 font-bold rounded text-white bg-lightGreen hover:opacity-70"
             >
-              Logout
+              {t('logout')}
             </a>
           </div>
         ):(
           <div className="lg:flex items-center space-x-6 text-black">
             <Link to="/login" className="hover:text-darkBlue">
-              Login
+              {t('login')}
             </Link>
             
             <Link
                 to="/register"
                 className="px-8 py-3 font-bold rounded text-black bg-lightGreen hover:opacity-70"
               >
-                Signup
+                {t('SignUp')}
               </Link>
           </div>
           )}

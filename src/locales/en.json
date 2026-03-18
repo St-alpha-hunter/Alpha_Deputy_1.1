@@ -1,0 +1,73 @@
+{
+    "searchStock": "Search Stock",
+    "factorHouse": "FactorDeck",
+    "session": "Session",
+    "teamReport": "My Team's Reports",
+    "login":"Login",
+    "SignUp":"Signup",
+    "logout":"Logout",
+    "heroTitleLine1": "Empower Your Team",
+    "heroTitleLine2": "to Capture Alpha",
+    "description":"Alpha Deputy is a collaborative platform designed to help investment teams capture alpha by providing tools for factor research, strategy development, and performance analysis.",
+    "buttonOnHero":"🚀 Try FactorDeck Now",
+    "CompanyProfile":"Company Profile",
+    "IncomeStatement":"Income Statement",
+    "BalanceSheet":"Balance Sheet",
+    "CashFlow":"Cashflow Statement",
+  "common": {
+    "na": "N/A"
+  },
+  "company": {
+    "companyName": "Company Name",
+    "price": "Price",
+    "dcf": "DCF",
+    "sector": "Sector",
+    "noDescription": "No description available."
+  },
+  "postComment":"Post comment",
+  "date":"Date",
+  "revenue":"Revenue",
+  "costOfRevenue":"Cost Of Revenue",
+  "depreciation":"Depreciation",
+  "operatingIncome":"Operating Income",
+  "incomebeforeTax":"Income Before Tax",
+  "netIncome":"Net Income",
+  "netIncomeRatio":"Net Income Ratio",
+  "eps":"Earnings Per Share",
+  "epd":"Earnings Per Share Diluted",
+  "grossProfitRatio":"Gross Profit Ratio",
+  "operatingIncomeRatio":"Operating Income Ratio",
+  "IBTR":"Income Before Tax Ratio",
+
+
+  "Codefactor":"Code Factor",
+  "Strategy":"Strategy House",
+
+
+  "operatingCashflow":"Operating Cashflow",
+  "investingCashflow":"Investing Cashflow",
+  "financingCashflow":"Financing Cashflow",
+  "cashAtEndOfPeriod":"Cash At End of Period",
+  "capex":"CapEX",
+  "issuanceOfStock":"Issuance Of Stock",
+  "freeCashFlow":"Free Cash Flow",
+
+
+  "totalAssets":"Total Assets",
+  "currentAssets":"Current Assets",
+  "totalCash":"Total Cash",
+  "property&Equipment":"Property & Equipment",
+  "intangibleAssets":"Intangible Assets",
+  "longtermdebt":"Long-term Debt",
+  "totalDebt":"Total Debt",
+    "totalLiabilities":"Total Liabilities",
+    "currentLiabilities":"Current Liabilities",
+    "longtermIncomeTaxes":"Long-term Income Taxes",
+    "stakeholdersEquity":"Stakeholders' Equity",
+    "retainedEarnings":"Retained Earnings",
+
+    "searchFactor":"Search Factor",
+    "confirmChoose":"Confirm My Orders and Continue ",
+
+    "searchStockID":"Search Stock By Symbol"
+}

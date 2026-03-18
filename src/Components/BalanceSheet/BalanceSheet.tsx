@@ -10,74 +10,77 @@ import {
   formatLargeNonMonetaryNumber,
 } from "../../Helpers/NumberFormatting";
 import mockBalanceSheetData from "./balanceSheetMock";
-
+import { useTranslation } from 'react-i18next';
 
 type Props = {};
 
-const config = [
+
+
+const BalanceSheet = (props: Props) => {
+  const { t } = useTranslation();
+  const config = [
   {
-    Label: "Total Assets",
+    Label: t("totalAssets"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.totalAssets),
   },
   {
-    Label: "Current Assets",
+    Label: t("currentAssets"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.totalCurrentAssets),
   },
   {
-    Label: "Total Cash",
+    Label: t("totalCash"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.cashAndCashEquivalents),
   },
   {
-    Label: "Property & equipment",
+    Label: t("property&Equipment"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.propertyPlantEquipmentNet),
   },
   {
-    Label: "Intangible Assets",
+    Label: t("intangibleAssets"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.intangibleAssets),
   },
   {
-    Label: "Long Term Debt",
+    Label: t("longtermdebt"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.longTermDebt),
   },
   {
-    Label: "Total Debt",
+    Label: t("totalDebt"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.otherCurrentLiabilities),
   },
   {
-    Label: "Total Liabilites",
+    Label: t("totalLiabilities"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.totalLiabilities),
   },
   {
-    Label: "Current Liabilities",
+    Label: t("currentLiabilities"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.totalCurrentLiabilities),
   },
   {
-    Label: "Long-Term Income Taxes",
+    Label: t("longtermIncomeTaxes"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.otherLiabilities),
   },
   {
-    Label: "Stakeholder's Equity",
+    Label: t("stakeholdersEquity"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.commonStock),
   },
   {
-    Label: "Retained Earnings",
+    Label: t("retainedEarnings"),
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.retainedEarnings),
   },
 ];
 
-const BalanceSheet = (props: Props) => {
   const ticker = useOutletContext<string>();
   const [companyData, setCompanyData] = useState<CompanyBalanceSheet|null>();
   useEffect(() => {

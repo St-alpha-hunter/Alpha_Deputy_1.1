@@ -2,6 +2,7 @@ import React from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   symbol: string;
@@ -19,6 +20,7 @@ const validation = Yup.object().shape({
 });
 
 const StockCommentForm = ({ symbol, handleComment }: Props) => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -50,7 +52,7 @@ const StockCommentForm = ({ symbol, handleComment }: Props) => {
         type="submit"
         className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-lightGreen rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
       >
-        Post comment
+        {t('postComment')}
       </button>
     </form>
   );

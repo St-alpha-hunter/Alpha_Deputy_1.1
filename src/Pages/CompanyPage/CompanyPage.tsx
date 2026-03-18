@@ -19,6 +19,7 @@ import Tile from "../../Components/Tile/Tile"
 import CompanyFind from "../../Components/CompanyFind/CompanyFind";
 import TenkFind from "../../Components/TenkFind/TenkFind";
 import Sidebar from "../../Components/Sidebar/Sidebar";
+import { useTranslation } from 'react-i18next';
 
 interface Props {}
 
@@ -26,6 +27,7 @@ const CompanyPage = (props: Props) => {
  
   let { ticker } = useParams();
   const [company, setCompany] = useState<CompanyProfile | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getProfileInit = async() => {
@@ -41,20 +43,20 @@ return (
     <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
       <Sidebar />
       <CompanyDashboard ticker={ticker!}>
-        <Tile title="Company Name" subTitle={company.companyName || "N/A"} />
+        <Tile title={t('company.companyName')} subTitle={company.companyName || t('common.na')} />
         <Tile
-          title="Price"
-          subTitle={company.price != null ? `$${company.price.toFixed(2)}` : "N/A"}
+          title={t('company.price')}
+          subTitle={company.price != null ? `$${company.price.toFixed(2)}` : t('common.na')}
         />
         <Tile
-          title="DCF"
-          subTitle={company.dcf != null ? `$${company.dcf.toFixed(2)}` : "N/A"}
+          title={t('company.dcf')}
+          subTitle={company.dcf != null ? `$${company.dcf.toFixed(2)}` : t('common.na')}
         />
-        <Tile title="Sector" subTitle={company.sector || "N/A"} />
+        <Tile title={t('company.sector')} subTitle={company.sector || t('common.na')} />
         <CompanyFind ticker={company.symbol} />
         <TenkFind ticker={company.symbol} />
         <p className="bg-white shadow rounded text-medium font-medium text-gray-900 p-3 mt-1 m-4">
-          {company.description || "No description available."}
+          {company.description || t('company.noDescription')}
         </p>
       </CompanyDashboard>
     </div>

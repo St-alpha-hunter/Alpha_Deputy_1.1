@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import type { MinimalFactor } from "../Factor/Factor";
 import { useNavigate } from 'react-router-dom'; 
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type DropZoneProps = {
     //Partial就是把所有的属性都变成可选的
@@ -22,6 +24,8 @@ const FactorDropZone: FC<DropZoneProps> = ({ selectedFactors, onDropFactor, Fact
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const handleClick = () => {
     navigate('/session');
@@ -41,6 +45,7 @@ const FactorDropZone: FC<DropZoneProps> = ({ selectedFactors, onDropFactor, Fact
     }),
   }));
 
+  const isZh = i18n.language === "zh";
 
   return (
       <div className = "flex flex-col h-full p-1 space-y-3 border-8 border-lightGreen rounded-lg shadow-md bg-white w-full max-w-xl mx-auto">
@@ -53,7 +58,9 @@ const FactorDropZone: FC<DropZoneProps> = ({ selectedFactors, onDropFactor, Fact
                 >
                   
                 <p className="mx-auto block text-gray-600 ">
-                      {isOver && canDrop ? "Release and Add factors" : "drag factors to here"}
+
+                  
+                      {isOver && canDrop ? (isZh ? "释放并添加因子" : "Release and Add factors") : (isZh ? "将因子拖到这里" : "drag factors to here")}
                 </p>
 
             </div>
@@ -76,8 +83,8 @@ const FactorDropZone: FC<DropZoneProps> = ({ selectedFactors, onDropFactor, Fact
           </div>
 
           <div className="flex-grow-[1] text-center">
-                <button onClick={handleClick} className="px-6 py-2 bg-lightGreen text-white max-w-xs font-semibold rounded hover:opacity-90 transition">
-                    Confrim My Orders and Continue 
+                <button onClick={handleClick} className="px-6 py-2 bg-lightGreen text-black max-w-xs font-semibold rounded hover:opacity-90 transition">
+                    {t('confirmChoose')} 
                 </button>         
           </div>
       </div>

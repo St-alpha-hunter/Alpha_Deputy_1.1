@@ -1,5 +1,7 @@
 import type { ChangeEvent, SyntheticEvent } from "react"
 import "./SearchFactor.css"
+import { useTranslation } from 'react-i18next';
+
 
 interface Props {
     onSearchSubmit: (e: SyntheticEvent) => void;
@@ -12,6 +14,9 @@ const SearchFactor = ({
     search, 
     handleSearchChange
     }: Props) => {
+
+    const { t } = useTranslation();
+
     return (
         <div className = "flex flex-col p-1 h-full w-full space-y-1 border-8 border-lightGreen rounded-lg shadow-md bg-white max-w-xl mx-auto">
             
@@ -28,11 +33,11 @@ const SearchFactor = ({
             </div>
 
             
-            <button className = "block flex-grow-[1]  w-full text-white  bg-lightGreen font-semibold rounded-lg hover:bg-yellow-100"
+            <button className = "block flex-grow-[1]  w-full text-black  bg-lightGreen font-semibold rounded-lg hover:bg-yellow-100"
                         onClick= {(e) => {
                         console.log(e);
                         onSearchSubmit(e);
-                    }}> Search 
+                    }}> {t("searchFactor")}
             </button>
 
 {/*

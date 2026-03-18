@@ -5,54 +5,58 @@ import { getCashFlow } from "../../api";
 import Table from "../Table/Table";
 import Spinner from "../Spinners/Spinner";
 import { formatLargeMonetaryNumber } from "../../Helpers/NumberFormatting";
+import { useTranslation } from 'react-i18next';
 
 type Props = {};
 
-const config = [
+
+
+const CashflowStatement = (props: Props) => {
+  const { t } = useTranslation();
+  const config = [
   {
-    label: "Date",
+    label: t("date"),
     render: (company: CompanyCashFlow) => company.date,
   },
   {
-    label: "Operating Cashflow",
+    label: t("operatingCashflow"),
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.operatingCashFlow),
   },
   {
-    label: "Investing Cashflow",
+    label: t("investingCashflow"),
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.netCashProvidedByInvestingActivities),
   },
   {
-    label: "Financing Cashflow",
+    label: t("financingCashflow"),
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(
         company.netCashProvidedByFinancingActivities
       ),
   },
   {
-    label: "Cash At End of Period",
+    label: t("cashAtEndOfPeriod"),
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.cashAtEndOfPeriod),
   },
   {
-    label: "CapEX",
+    label: t("capex"),
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.capitalExpenditure),
   },
   {
-    label: "Issuance Of Stock",
+    label: t("issuanceOfStock"),
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.commonStockIssuance),
   },
   {
-    label: "Free Cash Flow",
+    label: t("freeCashFlow"),
     render: (company: CompanyCashFlow) =>
       formatLargeMonetaryNumber(company.freeCashFlow),
   },
 ];
 
-const CashflowStatement = (props: Props) => {
   const ticker = useOutletContext<string>();
   const [cashFlowData, setCashFlowData] = useState<CompanyCashFlow[]>();
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { type JSX } from "react";
 import React, { type ChangeEvent, useState, type SyntheticEvent} from "react";
 import "./Search.css";
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     onSearchSubmit: (e: SyntheticEvent) => void;
@@ -13,6 +14,8 @@ const Search : React.FC<Props> = ({
     search, 
     handleSearchChange
     }:Props): JSX.Element => {
+    const { t } = useTranslation();
+
     return (
         <div className="w-[1000px] h-[200px] bg-lightGreen 
             rounded-lg mx-auto flex items-center 
@@ -26,7 +29,7 @@ const Search : React.FC<Props> = ({
                     onClick= {(e) => {
                     console.log(e);
                     onSearchSubmit(e);
-                }}> Search 
+                }}> {t("searchStockID")} 
             </button>
         </div>
     );

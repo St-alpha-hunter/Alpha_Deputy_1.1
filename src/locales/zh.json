@@ -1,0 +1,72 @@
+{
+    "searchStock": "讯息速查",
+    "factorHouse": "因子仓库",
+    "session": "实验平台",
+    "teamReport": "研究报告",
+    "login":"登录",
+    "SignUp":"注册",
+    "logout":"退出",
+    "heroTitleLine1": "Alpha Deputy",
+    "heroTitleLine2": "您的专属研究助理",
+    "description":"Alpha Deputy 是一个量化研究平台，旨在通过可视化的操作界面，为用户提供因子研究、策略开发和绩效分析工具，帮助投资团队捕捉阿尔法。",
+    "buttonOnHero":"🚀 开启Quant之路",
+    "CompanyProfile":"公司简介",
+    "IncomeStatement":"损益表",
+    "BalanceSheet":"资产负债表",
+    "CashFlow":"现金流量表",
+    "common": {
+        "na": "暂无"
+    },
+    "company": {
+        "companyName": "公司名称",
+        "price": "股价",
+        "dcf": "贴现现金流",
+        "sector": "行业部门",
+        "noDescription": "暂无公司描述。"
+    },
+     "postComment":"发布评论",
+        "date":"日期",
+        "revenue":"收入",
+        "costOfRevenue":"收入成本",
+        "depreciation":"折旧",
+        "operatingIncome":"营业收入",
+        "incomebeforeTax":"税前收入",
+        "netIncome":"净收入",
+        "netIncomeRatio":"净收入比率",
+        "eps":"每股收益",
+        "epd":"稀释每股收益",
+        "grossProfitRatio":"毛利率",
+        "operatingIncomeRatio":"营业收入比率",
+        "IBTR":"税前收入比率",
+
+
+    "Codefactor":"快速自定义因子（敬请期待）",
+    "Strategy":"策略定制（敬请期待）",
+
+    "operatingCashflow":"经营活动现金流",
+    "investingCashflow":"投资活动现金流",
+    "financingCashflow":"筹资活动现金流",
+    "cashAtEndOfPeriod":"期末现金余额",
+    "capex":"资本支出",
+    "issuanceOfStock":"股票发行",
+    "freeCashFlow":"自由现金流",
+
+    "totalAssets":"总资产",
+  "currentAssets":"流动资产",
+  "totalCash":"现金总额",
+  "property&Equipment":"固定资产",
+  "intangibleAssets":"无形资产",
+  "longtermdebt":"长期负债",
+  "totalDebt":"总负债",
+    "totalLiabilities":"总负债",
+    "currentLiabilities":"流动负债",
+    "longtermIncomeTaxes":"长期所得税",
+    "stakeholdersEquity":"股东权益",
+    "retainedEarnings":"留存收益",
+
+     "searchFactor":"检索因子",
+    "confirmChoose":"确认选择并继续",
+
+    "searchStockID":"检索股票"
+
+}

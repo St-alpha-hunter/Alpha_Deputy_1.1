@@ -8,76 +8,87 @@ import {
   formatLargeMonetaryNumber,
   formatRatio,
 } from "../../Helpers/NumberFormatting";
+import { useTranslation } from 'react-i18next';
 
 type Props = {};
 
+
+
+const IncomeStatement = (props: Props) => {
+
+  const { t } = useTranslation();
 const configs = [
+
+ 
   {
-    label: "Date",
+    label: t("date"),
     render: (company: CompanyIncomeStatement) => company.date,
   },
   {
-    label: "Revenue",
+    label: t("revenue"),
     render: (company: CompanyIncomeStatement) =>
       formatLargeMonetaryNumber(company.revenue),
   },
   {
-    label: "Cost Of Revenue",
+    label: t("costOfRevenue"),
     render: (company: CompanyIncomeStatement) =>
       formatLargeMonetaryNumber(company.costOfRevenue),
   },
   {
-    label: "Depreciation",
+    label: t("depreciation"),
     render: (company: CompanyIncomeStatement) =>
       formatLargeMonetaryNumber(company.depreciationAndAmortization),
   },
   {
-    label: "Operating Income",
+    label: t("operatingIncome"),
     render: (company: CompanyIncomeStatement) =>
       formatLargeMonetaryNumber(company.operatingIncome),
   },
   {
-    label: "Income Before Taxes",
+    label: t("incomebeforeTax"),
     render: (company: CompanyIncomeStatement) =>
       formatLargeMonetaryNumber(company.incomeBeforeTax),
   },
   {
-    label: "Net Income",
+    label: t("netIncome"),
     render: (company: CompanyIncomeStatement) =>
       formatLargeMonetaryNumber(company.netIncome),
   },
   {
-    label: "Net Income Ratio",
+    label: t("netIncomeRatio"),
     render: (company: CompanyIncomeStatement) =>
       formatRatio(company.netIncomeRatio),
   },
   {
-    label: "Earnings Per Share",
+    label: t("eps"),
     render: (company: CompanyIncomeStatement) => formatRatio(company.eps),
   },
   {
-    label: "Earnings Per Diluted",
+    label: t("epd"),
     render: (company: CompanyIncomeStatement) =>
       formatRatio(company.epsdiluted),
   },
   {
-    label: "Gross Profit Ratio",
+    label: t("grossProfitRatio"),
     render: (company: CompanyIncomeStatement) =>
       formatRatio(company.grossProfitRatio),
   },
   {
-    label: "Opearting Income Ratio",
+    label: t("operatingIncomeRatio"),
     render: (company: CompanyIncomeStatement) =>
       formatRatio(company.operatingIncomeRatio),
   },
   {
-    label: "Income Before Taxes Ratio",
+    label: t("IBTR"),
     render: (company: CompanyIncomeStatement) =>
       formatRatio(company.incomeBeforeTaxRatio),
   },
 ];
 
-const IncomeStatement = (props: Props) => {
+
+
+
+
 //useOutletContext 不是组件，而是 React Router 提供的一个 Hook，专门用来在嵌套路由中从父组件获取“共享数据”的
   const ticker = useOutletContext<string>();
   const [incomeStatement, setIncomeStatement] =useState<CompanyIncomeStatement[]>();
