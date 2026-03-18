@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { makeDefaultStrategySpecV0, type StrategySpecV0 } from '../../Models/strategySpecV0';
 
@@ -14,11 +14,11 @@ import { createBacktest, type BacktestResult } from '../../Service/NewBacktestSe
 
 import RebalanceSection from '../../Components/Console/RebalanceSection';
 
-import taskReducer, { setCurrentTaskId, } from '../../redux/features/Task/taskSlice';
+import taskReducer, { setCurrentTaskId } from '../../redux/features/Task/taskSlice';
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/features/store";
 
-
+import { clearFactors } from '../../redux/features/Factors/factorSlice';
 
 //接口
 
@@ -31,15 +31,17 @@ const BacktestForm = (props: Props) => {
     const [spec, setSpec] = useState<StrategySpecV0>(makeDefaultStrategySpecV0());
     const [isBacktesting, setIsBacktesting] = useState(false);
     const [backtestResult, setBacktestResult] = useState<BacktestResult | null>(null);
+    
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
     const selectedFactors = useSelector((s: RootState) => s.factor.selectedFactors);
+    const [localFactors, setlocalFactors] = useState(selectedFactors);
     
     const buildSpecForSubmit = (spec: StrategySpecV0): StrategySpecV0 => {
-                console.log("selectedFactors from redux 来自Redux=", JSON.stringify(selectedFactors, null, 2));
-                const inputs = selectedFactors.map(f => ({
+                console.log("selectedFactors from redux 来自Redux=", JSON.stringify(localFactors, null, 2));
+                const inputs = localFactors.map(f => ({
                     codeKey: f.code_key ?? "", 
                     factor:f.name ?? "",         // 或者你用 code_key / id，当后端需要唯一key时更稳
                     weight: f.weight ?? 0,
@@ -53,6 +55,14 @@ const BacktestForm = (props: Props) => {
                     },
                 };
                 };
+
+        useEffect(() => {
+        if (selectedFactors.length > 0) {
+            setlocalFactors([...selectedFactors]); // 复制一份到本地
+            dispatch(clearFactors());             // 然后清空 redux
+        }
+        }, [selectedFactors, dispatch]);
+
 
 
     const handleSubmit = async (e: React.FormEvent) => {

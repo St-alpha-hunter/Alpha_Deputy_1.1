@@ -1,0 +1,83 @@
+﻿{
+  "success": true,
+  "message": "python runner received task 55d0268e-c820-48c1-b5ed-d5fa65aac6d2",
+  "metrics": {
+    "sharpe 夏普比率": {
+      "sharperatio": null
+    },
+    "maxDrawdown 最大回撤": {
+      "len": 0,
+      "drawdown": 0.0,
+      "moneydown": 0.0,
+      "max": {
+        "len": 0.0,
+        "drawdown": 0.0,
+        "moneydown": 0.0
+      }
+    },
+    "returns 累计收益率": {
+      "rtot": 0.0,
+      "ravg": 0.0,
+      "rnorm": 0.0,
+      "rnorm100": 0.0
+    }
+  },
+  "tradeList": [],
+  "rawSpec": {
+    "name": "mq_smoke_test",
+    "universe": "SP500_20",
+    "dataVersion": "data_v1",
+    "rebalance": {
+      "freq": 0,
+      "dayOfWeek": 1,
+      "dayOfMonth": null,
+      "holidayPolicy": 0
+    },
+    "signal": {
+      "type": 0,
+      "inputs": [
+        {
+          "codeKey": "mom_252",
+          "factor": "12月动量因子",
+          "weight": 0.77
+        },
+        {
+          "codeKey": "mom_5",
+          "factor": "5日动量因子",
+          "weight": 0.22999999999999998
+        }
+      ],
+      "lookback": 20,
+      "lag": 1
+    },
+    "portfolio": {
+      "selector": {
+        "type": 0,
+        "k": 25
+      },
+      "weighting": {
+        "type": 0
+      },
+      "initialCash": 10000000,
+      "targetCashWeight": 0
+    },
+    "timeRange": {
+      "startDate": "2015-11-18T00:00:00+00:00",
+      "endDate": "2024-11-18T00:00:00+00:00",
+      "calendar": "XNYS"
+    },
+    "execute": {
+      "priceType": 0,
+      "commissionBps": 0.0001,
+      "slippageBps": 0.0001,
+      "allowShort": false
+    },
+    "riskManagement": {
+      "maxDrawdown": 0.2,
+      "maxPositionWeight": 0.1,
+      "maxTurnover": 0.5,
+      "maxLeverage": 0,
+      "volTarget": 0.15
+    }
+  }
+}

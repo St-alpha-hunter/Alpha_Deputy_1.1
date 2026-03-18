@@ -336,3 +336,11 @@ D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net
 D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\d08e9b1f-0c33-44e5-968b-7aec5e2334ff\output.json
 D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\d6587552-cb64-4a98-9be8-00eab5289ad7\input.json
 D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\d6587552-cb64-4a98-9be8-00eab5289ad7\output.json
+D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\1f585481-6dcc-4828-a910-b6c60bdd3a62\input.json
+D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\1f585481-6dcc-4828-a910-b6c60bdd3a62\output.json
+D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\55d0268e-c820-48c1-b5ed-d5fa65aac6d2\input.json
+D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\55d0268e-c820-48c1-b5ed-d5fa65aac6d2\output.json
+D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\88644652-9175-4c92-a517-5cc3264f0478\input.json
+D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\88644652-9175-4c92-a517-5cc3264f0478\output.json
+D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\ff6a14d8-2391-43f8-b2e1-fb27343218cd\input.json
+D:\desktop\Files(2024-2025)\practice_dom\FINSHARK\Alpha-Deputy\api\bin\Debug\net8.0\Backtest_runs\ff6a14d8-2391-43f8-b2e1-fb27343218cd\output.json
