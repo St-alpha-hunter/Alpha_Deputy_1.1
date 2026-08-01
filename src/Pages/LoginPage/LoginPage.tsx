@@ -21,6 +21,7 @@ const validation = Yup.object().shape({
 
 const LoginPage = (props: Props) => {
   const { loginUser } = useAuth();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -29,7 +30,6 @@ const LoginPage = (props: Props) => {
 
   const handleLogin = (form: LoginFormsInputs) => {
     console.log("SUBMIT FIRED 提交");
-    const dispatch = useDispatch();
     loginUser(form.userName, form.password);
     dispatch(setUserName(form.userName)); // 将用户名存入 Redux
   };
