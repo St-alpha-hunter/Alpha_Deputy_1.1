@@ -55,11 +55,17 @@ export const UserProvider = ({ children }: Props) => {
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token!);
           setUser(userObj!);
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + res.data.token;
           toast.success("Login Success!");
           navigate("/search");
         }
       })
-      .catch((e) => toast.warning("Server error occured"));
+      .catch((e) => {
+        if (!axios.isAxiosError(e) || !e.response) {
+          toast.warning("Server error occured");
+        }
+      });
   };
 
   const loginUser = async (username: string, password: string) => {
@@ -74,11 +80,17 @@ export const UserProvider = ({ children }: Props) => {
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token!);
           setUser(userObj!);
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + res.data.token;
           toast.success("Login Success!");
           navigate("/search");
         }
       })
-      .catch((e) => toast.warning("Server error occured"));
+      .catch((e) => {
+        if (!axios.isAxiosError(e) || !e.response) {
+          toast.warning("Server error occured");
+        }
+      });
   };
 
   const isLoggedIn = () => {
@@ -89,8 +101,9 @@ export const UserProvider = ({ children }: Props) => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    delete axios.defaults.headers.common["Authorization"];
     setUser(null);
-    setToken("");
+    setToken(null);
     navigate("/");
   };
 

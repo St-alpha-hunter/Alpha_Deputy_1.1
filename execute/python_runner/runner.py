@@ -26,6 +26,8 @@ def main() -> None:
         print(f"开始加载数据，startDate: {startDate}, endDate: {endDate}")
 
         datas = feed_data(config, startDate, endDate)
+        if not datas:
+            raise ValueError("BackTrader received zero data feeds.")
         for symbol, data in datas:
             cerebro.adddata(data, name=symbol)
         print("数据加载完成，开始回测")
@@ -57,6 +59,10 @@ def main() -> None:
         
         results = cerebro.run()
         print("回测完成，开始处理结果")
+        if not results:
+            raise RuntimeError(
+                "BackTrader returned no strategy results. Check the market data and date range."
+            )
         strat = results[0]
         result = {
             "success": True,
@@ -89,7 +95,7 @@ def main() -> None:
             "traceback": traceback.format_exc(),
         }
         write_output_json(args.output, error_result)
-        raise
+        print(traceback.format_exc())
 
 if __name__ == "__main__":
     main()

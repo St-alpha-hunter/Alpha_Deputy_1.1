@@ -23,6 +23,7 @@ import Display from "../../Components/Display/Display";
 import { toast } from "react-toastify";
 import CardList from "../../Components/CardList/CardList";
 import FactorList from "../../Components/FactorList/FactorList";
+import FactorDragLayer from "../../Components/Factor/FactorDragLayer";
 
 //Redux
 import { addFactor, removeFactor} from "../../redux/features/Factors/factorSlice";
@@ -123,6 +124,7 @@ const FactorDeckPage = (props: Props) => {
 
     return (
     <div className = "ml-[260px] grid grid-cols-12 h-screen relative">
+        <FactorDragLayer />
 
         <div className="fixed top-24 left-0 w-[260px] h-[calc(100vh-4rem)] overflow-auto p-4 rounded-lg z-40">
             <FactorSidebar/>
@@ -171,6 +173,5 @@ const FactorDeckPage = (props: Props) => {
 }
 
 export default FactorDeckPage
-
 
 

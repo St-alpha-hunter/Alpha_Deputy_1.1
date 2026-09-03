@@ -7,11 +7,14 @@ import pandas as pd
 
 TEST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "feed_test.json")
 
-BACKTEST_DIR = os.path.join(
-    os.path.dirname(
+BACKTEST_DIR = os.getenv(
+    "BACKTEST_DATA_DIR",
+    os.path.join(
         os.path.dirname(
             os.path.dirname(
-                os.path.abspath(__file__)))), "pipeline/data/backtest_data")
+                os.path.dirname(
+                    os.path.abspath(__file__)))), "pipeline/data/backtest_data"),
+)
 
 BASE_PARAMS = (
         ("datetime", None),
@@ -38,6 +41,10 @@ def read_date_from_config(config):
     config_time_range = config["timeRange"]
     startDate = parse_date(config_time_range["startDate"])
     endDate = parse_date(config_time_range["endDate"])
+    if startDate >= endDate:
+        raise ValueError(
+            f"Backtest startDate must be earlier than endDate: {startDate} >= {endDate}"
+        )
     return startDate, endDate
 
 
@@ -82,8 +89,19 @@ def create_factorData(config):
 ###投喂数据
 def feed_data(config, startDate, endDate):
     datas = []
+    factor_keys = get_factor_keys(config)
+    if not factor_keys:
+        raise ValueError("No factors selected. Add at least one factor before running a backtest.")
+
+    files = sorted(Path(BACKTEST_DIR).glob("*.parquet"))
+    if not files:
+        raise ValueError(
+            f"No backtest parquet data found in {BACKTEST_DIR}. "
+            "Generate or mount market data before running BackTrader."
+        )
+
     factor_data_cols = create_factorData(config)
-    for file in Path(BACKTEST_DIR).glob("*.parquet"):
+    for file in files:
         symbol = file.stem
         df = pd.read_parquet(file)
          # 统一列名，小写更稳.加一道检查
@@ -103,11 +121,28 @@ def feed_data(config, startDate, endDate):
             df = df.set_index("datetime")
         else:
             raise ValueError(f"{file.name} 缺少 date/datetime 列")
+
+        if df.empty:
+            print(f"跳过 {file.name}: 所选日期范围内没有数据")
+            continue
+
+        required_columns = {"open", "high", "low", "close", "volume", *factor_keys}
+        missing_columns = sorted(required_columns.difference(df.columns))
+        if missing_columns:
+            raise ValueError(
+                f"{file.name} is missing required columns: {', '.join(missing_columns)}"
+            )
         
         data = factor_data_cols(
             dataname=df)
         datas.append((symbol, data))
         print(f"{file}数据已经准备")
+
+    if not datas:
+        raise ValueError(
+            f"No market data rows are available between {startDate.date()} and "
+            f"{endDate.date()} in {BACKTEST_DIR}."
+        )
     return datas
 
 

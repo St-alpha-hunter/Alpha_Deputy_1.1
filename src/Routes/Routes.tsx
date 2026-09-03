@@ -28,10 +28,9 @@ export const router = createBrowserRouter([
         element: <App/>,
         children: [
             { path: "", element: <HomePage/>},
-            { path: "search", element: <SearchPage/>},
+            { path: "search", element: <ProtectedRoute><SearchPage/></ProtectedRoute>},
             { path: "login", element: <LoginPage/>},
             { path: "register", element: <RegisterPage /> },
-            { path: "company/:ticker", element:<ProtectedRoute><CompanyPage/></ProtectedRoute>},
             { path: "design-guide", element:<DesignGuide/>},
             { path: "session", element:<ProtectedRoute><BacktestForm/></ProtectedRoute>},
             { path: "deck", element:<ProtectedRoute><FactorDeckPage/></ProtectedRoute>},

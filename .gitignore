@@ -44,6 +44,10 @@ __pycache__/
 # 数据/临时
 .env
 data/
+# The API source folder is named Data; keep source files there trackable.
+!api/Data/
+api/Data/*
+!api/Data/FactorSeed.cs
 bundles/data/
 EOF
 

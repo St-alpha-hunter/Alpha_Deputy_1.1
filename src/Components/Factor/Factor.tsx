@@ -1,4 +1,5 @@
 import { useDrag } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useRef, useEffect, useState, type SyntheticEvent } from "react";
 
 type MinimalFactor = {
@@ -32,7 +33,7 @@ const Factor = (props: Props) => {
     const ref = useRef<HTMLDivElement | null>(null);
 
 
-    const [{ isDragging }, dragRef] = useDrag(() => ({
+    const [{ isDragging }, dragRef, preview] = useDrag(() => ({
         type: "FACTOR", // 拖动项的类型，可以统一定义成常量
         item: { ...props }, // 拖动时携带的数据
         collect: (monitor) => ({
@@ -48,6 +49,10 @@ const Factor = (props: Props) => {
         }
     }, [ref, dragRef]);
 
+    useEffect(() => {
+        preview(getEmptyImage(), { captureDraggingState: true });
+    }, [preview]);
+
 
     return (
     <div
@@ -55,12 +60,13 @@ const Factor = (props: Props) => {
       className={`relative w-fit h-fit p-3 border rounded-xl shadow-sm transition cursor-pointer bg-lightGreen
                 ${isDragging ? "opacity-50" : "hover:shadow-md"}`}
       onClick={props.ChoosingFactor}
+      onMouseDown={() => setIsHovered(false)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
         
-      {isHovered && (
-        <div className="absolute top-full mt-2 w-48 bg-white shadow-md border p-2 text-sm z-10">
+      {isHovered && !isDragging && (
+        <div className="pointer-events-none absolute left-1/2 top-full mt-2 w-48 -translate-x-1/2 bg-white shadow-md border p-2 text-left text-sm z-10">
           {props.description}
         </div>
       )}

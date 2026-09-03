@@ -100,6 +100,11 @@ export interface BacktestTimeRange {
   calendar: string;
 }
 
+export interface BacktestDataRange {
+  minDate: string;
+  maxDate: string;
+}
+
 //执行参数
 export interface ExecuteSpec {
   priceType: PriceType;
@@ -161,9 +166,17 @@ export const WeightingTypeOptions: Array<{ value: WeightingType; label: string }
 
 /** ---------- Default factory (用于初始化表单 state) ---------- */
 export function makeDefaultStrategySpecV0(
+  dataRange: BacktestDataRange,
   overrides: Partial<StrategySpecV0> = {}
 ): StrategySpecV0 {
-  const nowIso = new Date().toISOString();
+  const dataMin = new Date(`${dataRange.minDate}T00:00:00.000Z`);
+  const dataMax = new Date(`${dataRange.maxDate}T00:00:00.000Z`);
+  if (Number.isNaN(dataMin.getTime()) || Number.isNaN(dataMax.getTime()) || dataMin > dataMax) {
+    throw new Error("Invalid backtest data date range");
+  }
+
+  const defaultStart = new Date(Date.UTC(dataMax.getUTCFullYear() - 2, 0, 1));
+  const startDate = defaultStart < dataMin ? dataMin : defaultStart;
 
   const base: StrategySpecV0 = {
     name: "mq_smoke_test",
@@ -180,22 +193,22 @@ export function makeDefaultStrategySpecV0(
       type: "linear_weight",
       inputs: [
         { codeKey: "mom_5", factor: "5日动量因子", weight: 0.5 },
-        { codeKey: "mom_12", factor: "12月动量因子", weight: 0.5 }
+        { codeKey: "mom_60", factor: "60日动量因子", weight: 0.5 }
       ],
       lookback: 20,
       lag: 1,
     },
 
     portfolio: {
-      selector: { type: "topk", k: 0 },
+      selector: { type: "topk", k: 10 },
       weighting: {type: "equal"},
       initialCash: 10000000,
       targetCashWeight: 0,
     },
 
     timeRange: {
-      startDate: nowIso,
-      endDate: nowIso,
+      startDate: startDate.toISOString(),
+      endDate: dataMax.toISOString(),
       calendar: "XNYS",
     },
 

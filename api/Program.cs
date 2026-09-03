@@ -147,6 +147,8 @@ builder.Services.AddScoped<IBacktestRunner, PythonBacktestRunner>();
 builder.Services.Configure<PythonBacktestRunnerOptions>(
     builder.Configuration.GetSection("PythonBacktestRunner"));
 
+builder.Services.AddSingleton<IBacktestDataRangeService, PythonBacktestDataRangeService>();
+
 
 
 // 6️⃣ 回测结果存储（当前本地文件实现）
@@ -191,11 +193,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseHttpsRedirection();
 }
 
 app.MapGet("/healthz", () => Results.Ok("Healthy"));
-
-app.UseHttpsRedirection();
 
 // app.UseCors(x => x
 //     .AllowAnyMethod()
@@ -233,6 +234,13 @@ app.MapGet("/weatherforecast", () =>
 .WithOpenApi();
 
 app.MapControllers();
+
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+    await db.Database.MigrateAsync();
+    await FactorSeed.EnsureSeededAsync(db);
+}
 
 app.Run();
 

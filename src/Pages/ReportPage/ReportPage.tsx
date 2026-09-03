@@ -1,11 +1,9 @@
-import { use, useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useMemo, useState } from "react";
 import FactorSidebar from "../../Components/FactorSidebar/FactorSidebar"
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { deleteReport, getReportById } from "../../Service/ReportService";
 import type { ReportGet } from "../../Models/Report";
-import { deleteBacktest, type BacktestResult } from "../../Service/NewBacktestService";
+import type { BacktestResult } from "../../Service/NewBacktestService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -15,8 +13,6 @@ const ReportPage = () => {
     const [report, setReport] = useState<ReportGet | null>(null);
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const taskId = useSelector((s: any) => s.task.currentTaskId);
 
     useEffect(() => {
         const fetchReport = async () => {
@@ -48,12 +44,14 @@ const ReportPage = () => {
 
     const DeleteReport = async (e: React.FormEvent) => {
         e.preventDefault();
-        // 这里调用删除报告的 API，例如：
         try{
-            await deleteReport(taskId!);
-            await deleteBacktest(reportId!);
+            if (!reportId) {
+                toast.error("缺少报告 ID");
+                return;
+            }
+            await deleteReport(reportId);
 
-            toast.success("回测和报告删除成功");
+            toast.success("报告删除成功");
             setReport(null); // 删除后清空当前报告数据
             navigate("/report"); // 删除后导航回分析列表页
         }

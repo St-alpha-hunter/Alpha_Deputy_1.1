@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { makeDefaultStrategySpecV0, type StrategySpecV0 } from '../../Models/strategySpecV0';
+import type { BacktestDataRange } from '../../Models/strategySpecV0';
+import { getBacktestDataRange } from '../../Service/BacktestDataService';
 
 
 import TimeRangeSection from '../../Components/Console/TimeRangeSection';
@@ -18,8 +20,6 @@ import taskReducer, { setCurrentTaskId } from '../../redux/features/Task/taskSli
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/features/store";
 
-import { clearFactors } from '../../redux/features/Factors/factorSlice';
-
 //接口
 
 
@@ -28,7 +28,9 @@ type Props = {};
 
 const BacktestForm = (props: Props) => {
 
-    const [spec, setSpec] = useState<StrategySpecV0>(makeDefaultStrategySpecV0());
+    const [spec, setSpec] = useState<StrategySpecV0 | null>(null);
+    const [dataRange, setDataRange] = useState<BacktestDataRange | null>(null);
+    const [dataRangeError, setDataRangeError] = useState<string | null>(null);
     const [isBacktesting, setIsBacktesting] = useState(false);
     const [backtestResult, setBacktestResult] = useState<BacktestResult | null>(null);
     
@@ -37,11 +39,38 @@ const BacktestForm = (props: Props) => {
     const dispatch = useDispatch();
     
     const selectedFactors = useSelector((s: RootState) => s.factor.selectedFactors);
-    const [localFactors, setlocalFactors] = useState(selectedFactors);
+
+    useEffect(() => {
+        let active = true;
+
+        getBacktestDataRange()
+            .then((range) => {
+                if (!active) return;
+                setDataRange(range);
+                setSpec(makeDefaultStrategySpecV0(range));
+            })
+            .catch((error: unknown) => {
+                if (!active) return;
+                setDataRangeError(
+                    error instanceof Error ? error.message : "读取回测数据范围失败"
+                );
+            });
+
+        return () => {
+            active = false;
+        };
+    }, []);
+
+    const updateSpec: React.Dispatch<React.SetStateAction<StrategySpecV0>> = (update) => {
+        setSpec((previous) => {
+            if (!previous) return previous;
+            return typeof update === "function" ? update(previous) : update;
+        });
+    };
     
     const buildSpecForSubmit = (spec: StrategySpecV0): StrategySpecV0 => {
-                console.log("selectedFactors from redux 来自Redux=", JSON.stringify(localFactors, null, 2));
-                const inputs = localFactors.map(f => ({
+                console.log("selectedFactors from redux 来自Redux=", JSON.stringify(selectedFactors, null, 2));
+                const inputs = selectedFactors.map(f => ({
                     codeKey: f.code_key ?? "", 
                     factor:f.name ?? "",         // 或者你用 code_key / id，当后端需要唯一key时更稳
                     weight: f.weight ?? 0,
@@ -56,17 +85,9 @@ const BacktestForm = (props: Props) => {
                 };
                 };
 
-        useEffect(() => {
-        if (selectedFactors.length > 0) {
-            setlocalFactors([...selectedFactors]); // 复制一份到本地
-            dispatch(clearFactors());             // 然后清空 redux
-        }
-        }, [selectedFactors, dispatch]);
-
-
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!spec) return;
         setIsBacktesting(true);
         //先确保提交成功 //提交滑动因子
         const finalSpec = buildSpecForSubmit(spec);
@@ -94,6 +115,22 @@ const BacktestForm = (props: Props) => {
             };
         };
 
+    if (dataRangeError) {
+        return (
+            <div className="max-w-3xl mx-auto p-8 text-red-500">
+                无法读取回测数据范围：{dataRangeError}
+            </div>
+        );
+    }
+
+    if (!spec || !dataRange) {
+        return (
+            <div className="max-w-3xl mx-auto p-8 text-gray-200">
+                正在读取回测数据范围...
+            </div>
+        );
+    }
+
     return (
             <div className="max-w-6xl mx-auto p-1 rounded-2xl bg-gradient-to-br from-gray-600 via-slate-700 to-blue-800">
                 <h1 className="text-3xl font-bold mb-6 text-center text-gray-300 pt-5">
@@ -104,26 +141,26 @@ const BacktestForm = (props: Props) => {
                 {/* 1) 顶部：SignalSection 居中 */}
                 <div className="flex justify-center">
                     <div className="w-full">
-                    <SignalSection spec={spec} setSpec={setSpec} />
+                    <SignalSection spec={spec} setSpec={updateSpec} />
                     </div>
                 </div>
 
                 {/* 2) 下方：四块“田字”布局 */}
                 <div className="grid grid-cols-3 gap-6">
                     <div className="w-full">
-                    <RiskSection spec={spec} setSpec={setSpec} />                    
+                    <RiskSection spec={spec} setSpec={updateSpec} />
                     </div>
                     <div className="w-full">
-                    <PortfolioSection spec={spec} setSpec={setSpec} />
+                    <PortfolioSection spec={spec} setSpec={updateSpec} />
                     </div>
                     <div className="w-full">
-                    <ExecuteSection spec={spec} setSpec={setSpec} />
+                    <ExecuteSection spec={spec} setSpec={updateSpec} />
                     </div>
                     <div className="w-full">
-                    <TimeRangeSection spec={spec} setSpec={setSpec} />
+                    <TimeRangeSection spec={spec} setSpec={updateSpec} dataRange={dataRange} />
                     </div>
                     <div className="w-full mb-10">
-                    <RebalanceSection spec={spec} setSpec={setSpec} />
+                    <RebalanceSection spec={spec} setSpec={updateSpec} />
                     </div>
                                     {/* 3) 按钮 */}
                     <div className="flex justify-center pt-10">

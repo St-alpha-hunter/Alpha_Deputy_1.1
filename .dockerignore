@@ -1,0 +1,14 @@
+.git
+.env
+.env.*
+node_modules
+dist
+dist-ssr
+api/bin
+api/obj
+**/bin
+**/obj
+pipeline/data
+data.zip
+*.log
+.DS_Store

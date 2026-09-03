@@ -2,7 +2,8 @@ import axios from "axios";
 import { handleError } from "../Helpers/ErrorHandler";
 import  type { UserProfileToken } from "../Models/User";
 
-const api = `${import.meta.env.VITE_API_BASE}/`;
+const apiBase = (import.meta.env.VITE_API_BASE || "").replace(/\/$/, "");
+const api = `${apiBase}/`;
 console.log('VITE_API_BASE:', import.meta.env.VITE_API_BASE);
 
 
