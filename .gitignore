@@ -9,11 +9,13 @@ lerna-debug.log*
 *.csv
 *.parquet
 
-
 node_modules
 dist
 dist-ssr
 *.local
+
+# Backtest generated outputs
+Backtests/
 
 # Editor directories and files
 .vscode/*
@@ -25,9 +27,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
 .fake
 
+# Node dependencies / build
+node_modules/
+dist/
+build/
 
 # Python
 __pycache__/
@@ -58,6 +63,9 @@ output.json
 # ===== OS 生成的文件 =====
 ehthumbs.db
 Icon?
+.DS_Store
+Thumbs.db
+.vscode/
 
 # ===== .NET / C# =====
 bin/
@@ -85,3 +93,12 @@ build/
 
 bin/
 obj/
+
+# .NET build artifacts
+api/bin/
+api/obj/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/features/store";
 import FactorSidebar from "../../Components/FactorSidebar/FactorSidebar";
+import EquityCurveChart from "../../Components/EquityCurveChart/EquityCurveChart"
 import { getBacktestResult } from "../../Service/NewBacktestService";
 import type {
   BacktestResult,
@@ -57,6 +58,9 @@ const BacktestResultPage = () => {
             setRawResultJson(resultJson || "");
             dispatch(updateTaskStatus({ taskId, status: "SUCCEEDED" }));
             setError(null);
+
+            console.log(result.equityCurve)
+
           } catch (e) {
             console.error("解析 resultJson 失败:", e);
             setError("回测结果解析失败");
@@ -196,6 +200,11 @@ const BacktestResultPage = () => {
             <div>
               <div className="font-semibold">最大回撤</div>
               <div>{result.metrics["maxDrawdown 最大回撤"].drawdown}</div>
+            </div>
+
+            <div>
+              <div className = "font-semibold">收益图</div>
+              <EquityCurveChart data={result.equityCurve ?? []} />
             </div>
 
             <div>

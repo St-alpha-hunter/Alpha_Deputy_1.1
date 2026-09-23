@@ -16,7 +16,7 @@ const ReportPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const taskId = useSelector((s: any) => s.task.currentTaskId);
+    const taskId = useSelector((s: any) => s.taskId.currentTaskId);
 
     useEffect(() => {
         const fetchReport = async () => {

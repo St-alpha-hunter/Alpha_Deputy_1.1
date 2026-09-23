@@ -75,6 +75,7 @@ def main() -> None:
             #     {"date": , "value": 1000000},
             #     {"date": , "value": 1005000}
             # ],
+            "equityCurve": strat.equity_curve,
             "tradeList": [],
             "rawSpec": config
         }

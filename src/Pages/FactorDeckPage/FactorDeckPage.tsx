@@ -40,7 +40,8 @@ const FactorDeckPage = (props: Props) => {
     //const [selectedFactors, setSelectedFactors] = useState<FactorProps[]>([]);
     const [searchResult, setSearchResult] = useState<FactorProps[]>([]);
     
-    
+    console.log("Deck selectedFactors选中的因子有:", selectedFactors);
+
     const ClickFactor = (e: SyntheticEvent) => {
         setfactor;
     }
@@ -81,7 +82,7 @@ const FactorDeckPage = (props: Props) => {
     const onPortfolioCreate = (e: SyntheticEvent) =>{
 
     };
-
+    
     // const FactorDelete = (deletefactor : MinimalFactor) =>{
     //     setSelectedFactors((prev) => prev.filter((f) => f.id !== deletefactor.id) )
     //     dispatch(removeFactor(deletefactor.id));

@@ -15,13 +15,15 @@ interface Props {
 }
 
 
-const FactorAdjuster = ( onWeightChange : Props ) => {
+const FactorAdjuster = ({ onWeightChange,}: Props) => {
       const dispatch = useDispatch();
       const selectedFactors = useSelector(
         (state: RootState) => state.factor.selectedFactors
       );
       // 初始化平均权重
       //const [weight ,setWeight] = useState<FactorProps[]>([]);
+
+      console.log("看看有多少被选中的因子 Session selectedFactors:", selectedFactors);
       
       const sum = selectedFactors.reduce((acc, f) => acc + (f.weight ?? 0), 0);
 
@@ -34,7 +36,7 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
       const avg = 1 / selectedFactors.length;
       selectedFactors.forEach(f => {
         const w = f.weight == null ? avg : f.weight;
-        dispatch(setFactorWeight({ code_key: f.id, weight: w }));
+        dispatch(setFactorWeight({ code_key: f.code_key, weight: w }));
       });
       // 这里不加依赖；如果依赖 selectedFactors，会重复平均。根据你的业务改成合适的依赖。
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,15 +58,15 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
       // };
 
       // 按比例重分配的权重调整
-      const handleWeightChange = (id: string, newWeight: number) => {
+      const handleWeightChange = (codeKey: string, newWeight: number) => {
         const clamped = Math.max(0, Math.min(1, newWeight)); // 防守式约束
-        const others = selectedFactors.filter(f => f.id !== id);
+        const others = selectedFactors.filter(f => f.code_key !== codeKey);
 
         const remain = Math.max(0, 1 - clamped);
         const othersSum = others.reduce((s, f) => s + (f.weight ?? 0), 0);
 
         const updated = selectedFactors.map(f => {
-          if (f.id === id) return { ...f, weight: clamped };
+          if (f.code_key === codeKey) return { ...f, weight: clamped };
 
           // 如果其余因子原本总和为0，就均分；否则按原比例缩放
           const base = othersSum > 0 ? ((f.weight ?? 0) / othersSum) : (1 / (others.length || 1));
@@ -73,7 +75,7 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
 
         // 批量更新Redux仓库
         updated.forEach(f => {
-          dispatch(setFactorWeight({ code_key: f.id, weight: f.weight! }));
+          dispatch(setFactorWeight({ code_key: f.code_key, weight: f.weight! }));
         });
 
         // 需要的话把 updated 回传给父组件
@@ -121,11 +123,11 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
            <form onSubmit={handleSubmit}>
             <div className='bg-gray-100 p-4 rounded flex flex-wrap m-10'>
               {selectedFactors.map(f => (
-                <div key={f.id} style={{ marginBottom: '1rem' }} className='flex flex-row justify-around p-2'>
+                <div key={f.code_key} style={{ marginBottom: '1rem' }} className='flex flex-row justify-around p-2'>
                   <div className='flex flex-row'>
 
                     <div className=' flex flex-col p-3'>
-                        <Factor  key={f.id} {...f} />
+                        <Factor  key={f.code_key} {...f} />
                           <div className='text-black'>{f.name}</div>
                                 <input
                                     type="range"
@@ -133,7 +135,7 @@ const FactorAdjuster = ( onWeightChange : Props ) => {
                                     max={1}
                                     step={0.01}
                                     value={f.weight ?? 0}
-                                    onChange={e => handleWeightChange(f.id, parseFloat(e.target.value))}
+                                    onChange={e => handleWeightChange(f.code_key, parseFloat(e.target.value))}
                                 />
                     </div>
 

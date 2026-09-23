@@ -82,6 +82,10 @@ class Strategy(bt.Strategy):
         # }
         self.peak_value = self.broker.getvalue()
 
+        self.inital = self.config["portfolio"]["initialCash"]
+        # 每个交易日的组合净值
+        self.equity_curve = []
+
 
     def _compute_score(self, data, factor_inputs, lag):
         """
@@ -114,6 +118,18 @@ class Strategy(bt.Strategy):
             return None
 
         return score
+
+    def _record_portfolio_value(self):
+        current_date = self.datas[0].datetime.date(0)
+        current_value = self.broker.getvalue()
+
+        self.equity_curve.append({
+            "date": current_date.isoformat(),
+            "value": float(current_value),
+            "netValue": (current_value / self.inital)
+        })
+
+        print(f"日期是{current_date.isoformat()}，价值是{float(current_value)}, 净值是{(current_value / self.inital)} \n")
 
     def _should_rebalance(self):
         """
@@ -155,6 +171,14 @@ class Strategy(bt.Strategy):
 
     def next(self):
         print("date:", self.datas[0].datetime.date(0))
+
+        # 1. 每根bar都记录组合净值
+        self._record_portfolio_value()
+        # 2. 每根bar都检查回撤，而不是只在调仓日检查
+        current_value = self.broker.getvalue()
+        self.peak_value = max(self.peak_value, current_value)
+
+  
         #处理lag
         lag = self.signal_cfg['lag']
         if len(self.datas[0]) <= lag:
@@ -167,8 +191,14 @@ class Strategy(bt.Strategy):
         #回撤限制
         current_value = self.broker.getvalue()
         self.peak_value = max(self.peak_value, current_value)
-        max_drawdown = (self.peak_value - current_value) / self.peak_value
+
+        if self.peak_value > 0:
+            max_drawdown = (self.peak_value - current_value) / self.peak_value
+        else:
+            max_drawdown = 0.0
+
         maxDrawdown = self.risk_cfg['maxDrawdown']
+
         if max_drawdown >= maxDrawdown:
             # if self.position:
             if any(self.getposition(d).size != 0 for d in self.datas):
@@ -182,6 +212,8 @@ class Strategy(bt.Strategy):
             if len(data) <= lag:
                 continue
             if data.close[0] is None:
+                continue
+            if isinstance(data.close[0], float) and math.isnan(data.close[0]):
                 continue
             #score = self._compute_score(data, factor_inputs, lag)
             score = self._compute_score(data, self.factor_inputs, lag)

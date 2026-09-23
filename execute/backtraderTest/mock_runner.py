@@ -31,7 +31,6 @@ def main() -> None:
 
         cerebro = bt.Cerebro()
        
-
         datas = feed_data(config, startDate, endDate)
         for symbol, data in datas:
             cerebro.adddata(data, name=symbol)
@@ -68,6 +67,7 @@ def main() -> None:
         print(f"检查去到的config内容，特别是因子列表和codeKey{config['signal']['inputs']}")
         
         results = cerebro.run()
+        # cerebro.plot(style="candlestick") 仅仅用作画单根股票
         print("回测完成，开始处理结果")
         print(f"results = {results}")
         print(f"结果长度len(results) = {len(results)}")
@@ -89,11 +89,13 @@ def main() -> None:
             #     {"date": , "value": 1000000},
             #     {"date": , "value": 1005000}
             # ],
+            "equityCurve": strat.equity_curve,
             "tradeList": [],
             "rawSpec": config
         }
 
         write_output_json(output, result)
+        print("任务已完成")
 
     except Exception as ex:
         error_result = {

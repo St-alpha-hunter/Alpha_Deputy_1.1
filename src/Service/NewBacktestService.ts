@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {handleError} from '../Helpers/ErrorHandler';
 import type { StrategySpecV0 } from "../Models/strategySpecV0";
-import type { OutputMetric } from '../Models/strategySpecV0';
-import type { OutputSpec } from '../Models/strategySpecV0';
+// import type { OutputMetric } from '../Models/strategySpecV0';
+// import type { OutputSpec } from '../Models/strategySpecV0';
 
 
 /** 后端若是 CreateBacktestRequest { strategySpec: StrategySpecV0 } */
@@ -75,6 +75,7 @@ export interface BacktestResult {
   tradeList: any[]
   metrics: Metrics
   rawSpec: RawSpec
+  equityCurve: EquityCurve[]
 }
 
 export interface Metrics {
@@ -103,6 +104,16 @@ export interface MaxDrawdown {
     drawdown: number
     moneydown: number
   }
+}
+
+export interface EquityCurve {
+  date: string;
+  value: number;
+  netValue: number;
+}
+
+interface EquityCurveChartProps {
+  data: EquityCurve[];
 }
 
 export interface RawSpec {

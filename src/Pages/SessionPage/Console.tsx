@@ -56,13 +56,12 @@ const BacktestForm = (props: Props) => {
                 };
                 };
 
-        useEffect(() => {
-        if (selectedFactors.length > 0) {
-            setlocalFactors([...selectedFactors]); // 复制一份到本地
-            dispatch(clearFactors());             // 然后清空 redux
-        }
-        }, [selectedFactors, dispatch]);
-
+        // useEffect(() => {
+        // if (selectedFactors.length > 0) {
+        //     setlocalFactors([...selectedFactors]); // 复制一份到本地
+        //     dispatch(clearFactors());             // 然后清空 redux
+        // }
+        // }, [selectedFactors, dispatch]);
 
 
     const handleSubmit = async (e: React.FormEvent) => {
