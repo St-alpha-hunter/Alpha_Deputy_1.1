@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { makeDefaultStrategySpecV0, type StrategySpecV0 } from '../../Models/strategySpecV0';
+import { makeDefaultStrategySpecV0, type StrategySpecV0, type BacktestDataRange } from '../../Models/strategySpecV0';
+import { getBacktestDataRange } from '../../Service/BacktestDataService';
 
 
 import TimeRangeSection from '../../Components/Console/TimeRangeSection';
@@ -29,7 +30,10 @@ type Props = {};
 
 const BacktestForm = (props: Props) => {
 
-    const [spec, setSpec] = useState<StrategySpecV0>(makeDefaultStrategySpecV0());
+    // spec 依赖 parquet 数据的日期范围，拿到范围之前为 null
+    const [spec, setSpec] = useState<StrategySpecV0 | null>(null);
+    const [dataRange, setDataRange] = useState<BacktestDataRange | null>(null);
+    const [dataRangeError, setDataRangeError] = useState<string | null>(null);
     const [isBacktesting, setIsBacktesting] = useState(false);
     const [backtestResult, setBacktestResult] = useState<BacktestResult | null>(null);
     const {t} = useTranslation()
@@ -39,6 +43,36 @@ const BacktestForm = (props: Props) => {
     
     const selectedFactors = useSelector((s: RootState) => s.factor.selectedFactors);
     const [localFactors, setlocalFactors] = useState(selectedFactors);
+
+    // 进入页面先读取回测数据的可用日期范围，再用它生成默认 spec
+    useEffect(() => {
+        let active = true;
+
+        getBacktestDataRange()
+            .then((range) => {
+                if (!active) return;
+                setDataRange(range);
+                setSpec(makeDefaultStrategySpecV0(range));
+            })
+            .catch((error: unknown) => {
+                if (!active) return;
+                setDataRangeError(
+                    error instanceof Error ? error.message : t("console.timeRange.loadFailedUnknown")
+                );
+            });
+
+        return () => {
+            active = false;
+        };
+    }, []);
+
+    // 子组件拿到的 setSpec 仍然是非空类型；spec 还没初始化时忽略更新
+    const updateSpec: React.Dispatch<React.SetStateAction<StrategySpecV0>> = (update) => {
+        setSpec((previous) => {
+            if (!previous) return previous;
+            return typeof update === "function" ? update(previous) : update;
+        });
+    };
     
     const buildSpecForSubmit = (spec: StrategySpecV0): StrategySpecV0 => {
                 console.log("selectedFactors from redux 来自Redux=", JSON.stringify(localFactors, null, 2));
@@ -67,6 +101,7 @@ const BacktestForm = (props: Props) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!spec) return;
         setIsBacktesting(true);
         //先确保提交成功 //提交滑动因子
         const finalSpec = buildSpecForSubmit(spec);
@@ -94,6 +129,23 @@ const BacktestForm = (props: Props) => {
             };
         };
 
+    if (dataRangeError) {
+        return (
+            <div className="max-w-3xl mx-auto mt-10 p-6 rounded-xl bg-red-50 border border-red-200 text-red-700">
+                {t("console.timeRange.loadFailed", { reason: dataRangeError })}
+            </div>
+        );
+    }
+
+    if (!spec || !dataRange) {
+        return (
+            <div className="max-w-3xl mx-auto mt-10 p-6 flex items-center justify-center gap-3 text-gray-600">
+                <span className="w-5 h-5 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+                {t("console.timeRange.loading")}
+            </div>
+        );
+    }
+
     return (
             <div className="max-w-6xl mx-auto p-1 rounded-2xl bg-gradient-to-br from-gray-600 via-slate-700 to-blue-800">
                 <h1 className="text-3xl font-bold mb-6 text-center text-gray-300 pt-5">
@@ -104,26 +156,26 @@ const BacktestForm = (props: Props) => {
                 {/* 1) 顶部：SignalSection 居中 */}
                 <div className="flex justify-center">
                     <div className="w-full">
-                    <SignalSection spec={spec} setSpec={setSpec} />
+                    <SignalSection spec={spec} setSpec={updateSpec} />
                     </div>
                 </div>
 
                 {/* 2) 下方：四块“田字”布局 */}
                 <div className="grid grid-cols-3 gap-6">
                     <div className="w-full">
-                    <RiskSection spec={spec} setSpec={setSpec} />                    
+                    <RiskSection spec={spec} setSpec={updateSpec} />                    
                     </div>
                     <div className="w-full">
-                    <PortfolioSection spec={spec} setSpec={setSpec} />
+                    <PortfolioSection spec={spec} setSpec={updateSpec} />
                     </div>
                     <div className="w-full">
-                    <ExecuteSection spec={spec} setSpec={setSpec} />
+                    <ExecuteSection spec={spec} setSpec={updateSpec} />
                     </div>
                     <div className="w-full">
-                    <TimeRangeSection spec={spec} setSpec={setSpec} />
+                    <TimeRangeSection spec={spec} setSpec={updateSpec} dataRange={dataRange} />
                     </div>
                     <div className="w-full">
-                    <RebalanceSection spec={spec} setSpec={setSpec} />
+                    <RebalanceSection spec={spec} setSpec={updateSpec} />
                     </div>
                 </div>
 

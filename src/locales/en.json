@@ -129,7 +129,11 @@
             "endDate": "End Date",
             "calendar": "Calendar",
             "calendarXNYS": "XNYS (NYSE)",
-            "calendarComingSoon": "More coming soon"
+            "calendarComingSoon": "More coming soon",
+            "availableRange": "Available data: {{min}} to {{max}}",
+            "loading": "Loading available data range...",
+            "loadFailed": "Unable to load the backtest data range: {{reason}}",
+            "loadFailedUnknown": "unknown error"
         },
         "rebalance": {
             "title": "Rebalance",

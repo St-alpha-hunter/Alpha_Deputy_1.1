@@ -1,9 +1,10 @@
-import type { StrategySpecV0 } from "../../Models/strategySpecV0";
+import type { StrategySpecV0, BacktestDataRange } from "../../Models/strategySpecV0";
 import { useTranslation } from "react-i18next";
 
 type Props = {
   spec: StrategySpecV0;
   setSpec: React.Dispatch<React.SetStateAction<StrategySpecV0>>;
+  dataRange: BacktestDataRange;
 };
 
 
@@ -15,7 +16,7 @@ type Props = {
 // ✅ 提交给后端时，ISO 字符串会被 DateTimeOffset 正确反序列化
 
 
-const TimeRangeSection = ({ spec, setSpec }: Props) => {
+const TimeRangeSection = ({ spec, setSpec, dataRange }: Props) => {
         const { t } = useTranslation();
 
         // ISO -> "YYYY-MM-DD"（给 <input type="date"> 用）
@@ -42,6 +43,8 @@ const TimeRangeSection = ({ spec, setSpec }: Props) => {
                 <input
                             className="text-red-500 font-bold w-full min-w-0"
                             type="date"
+                            min={dataRange.minDate}
+                            max={isoToDateInputValue(spec.timeRange.endDate) || dataRange.maxDate}
                             value={isoToDateInputValue(spec.timeRange.startDate)}
                             onChange={(e) =>
                                 setSpec((prev) => ({
@@ -57,6 +60,8 @@ const TimeRangeSection = ({ spec, setSpec }: Props) => {
                         <input
                             className="text-red-500 font-bold w-full min-w-0"
                             type="date"
+                            min={isoToDateInputValue(spec.timeRange.startDate) || dataRange.minDate}
+                            max={dataRange.maxDate}
                             value={isoToDateInputValue(spec.timeRange.endDate)}
                             onChange={(e) =>
                                 setSpec((prev) => ({
@@ -82,6 +87,9 @@ const TimeRangeSection = ({ spec, setSpec }: Props) => {
                     </select>                        
             
         </div>
+        <p className="mt-4 text-xs text-gray-300">
+          {t("console.timeRange.availableRange", { min: dataRange.minDate, max: dataRange.maxDate })}
+        </p>
     </div>  
   )
 };

@@ -129,7 +129,11 @@
             "endDate": "回测结束时间",
             "calendar": "交易日历选择",
             "calendarXNYS": "XNYS 纽约证券交易所",
-            "calendarComingSoon": "其他交易日历敬请期待"
+            "calendarComingSoon": "其他交易日历敬请期待",
+            "availableRange": "可用数据范围：{{min}} 至 {{max}}",
+            "loading": "正在读取回测数据范围...",
+            "loadFailed": "无法读取回测数据范围：{{reason}}",
+            "loadFailedUnknown": "未知错误"
         },
         "rebalance": {
             "title": "调仓频率",
