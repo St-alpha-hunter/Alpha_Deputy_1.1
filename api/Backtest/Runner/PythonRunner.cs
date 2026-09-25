@@ -17,6 +17,7 @@ namespace api.Backtest.Runner
         public string ScriptPath { get; set; } = "execute/python_runner/runner.py";
         //Python 脚本的路径。这个路径可以是绝对路径，也可以是相对于 WorkingDirectory 的路径。比如如果 WorkingDirectory 是 /app，那么 ScriptPath 是 python_runner/runner.py 就表示 /app/python_runner/runner.py
         public string WorkingDirectory { get; set; } = "";
+        public string DataDirectory { get; set; } = "pipeline/data/backtest_data";
         public int TimeoutSeconds { get; set; } = 600;
     }
 
@@ -26,6 +27,7 @@ namespace api.Backtest.Runner
         public string? Message { get; set; }
         //仔细看看BackTrader要求什么返回类型
         public JsonElement? Metrics { get; set; }
+        public JsonElement? EquityCurve { get; set; }
         public JsonElement? TradeList { get; set; }
         public JsonElement? RawSpec { get; set; }
     }
@@ -127,7 +129,7 @@ namespace api.Backtest.Runner
             psi.ArgumentList.Add(req.TaskId.ToString());
 
             _logger.LogInformation(
-                "开始调用BackTrader回测引擎,Starting Python runner. TaskId={TaskId}, PythonExe={PythonExe}, ScriptPath={ScriptPath}",
+                "看看看看看开始调用BackTrader回测引擎,Starting Python runner. TaskId={TaskId}, PythonExe={PythonExe}, ScriptPath={ScriptPath}",
                 req.TaskId, _options.PythonExe, _options.ScriptPath);
 
             //创建进程对象
@@ -207,6 +209,12 @@ namespace api.Backtest.Runner
                 //读取并解析 output.json
                 var outputJson = await File.ReadAllTextAsync(outputPath, ct);
 
+                _logger.LogInformation(
+                    "7月26日最新打印日志。。。。。打印一下回测结果Python output loaded. TaskId={TaskId}, JsonLength={JsonLength}",
+                    req.TaskId,
+                    outputJson.Length
+                );
+
                 var parsed = JsonSerializer.Deserialize<PythonRunnerOutput>(
                     outputJson,
                     new JsonSerializerOptions
@@ -226,6 +234,14 @@ namespace api.Backtest.Runner
                     return BacktestRunResult.Failed(
                         error: parsed.Message ?? "业务逻辑 Python runner reported failure without message.");
                 }
+
+                _logger.LogInformation(
+                    "7月25日最新报错打印。。。。。。Python finished. TaskId={TaskId}, OutputPath={OutputPath}, Exists={Exists}, Length={Length}",
+                    req.TaskId,
+                    outputPath,
+                    File.Exists(outputPath),
+                    File.Exists(outputPath) ? new FileInfo(outputPath).Length : 0
+                );
 
                 return BacktestRunResult.Succeed(
                     resultPath: outputPath,
