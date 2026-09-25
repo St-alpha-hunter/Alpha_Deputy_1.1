@@ -22,11 +22,37 @@ namespace api.Backtest.Controllers
 
         private readonly ILogger<BacktestsController> _logger;
         private readonly UserManager<AppUser> _userManager;
-        public BacktestsController(UserManager<AppUser> userManager, IBacktestService service, ILogger<BacktestsController> logger)
+        private readonly IBacktestDataRangeService _dataRangeService;
+        public BacktestsController(
+            UserManager<AppUser> userManager,
+            IBacktestService service,
+            IBacktestDataRangeService dataRangeService,
+            ILogger<BacktestsController> logger)
         {
             _userManager = userManager;
             _service = service;
+            _dataRangeService = dataRangeService;
             _logger = logger;
+        }
+
+        /// <summary>
+        /// 返回当前 parquet 数据可用于回测的日期上下限。
+        /// </summary>
+        [HttpGet("data-range")]
+        [AllowAnonymous]
+        public async Task<ActionResult<BacktestDataRange>> GetDataRange(CancellationToken ct)
+        {
+            try
+            {
+                return Ok(await _dataRangeService.GetAsync(ct));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "读取 BackTrader 数据日期范围失败");
+                return Problem(
+                    detail: "Unable to read the available backtest data range.",
+                    statusCode: StatusCodes.Status503ServiceUnavailable);
+            }
         }
 
         /// <summary>

@@ -147,6 +147,8 @@ builder.Services.AddScoped<IBacktestRunner, PythonBacktestRunner>();
 builder.Services.Configure<PythonBacktestRunnerOptions>(
     builder.Configuration.GetSection("PythonBacktestRunner"));
 
+builder.Services.AddSingleton<IBacktestDataRangeService, PythonBacktestDataRangeService>();
+
 
 
 // 6️⃣ 回测结果存储（当前本地文件实现）
