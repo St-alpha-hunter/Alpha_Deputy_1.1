@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/features/store";
 import FactorSidebar from "../../Components/FactorSidebar/FactorSidebar";
-import EquityCurveChart from "../../Components/EquityCurveChart/EquityCurveChart"
+// TODO: equity curve 数据还没做好，暂不展示；做好后恢复这里和下面的收益图
+// import EquityCurveChart from "../../Components/EquityCurveChart/EquityCurveChart"
 import { getBacktestResult } from "../../Service/NewBacktestService";
 import type {
   BacktestResult,
@@ -58,9 +59,8 @@ const BacktestResultPage = () => {
             setRawResultJson(resultJson || "");
             dispatch(updateTaskStatus({ taskId, status: "SUCCEEDED" }));
             setError(null);
-
-            console.log(result.equityCurve)
-
+            // 注意：这里不能读 result（setResult 是异步的，此时 result 仍是旧值 null，
+            // 读 result.equityCurve 会抛错并被下面 catch 误判为“解析失败”）
           } catch (e) {
             console.error("解析 resultJson 失败:", e);
             setError("回测结果解析失败");
@@ -202,10 +202,11 @@ const BacktestResultPage = () => {
               <div>{result.metrics["maxDrawdown 最大回撤"].drawdown}</div>
             </div>
 
-            <div>
+            {/* TODO: 收益图，equity curve 做好后恢复 */}
+            {/* <div>
               <div className = "font-semibold">收益图</div>
               <EquityCurveChart data={result.equityCurve ?? []} />
-            </div>
+            </div> */}
 
             <div>
               <div className="font-semibold">原始结果 JSON</div>
