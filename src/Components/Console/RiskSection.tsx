@@ -1,6 +1,7 @@
 import type { StrategySpecV0 } from "../../Models/strategySpecV0";
 import { toast } from "react-toastify";
 import NumberField from "../../Helpers/NumberField";
+import { useTranslation } from "react-i18next";
 
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
 
 
 const RiskSection = ({ spec, setSpec }: Props) => {
+        const { t } = useTranslation();
 
         const handleMaxDrawdown = (value: number) => {
                 if (value < 0 || value > 0.5) return;
@@ -80,18 +82,18 @@ const RiskSection = ({ spec, setSpec }: Props) => {
 
     return (
                 <div className = "mr-10  text-gray-100 ml-5">
-                    <h2 className = " text-yellow-400 mb-5 font-bold text-left">风险控制 Risk Management</h2>
+                    <h2 className = " text-yellow-400 mb-5 font-bold text-left">{t("console.risk.title")}</h2>
 
-                         <div className="grid grid-cols-[100px_1fr] gap-y-6 gap-x-2 max-w-xl">
+                         <div className="grid grid-cols-[7.5rem_minmax(0,1fr)] items-center gap-y-5 gap-x-3 max-w-xl">
 
-                            <h3>允许最大回撤</h3>
+                            <h3 className="text-sm leading-snug">{t("console.risk.maxDrawdown")}</h3>
                             <NumberField
-                                    className = "text-red-500 font-bold"
+                                    className="text-red-500 font-bold w-full min-w-0"
                                     value={spec.riskManagement.maxDrawdown}
                                     min={0}
                                     max={0.5}
                                     step={0.01}
-                                    validate={(v) => (v < 0 || v > 0.5 ? "允许最大回撤应该设定在0-0.5之间" : null)}
+                                    validate={(v) => (v < 0 || v > 0.5 ? t("console.risk.maxDrawdownError") : null)}
                                     onInvalid={(msg) => toast.error(msg)}
                                     onCommit={(maxDrawdown) =>
                                         setSpec((prev) => ({
@@ -102,14 +104,14 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                             />
                         
                         
-                            <h3>单票最大持仓 </h3>
+                            <h3 className="text-sm leading-snug">{t("console.risk.maxPositionWeight")}</h3>
                             <NumberField
-                                    className = "text-red-500 font-bold"
+                                    className="text-red-500 font-bold w-full min-w-0"
                                     value={spec.riskManagement.maxPositionWeight}
                                     min={0}
                                     max={0.2}
                                     step={0.001}
-                                    validate={(v) => (v < 0 || v > 0.2 ? "单票最大持仓应该设定在0-0.2之间" : null)}
+                                    validate={(v) => (v < 0 || v > 0.2 ? t("console.risk.maxPositionWeightError") : null)}
                                     onInvalid={(msg) => toast.error(msg)}
                                     onCommit={(maxPositionWeight) =>
                                         setSpec((prev) => ({
@@ -121,14 +123,14 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                        
 
                        
-                            <h3>最大换手率</h3>
+                            <h3 className="text-sm leading-snug">{t("console.risk.maxTurnover")}</h3>
                             <NumberField
-                                    className = "text-red-500 font-bold"
+                                    className="text-red-500 font-bold w-full min-w-0"
                                     value={spec.riskManagement.maxTurnover}
                                     min={0}
                                     max={10}
                                     step={0.01}
-                                    validate={(v) => (v < 0 || v > 10 ? "最大换手率应该设定在0-10之间" : null)}
+                                    validate={(v) => (v < 0 || v > 10 ? t("console.risk.maxTurnoverError") : null)}
                                     onInvalid={(msg) => toast.error(msg)}
                                     onCommit={(maxTurnover) =>
                                         setSpec((prev) => ({
@@ -139,14 +141,14 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                             />
                         
                         
-                            <h3>杠杆</h3>
+                            <h3 className="text-sm leading-snug">{t("console.risk.maxLeverage")}</h3>
                             <NumberField
-                                    className = "text-red-500 font-bold"
+                                    className="text-red-500 font-bold w-full min-w-0"
                                     value={spec.riskManagement.maxLeverage}
                                     min={0}
                                     max={5}
                                     step={0.1}
-                                    validate={(v) => (v < 0 || v > 5 ? "杠杆倍数应该设定在0-5之间" : null)}
+                                    validate={(v) => (v < 0 || v > 5 ? t("console.risk.maxLeverageError") : null)}
                                     onInvalid={(msg) => toast.error(msg)}
                                     onCommit={(maxLeverage) =>
                                         setSpec((prev) => ({
@@ -157,14 +159,14 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                             />
                         
                         
-                            <h3>目标波动率 </h3>
+                            <h3 className="text-sm leading-snug">{t("console.risk.volTarget")}</h3>
                                 <NumberField
-                                        className = "text-red-500 font-bold"
+                                        className="text-red-500 font-bold w-full min-w-0"
                                         value={spec.riskManagement.volTarget}
                                         min={0}
                                         max={1}
                                         step={0.01}
-                                        validate={(v) => (v < 0 || v > 1 ? "目标波动率应该设定在0-1之间" : null)}
+                                        validate={(v) => (v < 0 || v > 1 ? t("console.risk.volTargetError") : null)}
                                         onInvalid={(msg) => toast.error(msg)}
                                         onCommit={(volTarget) =>
                                             setSpec((prev) => ({

@@ -56,7 +56,7 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setUser(userObj!);
 
-          axios.defaults.headers.common["Authorization"] ="Bearer " + token;
+          axios.defaults.headers.common["Authorization"] = "Bearer " + res?.data.token;
 
           toast.success("Login Success!");
           navigate("/search");
@@ -78,7 +78,7 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setUser(userObj!);
           // 关键：登录完成后立即给 axios 设置 JWT
-          axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+          axios.defaults.headers.common["Authorization"] = "Bearer " + res?.data.token;
 
           toast.success("Login Success!");
           navigate("/search");

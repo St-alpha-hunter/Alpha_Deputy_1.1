@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { RootState } from "../../redux/features/store";
+import { useTranslation } from "react-i18next";
 
 const TaskFloatingPanel: React.FC = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const tasks = useSelector((state: RootState) => state.taskId.tasks);
 
   const runningCount = tasks.filter(
-    (t) => t.status === "QUEUED" || t.status === "RUNNING"
+    (task) => task.status === "QUEUED" || task.status === "RUNNING"
   ).length;
 
   return (
@@ -34,7 +36,7 @@ const TaskFloatingPanel: React.FC = () => {
           boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
         }}
       >
-        回测任务 {runningCount > 0 ? `(${runningCount})` : ""}
+        {t("taskPanel.button")} {runningCount > 0 ? `(${runningCount})` : ""}
       </button>
 
       {open && (
@@ -51,10 +53,10 @@ const TaskFloatingPanel: React.FC = () => {
             boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
           }}
         >
-          <div style={{ fontWeight: 700, marginBottom: 12 }}>后台回测任务</div>
+          <div style={{ fontWeight: 700, marginBottom: 12 }}>{t("taskPanel.title")}</div>
 
           {tasks.length === 0 ? (
-            <div style={{ color: "#666" }}>当前没有任务</div>
+            <div style={{ color: "#666" }}>{t("taskPanel.empty")}</div>
           ) : (
             tasks.map((task) => (
               <div
@@ -64,11 +66,11 @@ const TaskFloatingPanel: React.FC = () => {
                   padding: "10px 0",
                 }}
               >
-                <div style={{ fontSize: 13, color: "#333", marginBottom: 6 }}>
+                <div style={{ fontSize: 13, color: "#333", marginBottom: 6, wordBreak: "break-all" }}>
                   {task.taskId}
                 </div>
                 <div style={{ fontSize: 13, marginBottom: 8 }}>
-                  状态：<strong>{task.status}</strong>
+                  {t("taskPanel.status")}<strong>{t(`taskPanel.statuses.${task.status}`, { defaultValue: task.status })}</strong>
                 </div>
                 <button
                   onClick={() => navigate(`/backtests/${task.taskId}`)}
@@ -80,7 +82,7 @@ const TaskFloatingPanel: React.FC = () => {
                     cursor: "pointer",
                   }}
                 >
-                  查看详情
+                  {t("taskPanel.viewDetail")}
                 </button>
               </div>
             ))

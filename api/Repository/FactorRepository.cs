@@ -65,6 +65,10 @@ namespace api.Repository
         public async Task<List<Factor>> GetAllAsync(FactorQueryObject queryFactor)
         {
             var factorModel = _context.Factors.AsQueryable();
+            if (!queryFactor.IncludeDisabled)
+            {
+                factorModel = factorModel.Where(f => f.Enabled);
+            }
             if (queryFactor.Id != 0)
             {
                 factorModel = factorModel.Where(f => f.Id == queryFactor.Id);
@@ -102,7 +106,7 @@ namespace api.Repository
         public async Task<List<Factor>> GetFactorsByCategoryAsync(string category)
         {
             return await _context.Factors
-            .Where(f => f.Category.ToLower() == category.ToLower()).ToListAsync();
+            .Where(f => f.Enabled && f.Category.ToLower() == category.ToLower()).ToListAsync();
         }
 
     }

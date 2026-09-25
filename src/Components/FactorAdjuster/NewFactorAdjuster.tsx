@@ -7,6 +7,8 @@ import Factor from '../Factor/Factor';
 import { FactorSelectionForm } from '../../Service/FactorService';
 import type { FactorSelectionModel } from '../../Service/FactorService';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import { useFactorTranslate } from '../../Helpers/useFactorTranslate';
 import { setSessionId } from "../../redux/features/auth/authSlice";
 
 
@@ -34,6 +36,8 @@ type NewFactorAdjusterProps = {
 
 
 const NewFactorAdjuster = ( { spec, setSpec, onWeightChange }: NewFactorAdjusterProps ) => {
+      const { t } = useTranslation();
+      const translateFactor = useFactorTranslate();
       const dispatch = useDispatch();
       const selectedFactors = useSelector(
         (state: RootState) => state.factor.selectedFactors
@@ -122,7 +126,7 @@ const NewFactorAdjuster = ( { spec, setSpec, onWeightChange }: NewFactorAdjuster
 
                     <div className=' flex flex-col p-3'>
                         <Factor  key={f.id} {...f} />
-                          <div className='text-black'>{f.name}</div>
+                          <div className='text-black'>{translateFactor(f.name)}</div>
                                 <input
                                     type="range"
                                     min={0}
@@ -141,9 +145,9 @@ const NewFactorAdjuster = ( { spec, setSpec, onWeightChange }: NewFactorAdjuster
                 </div>
               ))}
                 <div>
-                    <strong className='ml-5 text-gray-100'>Total Weights: {(total * 100).toFixed(1)}%</strong>
+                    <strong className='ml-5 text-gray-800'>{t('console.signal.totalWeights', { value: `${(total * 100).toFixed(1)}%` })}</strong>
                           {Math.abs(total - 1) > 0.01 && (
-                      <span style={{ color: 'red', marginLeft: 10 }}>⚠ Total Occupy is not equal to 100%</span>
+                      <span style={{ color: 'red', marginLeft: 10 }}>{t('console.signal.weightsNot100')}</span>
                   )}
               </div>
             </div>

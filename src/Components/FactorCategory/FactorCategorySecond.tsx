@@ -52,29 +52,34 @@ const FactorCategorySecond = ({ category, ChoosingFactor}: Props) => {
 
     return (
         <div className="factor-category">
-            <div className="flex flex-col h-full space-y-2 w-[100px] bg-lightBlue text-white font-bold rounded-lg text-center">
-                <SlEqualizer className="w-full text-2xl mt-12" />
-                <span className="text-lg font-semibold mb-1 mt-1">{category}</span>
+            {/* 左：分类表头，固定宽度，随右侧行数自动拉满高度 */}
+            <div className="shrink-0 w-[100px] flex flex-col items-center justify-center gap-2 bg-lightBlue text-white font-bold rounded-lg text-center px-2 py-4">
+                <SlEqualizer className="text-2xl" />
+                <span className="text-lg font-semibold break-words">{category}</span>
             </div>
-            {factors.length > 0 ? (
-                factors.map((factor) => {
-                    return (
-                        <div key={factor.id} className="min-w-[120px] w-fit p-3">
-                            <Factor
-                                {...factor}
-                                category={factor.category}
-                                code_key={factor.code_key}
-                                computeCode={factor.computeCode}
-                                ChoosingFactor={ChoosingFactor}
-                            />
-                        </div>
-                    )
-                })
-            ) : (
-                <p className="mb-3 mt-3 text-xl font-semibold text-center md:text">
-                    No results
-                </p>
-            )}
+
+            {/* 右：因子区，只在这一栏里换行 */}
+            <div className="flex-1 min-w-0 flex flex-wrap content-start items-start gap-3 p-3">
+                {factors.length > 0 ? (
+                    factors.map((factor) => {
+                        return (
+                            <div key={factor.id} className="min-w-[120px] w-fit">
+                                <Factor
+                                    {...factor}
+                                    category={factor.category}
+                                    code_key={factor.code_key}
+                                    computeCode={factor.computeCode}
+                                    ChoosingFactor={ChoosingFactor}
+                                />
+                            </div>
+                        )
+                    })
+                ) : (
+                    <p className="w-full self-center text-center text-gray-400 font-semibold">
+                        No results
+                    </p>
+                )}
+            </div>
         </div>
     );
 };

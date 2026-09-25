@@ -4,6 +4,7 @@ import NewFactorAdjuster from "../FactorAdjuster/NewFactorAdjuster";
 import { useDispatch, useSelector } from 'react-redux';     
 import NumberField from "../../Helpers/NumberField";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 type Props = {
     spec: StrategySpecV0;
@@ -17,6 +18,7 @@ type Props = {
 
 /// 这个一会儿去调整移动因子权重那一部分
 const SignalSection = ({ spec, setSpec }: Props) => {
+        const { t } = useTranslation();
 
 
         const onWeightChange = (e:any) =>{
@@ -49,16 +51,16 @@ const SignalSection = ({ spec, setSpec }: Props) => {
            {/* <h2 className="text-gray-100 font-bold text-left pl-5">因子</h2> */}
 
         <div>
-            <h3 className="text-gray-100 pl-5 font-bold">因子权重</h3>
+            <h3 className="text-gray-100 pl-5 font-bold">{t("console.signal.title")}</h3>
             <div className="w-full max-w-5xl  text-center">
                 <NewFactorAdjuster spec={spec} setSpec={setSpec} onWeightChange={onWeightChange} />
             </div>
         </div>
 
 
-        <div className = "ml-5 flex flex-wrap gap-5">
-             <div className="mt-5 flex flex-wrap gap-10">
-                    <h3 className="text-gray-100 font-bold ">因子模型</h3>
+        <div className = "ml-5 flex flex-wrap gap-x-10 gap-y-2">
+             <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <h3 className="text-gray-100 font-bold">{t("console.signal.model")}</h3>
                     <select
                         className="text-red-500 font-bold"
                         value={spec.signal.type}
@@ -69,21 +71,21 @@ const SignalSection = ({ spec, setSpec }: Props) => {
                             }))
                         }
                     > 
-                        <option value="linear_weight">Linear Weight</option>
-                        <option value = "" >敬请期待其他模型上线</option>
+                        <option value="linear_weight">{t("console.signal.linearWeight")}</option>
+                        <option value = "" >{t("console.signal.comingSoon")}</option>
                     </select>
             </div>
 
 
-            <div className="mt-5 flex flex-wrap gap-10">
-                    <h3 className="text-gray-100 font-bold">历史窗口长度</h3>
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <h3 className="text-gray-100 font-bold">{t("console.signal.lookback")}</h3>
                     <NumberField
                         className="text-red-500 font-bold"
                         value={spec.signal.lookback}
                         min={1}
                         max={252}
                         step={1}
-                        validate={(v) => (v < 1 || v > 252 ? "历史窗口长度应该设定在1-252之间" : null)}
+                        validate={(v) => (v < 1 || v > 252 ? t("console.signal.lookbackError") : null)}
                         onInvalid={(msg) => toast.error(msg)}
                         onCommit={(lookback) =>
                             setSpec((prev) => ({
@@ -95,8 +97,8 @@ const SignalSection = ({ spec, setSpec }: Props) => {
             </div>
 
 
-            <div className= "mt-5 flex flex-wrap gap-10">
-                    <h3 className="text-gray-100 font-bold">滞后期</h3>
+            <div className= "mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <h3 className="text-gray-100 font-bold">{t("console.signal.lag")}</h3>
                     <select
                         className="text-red-500 font-bold"
                         value = {spec.signal.lag}
@@ -105,9 +107,9 @@ const SignalSection = ({ spec, setSpec }: Props) => {
                             signal: { ...prev.signal, lag: Number(e.target.value) },
                         }))}
                     >
-                        <option value={0}>无滞后 No Lag (小心数据泄露，慎选)</option>
-                        <option value={1}>滞后一天 Lag 1 Day</option>
-                        <option value={2}>滞后两天 Lag 2 Days</option>  
+                        <option value={0}>{t("console.signal.lag0")}</option>
+                        <option value={1}>{t("console.signal.lag1")}</option>
+                        <option value={2}>{t("console.signal.lag2")}</option>  
                     </select>
             </div>
         </div>

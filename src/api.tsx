@@ -16,13 +16,16 @@ interface SearchResponse {
     data: CompanySearch[];
 }
 
+// 公司/行情数据统一经由后端 CompanyController 代理转发到 FMP，
+// 前端不再直接持有 FMP apikey。
+const companyApi = `${import.meta.env.VITE_API_BASE}/api/company`;
 
 //搜索公司
 //确认无误
 export const searchCompanies = async (query: string) => {
   try {
     const data = await axios.get<SearchResponse>(
-     `https://financialmodelingprep.com/api/v3/search?query=${query}&limit=10&exchange=NASDAQ&apikey=${import.meta.env.VITE_API_KEY}`
+     `${companyApi}/search?query=${query}`
     );
     return data;
   } catch (error) {
@@ -42,7 +45,7 @@ export const searchCompanies = async (query: string) => {
 export const getCompanyProfile = async (query: string) => {
   try {
     const data = await axios.get<CompanyProfile[]>(
-      `https://financialmodelingprep.com/api/v3/profile/${query}?apikey=${import.meta.env.VITE_API_KEY}`
+      `${companyApi}/profile/${query}`
     );
     return data;
   } catch (error: any) {
@@ -55,11 +58,10 @@ export const getCompanyProfile = async (query: string) => {
 export const getCompanyKeyMetrics = async (symbol: string) => {
   try {
     const { data } = await axios.get<CompanyKeyMetrics[]>(
-      "https://financialmodelingprep.com/stable/key-metrics",
+      `${companyApi}/key-metrics`,
       {
         params: {
           symbol,                                    // 等价于 symbol: symbol
-          apikey: import.meta.env.VITE_API_KEY,
         },
       }
     );
@@ -75,7 +77,7 @@ export const getCompanyKeyMetrics = async (symbol: string) => {
 export const getIncomeStatement = async (symbol: string) => {
   try {
     const { data } = await axios.get<CompanyIncomeStatement[]>(
-      `https://financialmodelingprep.com/api/v3/income-statement/${symbol}?apikey=${import.meta.env.VITE_API_KEY}`
+      `${companyApi}/income-statement/${symbol}`
     );
     return data;
   } catch (err: any) {
@@ -89,11 +91,10 @@ export const getIncomeStatement = async (symbol: string) => {
 export const getBalanceSheet = async (symbol: string) => {
   try {
     const { data } = await axios.get<CompanyBalanceSheet[]>(
-      "https://financialmodelingprep.com/stable/balance-sheet-statement",
+      `${companyApi}/balance-sheet`,
       {
         params: {
           symbol,                                    // 等价于 symbol: symbol
-          apikey: import.meta.env.VITE_API_KEY,
         },
       }
     );
@@ -108,18 +109,17 @@ export const getBalanceSheet = async (symbol: string) => {
 export const getCashFlow = async (symbol: string) => {
   try {
     const { data } = await axios.get<CompanyCashFlow[]>(
-      "https://financialmodelingprep.com/stable/cash-flow-statement",
+      `${companyApi}/cash-flow`,
       {
         params: {
           symbol,
-          apikey: import.meta.env.VITE_API_KEY,
         },
       }
     );
     return data;
   } catch (error:any) {
     console.error("error message:", error.message);
-    throw error;  
+    throw error;
   }
 };
 
@@ -127,18 +127,17 @@ export const getCashFlow = async (symbol: string) => {
 export const getCompData = async (symbol: string) => {
   try {
     const { data } = await axios.get<CompanyCompData[]>(
-      "https://financialmodelingprep.com/stable/profile",
+      `${companyApi}/comp-data`,
       {
         params: {
           symbol,
-          apikey: import.meta.env.VITE_API_KEY,
         },
       }
     );
     return data;
   } catch (error:any) {
     console.error("error message:", error.message);
-    throw error;  
+    throw error;
   }
 };
 
@@ -163,7 +162,7 @@ export const getTenk = async ({
 }: TenKParams) => {
   try {
     const { data } = await axios.get<CompanyTenK[]>(
-      "https://financialmodelingprep.com/stable/sec-filings-search/cik",
+      `${companyApi}/tenk`,
       {
         params: {
           cik,
@@ -171,7 +170,6 @@ export const getTenk = async ({
           to,
           page,
           limit,
-          apikey: import.meta.env.VITE_API_KEY
         },
       }
     );

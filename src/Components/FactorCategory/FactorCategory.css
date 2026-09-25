@@ -1,6 +1,5 @@
 .factor-category {
-     @apply flex flex-row flex-wrap gap-4 overflow-y-auto
-     h-full
-     items-start bg-gray-100 justify-start min-h-[200px] rounded-xl shadow-md border-4 border-lightGreen
+     @apply flex flex-row flex-nowrap gap-2 items-stretch
+     bg-gray-100 min-h-[200px] rounded-xl shadow-md border-4 border-lightGreen
      transition hover:shadow-lg;
 }

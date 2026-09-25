@@ -1,22 +1,27 @@
 import React from 'react';
 import ReactECharts from "echarts-for-react";
 import type { EquityCurve } from "../../Service/NewBacktestService";
+import { useTranslation } from "react-i18next";
 
 interface EquityCurveChartProps {
   data: EquityCurve[];
+  showTitle?: boolean;
 }
 
-const EquityCurveChart = ({ data }: EquityCurveChartProps) => {
+const EquityCurveChart = ({ data, showTitle = true }: EquityCurveChartProps) => {
+  const { t } = useTranslation();
+
   if (!data || data.length === 0) {
     return (
       <div className="flex h-[400px] items-center justify-center text-gray-500">
-        暂无净值曲线数据
+        {t("report.chart.noData")}
       </div>
     );
   }
 
   const option = {
     title: {
+      show: showTitle,
       text: "Portfolio Equity Curve",
       left: "center",
     },
@@ -40,21 +45,21 @@ const EquityCurveChart = ({ data }: EquityCurveChartProps) => {
         return `
           <div>
             <div>${point.axisValue}</div>
-            <div>净值：${netValue.toFixed(4)}</div>
-            <div>累计收益：${((netValue - 1) * 100).toFixed(2)}%</div>
+            <div>${t("report.chart.netValue")}：${netValue.toFixed(4)}</div>
+            <div>${t("report.chart.cumReturn")}：${((netValue - 1) * 100).toFixed(2)}%</div>
           </div>
         `;
       },
     },
 
-    grid: {left: "8%", right: "4%", top: "15%", bottom: "15%", containLabel: true,},
+    grid: {left: "8%", right: "4%", top: showTitle ? "15%" : "8%", bottom: "15%", containLabel: true,},
 
     xAxis: {
         type: "category", boundaryGap: false, data: data.map((item) => item.date), axisLabel: {hideOverlap: true,},
     },
 
     yAxis: {
-        type: "value", scale: true, name: "净值", axisLabel: {formatter: (value: number) => value.toFixed(2),},
+        type: "value", scale: true, name: t("report.chart.netValue"), axisLabel: {formatter: (value: number) => value.toFixed(2),},
     },
 
     dataZoom: [

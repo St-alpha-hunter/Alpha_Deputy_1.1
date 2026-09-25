@@ -17,6 +17,7 @@ import RebalanceSection from '../../Components/Console/RebalanceSection';
 import taskReducer, { setCurrentTaskId } from '../../redux/features/Task/taskSlice';
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/features/store";
+import { useTranslation } from 'react-i18next';
 
 import { clearFactors } from '../../redux/features/Factors/factorSlice';
 
@@ -31,7 +32,7 @@ const BacktestForm = (props: Props) => {
     const [spec, setSpec] = useState<StrategySpecV0>(makeDefaultStrategySpecV0());
     const [isBacktesting, setIsBacktesting] = useState(false);
     const [backtestResult, setBacktestResult] = useState<BacktestResult | null>(null);
-    
+    const {t} = useTranslation()
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -77,17 +78,17 @@ const BacktestForm = (props: Props) => {
                 //setIsBacktesting(false);
                 if (res.taskId) {
                     dispatch(setCurrentTaskId(res.taskId)); // 把 taskId 存到 Redux 里
-                    toast.success("回测请求提交成功，正在回测中...");
+                    toast.success(t("console.toast.submitted"));
                     console.log("返回的东西是啥createBacktest response", JSON.stringify(res, null, 2));
                     navigate(`/backtests/${res.taskId}`);
                   //  navigate(`/report/${res.taskId}`);
                  }
                 else 
             {
-            toast.error(res.errorMessage || "回测任务创建失败，请检查参数");
+            toast.error(res.errorMessage || t("console.toast.createFailed"));
              }
          }catch(error:any) {
-                toast.error("回测任务创建失败: " + error.message);
+                toast.error(t("console.toast.createFailedWithReason", { reason: error.message }));
             } finally {
                 setIsBacktesting(false);
             };
@@ -96,7 +97,7 @@ const BacktestForm = (props: Props) => {
     return (
             <div className="max-w-6xl mx-auto p-1 rounded-2xl bg-gradient-to-br from-gray-600 via-slate-700 to-blue-800">
                 <h1 className="text-3xl font-bold mb-6 text-center text-gray-300 pt-5">
-                    回测参数设定 Backtest Console
+                    {t("Backtest_Console")}
                 </h1>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -121,18 +122,27 @@ const BacktestForm = (props: Props) => {
                     <div className="w-full">
                     <TimeRangeSection spec={spec} setSpec={setSpec} />
                     </div>
-                    <div className="w-full mb-10">
+                    <div className="w-full">
                     <RebalanceSection spec={spec} setSpec={setSpec} />
                     </div>
-                                    {/* 3) 按钮 */}
-                    <div className="flex justify-center pt-10">
-                        <button
-                            type="submit"
-                            className="bg-red-500 text-white font-bold rounded-lg w-80 h-20 border-b border-white pb-4 mb-8 "
-                        >
-                            开始回测 Start Backtest
-                        </button>
-                    </div>
+                </div>
+
+                {/* 3) 按钮：单独一行居中 */}
+                <div className="flex justify-center border-t border-white/10 pt-8 pb-10">
+                    <button
+                        type="submit"
+                        disabled={isBacktesting}
+                        className="inline-flex items-center justify-center gap-2 min-w-[14rem] px-8 py-3 rounded-xl bg-amber-400 text-slate-900 text-lg font-semibold shadow-lg shadow-black/20 transition hover:bg-amber-300 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-700 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:bg-amber-400"
+                    >
+                        {isBacktesting ? (
+                            <span className="w-5 h-5 border-2 border-slate-900/30 border-t-slate-900 rounded-full animate-spin" />
+                        ) : (
+                            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor" aria-hidden="true">
+                                <path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" />
+                            </svg>
+                        )}
+                        {isBacktesting ? t("console.submitting") : t("Start_Backtest")}
+                    </button>
                 </div>
                 </form>
             </div>

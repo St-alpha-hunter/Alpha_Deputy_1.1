@@ -1,5 +1,6 @@
 import { useDrag } from 'react-dnd';
 import { useRef, useEffect, useState, type SyntheticEvent } from "react";
+import { useFactorTranslate } from "../../Helpers/useFactorTranslate";
 
 type MinimalFactor = {
   id: string;
@@ -26,6 +27,8 @@ export type { Props as FactorProps };
 
 const Factor = (props: Props) => {
     const [isHovered, setIsHovered] = useState(false);
+
+    const translate = useFactorTranslate();
 
     //创建一个 ref 引用，以后可以用它来拿到 DOM 节点，传给 dragRef
     //泛型是 HTMLDivElement，确保类型安全
@@ -61,12 +64,12 @@ const Factor = (props: Props) => {
         
       {isHovered && (
         <div className="absolute top-full mt-2 w-48 bg-white shadow-md border p-2 text-sm z-10">
-          {props.description}
+          {translate(props.description)}
         </div>
       )}
 
       <div className="text-base font-medium text-gray-800 bg-lightGreen">
-        {props.name || props.id}
+        {translate(props.name) || props.id}
       </div>
     </div>
   );

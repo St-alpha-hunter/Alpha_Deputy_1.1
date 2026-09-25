@@ -1,4 +1,5 @@
 import type { StrategySpecV0 } from "../../Models/strategySpecV0";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   spec: StrategySpecV0;
@@ -15,6 +16,7 @@ type Props = {
 
 
 const TimeRangeSection = ({ spec, setSpec }: Props) => {
+        const { t } = useTranslation();
 
         // ISO -> "YYYY-MM-DD"（给 <input type="date"> 用）
         const isoToDateInputValue = (iso: string) => {
@@ -32,13 +34,13 @@ const TimeRangeSection = ({ spec, setSpec }: Props) => {
 
   return (
     <div className = "mr-10  text-gray-100 ml-5">
-       <h2 className = "text-yellow-400 mb-5 font-bold text-left">时间范围 Time Range</h2>
+       <h2 className = "text-yellow-400 mb-5 font-bold text-left">{t("console.timeRange.title")}</h2>
 
-            <div className="grid grid-cols-[100px_1fr] gap-y-6 gap-x-2 max-w-xl">
+            <div className="grid grid-cols-[7.5rem_minmax(0,1fr)] items-center gap-y-5 gap-x-3 max-w-xl">
                 
-                <h3>回测开始时间</h3>
+                <h3 className="text-sm leading-snug">{t("console.timeRange.startDate")}</h3>
                 <input
-                            className = "text-red-500 font-bold"
+                            className="text-red-500 font-bold w-full min-w-0"
                             type="date"
                             value={isoToDateInputValue(spec.timeRange.startDate)}
                             onChange={(e) =>
@@ -51,9 +53,9 @@ const TimeRangeSection = ({ spec, setSpec }: Props) => {
                 
 
            
-                <h3>回测结束时间</h3>
+                <h3 className="text-sm leading-snug">{t("console.timeRange.endDate")}</h3>
                         <input
-                            className = "text-red-500 font-bold"
+                            className="text-red-500 font-bold w-full min-w-0"
                             type="date"
                             value={isoToDateInputValue(spec.timeRange.endDate)}
                             onChange={(e) =>
@@ -65,8 +67,8 @@ const TimeRangeSection = ({ spec, setSpec }: Props) => {
                         />  
           
 
-                <h3>交易日历选择</h3>
-                    <select className = "text-red-500 font-bold"
+                <h3 className="text-sm leading-snug">{t("console.timeRange.calendar")}</h3>
+                    <select className="text-red-500 font-bold w-full min-w-0"
                             value = {spec.timeRange.calendar}
                             onChange={(e) =>
                                 setSpec((prev) => ({
@@ -75,8 +77,8 @@ const TimeRangeSection = ({ spec, setSpec }: Props) => {
                                 }))
                             }
                         >
-                            <option value="XNYS" className = "text-red-500 font-bold">XNYS 纽约证券交易所 </option>
-                            <option value="" className = "text-red-500 font-bold">其他交易日历敬请期待</option>
+                            <option value="XNYS" className="text-red-500 font-bold w-full min-w-0">{t("console.timeRange.calendarXNYS")}</option>
+                            <option value="" className="text-red-500 font-bold w-full min-w-0">{t("console.timeRange.calendarComingSoon")}</option>
                     </select>                        
             
         </div>

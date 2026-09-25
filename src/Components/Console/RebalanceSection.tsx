@@ -1,4 +1,5 @@
 import type { StrategySpecV0 } from "../../Models/strategySpecV0";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   spec: StrategySpecV0;
@@ -16,6 +17,7 @@ const clampInt = (n: number, min: number, max: number) => {
 
 
 const RebalanceSection = ({ spec, setSpec }: Props) => {
+  const { t } = useTranslation();
 
   const onFreqChange = (v: "Weekly" | "Monthly") => {
     setSpec((prev) => {
@@ -59,27 +61,27 @@ const RebalanceSection = ({ spec, setSpec }: Props) => {
 
   return (
     <div className = "mr-10  text-gray-100 ml-5">
-      <h2 className = " text-yellow-400 mb-5 font-bold text-left">调仓频率 Rebalance</h2>
+      <h2 className = " text-yellow-400 mb-5 font-bold text-left">{t("console.rebalance.title")}</h2>
 
       <div className = "grid grid-cols-1 gap-x-2 gap-y-4 max-w-xl">
 
       <div>
-          <h3>调仓频率</h3>
+          <h3 className="text-sm leading-snug">{t("console.rebalance.freq")}</h3>
           <div className = "grid grid-cols-2 gap-x-2">
             
             <select
-              className="text-red-500"
+              className="text-red-500 w-full min-w-0"
               value={spec.rebalance.freq}
               onChange={(e) => onFreqChange(e.target.value as "Weekly" | "Monthly")}
             >
-              <option value="Weekly">每周 Weekly</option>
-              <option value="Monthly">每月 Monthly</option>
+              <option value="Weekly">{t("console.rebalance.weekly")}</option>
+              <option value="Monthly">{t("console.rebalance.monthly")}</option>
             </select>
 
             {/* day：根据 freq 切换 */}
             {spec.rebalance.freq === "Weekly" ? (
               <select
-                className="text-red-500"
+                className="text-red-500 w-full min-w-0"
                 value={spec.rebalance.dayOfWeek ?? 1}
                 onChange={(e) =>
                   setSpec((prev) => ({
@@ -94,13 +96,13 @@ const RebalanceSection = ({ spec, setSpec }: Props) => {
               >
                 {weekOptions.map((d) => (
                   <option key={d} value={d}>
-                    周{d}({["", "一", "二", "三", "四", "五"][d]})
+                    {t(`console.rebalance.weekdays.${d}`)}
                   </option>
                 ))}
               </select>
             ) : (
               <select
-                className="text-red-500"
+                className="text-red-500 w-full min-w-0"
                 value={spec.rebalance.dayOfMonth ?? 1}
                 onChange={(e) =>
                   setSpec((prev) => ({
@@ -115,7 +117,7 @@ const RebalanceSection = ({ spec, setSpec }: Props) => {
               >
                 {monthOptions.map((d) => (
                   <option key={d} value={d}>
-                    {d} 号
+                    {t("console.rebalance.dayOfMonth", { day: d })}
                   </option>
                 ))}
               </select>
@@ -125,9 +127,9 @@ const RebalanceSection = ({ spec, setSpec }: Props) => {
 
 
       <div>
-        <h3>假期策略</h3>
+        <h3 className="text-sm leading-snug">{t("console.rebalance.holidayPolicy")}</h3>
           <select
-            className = "text-red-500"
+            className="text-red-500 w-full min-w-0"
             value={spec.rebalance.holidayPolicy}
             onChange={(e) =>
               setSpec((prev) => ({
@@ -136,9 +138,9 @@ const RebalanceSection = ({ spec, setSpec }: Props) => {
               }))
             }
           >
-          <option value="skip">跳过 Skip</option>
-          <option value="next_trading_day">下一个交易日 Next Trading Day</option>
-          <option value="prev_trading_day">前一个交易日 Prev Trading Day</option>
+          <option value="skip">{t("console.rebalance.skip")}</option>
+          <option value="next_trading_day">{t("console.rebalance.nextTradingDay")}</option>
+          <option value="prev_trading_day">{t("console.rebalance.prevTradingDay")}</option>
         </select>
       </div>
 
