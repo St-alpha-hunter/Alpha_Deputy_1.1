@@ -103,7 +103,6 @@ api/obj/
 .env.*
 !.env.example
 
-
 bin/
 obj/
 **/bin/
