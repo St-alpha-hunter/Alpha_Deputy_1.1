@@ -17,6 +17,7 @@ namespace api.Backtest.Runner
         public string ScriptPath { get; set; } = "execute/python_runner/runner.py";
         //Python 脚本的路径。这个路径可以是绝对路径，也可以是相对于 WorkingDirectory 的路径。比如如果 WorkingDirectory 是 /app，那么 ScriptPath 是 python_runner/runner.py 就表示 /app/python_runner/runner.py
         public string WorkingDirectory { get; set; } = "";
+        public string DataDirectory { get; set; } = "pipeline/data/backtest_data";
         public int TimeoutSeconds { get; set; } = 600;
     }
 
