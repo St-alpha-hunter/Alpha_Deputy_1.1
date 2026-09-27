@@ -111,3 +111,5 @@ obj/
 .gz
 
 certbot/
+.env
+.env.*
