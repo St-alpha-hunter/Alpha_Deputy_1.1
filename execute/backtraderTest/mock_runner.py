@@ -1,7 +1,8 @@
 import os
 import sys
 
-sys.path.append(os.path.abspath(".."))
+# sys.path.append(os.path.abspath(".."))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import argparse
 import traceback
@@ -13,7 +14,11 @@ from mock_reader import read_input_json
 from mock_writer import write_output_json
 
 
-output = "mock_output.json"
+# 输入/输出文件都按脚本所在目录定位，不受运行目录（cwd）影响
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# output = "mock_output.json"
+output = os.path.join(SCRIPT_DIR, "mock_output.json")
+mock_input = os.path.join(SCRIPT_DIR, "mock.json")
 
 def main() -> None:
     # parser = argparse.ArgumentParser()
@@ -24,7 +29,10 @@ def main() -> None:
     # print(f"接收到的参数: input={args.input}, output={args.output}, task_id={args.task_id}")
     try:
         # 1. 读取输入文件，准备数据
-        config = read_input_json("mock.json")
+        # config = read_input_json("mock.json")
+        config = read_input_json(mock_input)
+        print(f"输入文件: {mock_input}")
+        print(f"输出文件: {output}")
         startDate, endDate = read_date_from_config(config)
         print(f"读取到的配置文件内容: {config}")
         print(f"开始加载数据，startDate: {startDate}, endDate: {endDate}")

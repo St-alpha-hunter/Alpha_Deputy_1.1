@@ -157,7 +157,9 @@
         "toast": {
             "submitted": "回测请求提交成功，正在回测中...",
             "createFailed": "回测任务创建失败，请检查参数",
-            "createFailedWithReason": "回测任务创建失败：{{reason}}"
+            "createFailedWithReason": "回测任务创建失败：{{reason}}",
+            "noFactors": "请先选择至少一个因子",
+            "weightsNot100": "因子权重合计应为 100%，当前为 {{value}}"
         }
     },
     "report": {
@@ -196,7 +198,8 @@
             "netValue": "净值",
             "cumReturn": "累计收益",
             "noData": "暂无净值曲线数据"
-        }
+        },
+        "weightTotal": "合计"
     },
     "factorText": {
         "Earnings Per Share": "每股收益",

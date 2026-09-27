@@ -140,7 +140,8 @@ class Strategy(bt.Strategy):
         dt = self.datas[0].datetime.date(0)
         freq = self.rebalance_cfg['freq']
 
-        if freq == 0:  # weekly
+        # 后端传数字（0/1），mock.json 里是字符串（"Weekly"/"Monthly"），两种都认
+        if freq in (0, "Weekly"):  # weekly
             year_week = dt.isocalendar()[:2]
 
             if not hasattr(self, "last_rebalance_week"):
@@ -151,7 +152,7 @@ class Strategy(bt.Strategy):
                 return True
             return False
 
-        if freq == 1:  # monthly
+        if freq in (1, "Monthly"):  # monthly
             year_month = (dt.year, dt.month)
 
             if not hasattr(self, "last_rebalance_month"):
@@ -166,7 +167,16 @@ class Strategy(bt.Strategy):
 
     def _close_all_positions(self):
         for data in self.datas:
-            self.order_target_percent(data=data, target=0.0)
+            # 只平有持仓的；还没上市的股票没有价格，对它下单会报错
+            if self.getposition(data).size != 0:
+                self.order_target_percent(data=data, target=0.0)
+
+
+    def prenext(self):
+        # backtrader 默认要等所有 data feed 都有数据才调用 next()，
+        # 股票池里有晚上市的股票（如 Q 2025-10-27 才有数据）会导致前面几年全被跳过。
+        # 这里让 prenext 也走 next，还没上市的股票在打分时跳过。
+        self.next()
 
 
     def next(self):
@@ -206,9 +216,16 @@ class Strategy(bt.Strategy):
                 return
 
         scored = []
+        today = self.datas[0].datetime.date(0)
         ##factor_inputs = self.signal_cfg['inputs'] #缓存，提高计算效率
         ## 在__init__增加缓存
         for data in self.datas:
+            # 还没上市（没有任何 bar）的股票跳过
+            if len(data) == 0:
+                continue
+            # 当天没有新 bar（还没上市 / 停牌），不要拿旧数据当今天的算
+            if data.datetime.date(0) != today:
+                continue
             if len(data) <= lag:
                 continue
             if data.close[0] is None:
@@ -246,7 +263,8 @@ class Strategy(bt.Strategy):
 
         # 7.先把未入选的清掉
         for data in self.datas:
-            if data not in selected_set:
+            # 只平有持仓的；还没上市的股票没有价格，对它下单会报错
+            if data not in selected_set and self.getposition(data).size != 0:
                 self.order_target_percent(data=data, target=0.0)
 
         # 8.对入选股票下目标权重单

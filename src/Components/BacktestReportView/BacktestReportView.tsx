@@ -110,6 +110,7 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
         : "—";
 
     const inputs = spec?.signal?.inputs ?? [];
+    const weightTotal = inputs.reduce((acc, f) => acc + (isNum(f.weight) ? f.weight : 0), 0);
 
     return (
         <div className="space-y-6">
@@ -169,12 +170,21 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
                             </thead>
                             <tbody>
                                 {inputs.map((f, i) => (
-                                    <tr key={`${f.codeKey}-${i}`} className="border-b border-gray-100 last:border-0">
+                                    <tr key={`${f.codeKey}-${i}`} className="border-b border-gray-100">
                                         <td className="py-2 text-gray-900">{translateFactor(f.factor) || f.codeKey}</td>
-                                        <td className="py-2 text-right tabular-nums">{fmtNum(f.weight)}</td>
+                                        <td className="py-2 text-right tabular-nums">{fmtPct(f.weight, 1)}</td>
                                     </tr>
                                 ))}
                             </tbody>
+                            {/* 合计行：权重不是 100% 时标红，方便一眼发现问题（例如旧报告里权重全是 0） */}
+                            <tfoot>
+                                <tr>
+                                    <td className="pt-2 text-gray-500 font-medium">{t("report.weightTotal")}</td>
+                                    <td className={`pt-2 text-right font-semibold tabular-nums ${Math.abs(weightTotal - 1) > 0.01 ? "text-red-600" : "text-gray-900"}`}>
+                                        {fmtPct(weightTotal, 1)}
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                     ) : (
                         <div className="text-sm text-gray-400">{t("report.noFactors")}</div>

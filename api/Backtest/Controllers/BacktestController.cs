@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using api.Backtest.Interface;
 using api.Backtest.Dto;
+using api.Backtest.Contracts;
 using api.Models;
 using api.Extensions;
 using api.Interfaces;
@@ -71,6 +72,18 @@ namespace api.Backtest.Controllers
                 "接收到的输入Inputs received: {Inputs}",
                 System.Text.Json.JsonSerializer.Serialize(request.StrategySpec)
             );
+
+            // 业务校验（之前 StrategySpecValidator 写好了但没被调用，权重全 0 的回测也能提交）
+            if (request.StrategySpec is null)
+                return BadRequest("strategySpec is required.");
+
+            var validationErrors = StrategySpecValidator.Validate(request.StrategySpec);
+            if (validationErrors.Count > 0)
+            {
+                foreach (var error in validationErrors)
+                    ModelState.AddModelError(error.Field, error.Message);
+                return ValidationProblem(ModelState);
+            }
 
             var response = await _service.CreateAsync(userId, request, ct);
             return Ok(response);

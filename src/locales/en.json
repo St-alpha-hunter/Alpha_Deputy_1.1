@@ -157,7 +157,9 @@
         "toast": {
             "submitted": "Backtest submitted, running now...",
             "createFailed": "Failed to create backtest, please check the parameters",
-            "createFailedWithReason": "Failed to create backtest: {{reason}}"
+            "createFailedWithReason": "Failed to create backtest: {{reason}}",
+            "noFactors": "Please select at least one factor",
+            "weightsNot100": "Factor weights must add up to 100% (currently {{value}})"
         }
     },
     "report": {
@@ -196,7 +198,8 @@
             "netValue": "NAV",
             "cumReturn": "Cum. Return",
             "noData": "No equity curve data"
-        }
+        },
+        "weightTotal": "Total"
     },
     "factorText": {
         "6月动量因子": "6-Month Momentum",

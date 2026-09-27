@@ -13,25 +13,29 @@ public static class StrategySpecValidator
         if (spec.TimeRange.End <= spec.TimeRange.Start)
             errors.Add(new("timeRange", "endDate must be after startDate."));
 
-        // 2) Inputs 权重求和
-        // if (spec.Signal.Inputs is null || spec.Signal.Inputs.Count == 0)
-        // {
-        //     errors.Add(new("signal.inputs", "inputs must not be empty."));
-        // }
-        // else
-       // {
-            // factor 唯一性（用 code_key 作为 factor 的话很重要）
-        var dup = spec.Signal.Inputs
-                .GroupBy(x => x.Factor.Trim())
-                .FirstOrDefault(g => g.Count() > 1);
+        // 2) Inputs：不能为空、codeKey 不能重复、权重非负且合计为 1
+        if (spec.Signal.Inputs is null || spec.Signal.Inputs.Count == 0)
+        {
+            errors.Add(new("signal.inputs", "inputs must not be empty."));
+        }
+        else
+        {
+            // factor 唯一性：按 codeKey 判断（factor 名称可能为空，Trim 会空引用）
+            var dup = spec.Signal.Inputs
+                    .GroupBy(x => (x.CodeKey ?? "").Trim())
+                    .FirstOrDefault(g => g.Count() > 1);
 
-        if (dup != null)
-            errors.Add(new("signal.inputs", $"duplicate factor: {dup.Key}"));
+            if (dup != null)
+                errors.Add(new("signal.inputs", $"duplicate factor: {dup.Key}"));
 
-        var sum = spec.Signal.Inputs.Sum(x => x.Weight);
-        if (Math.Abs(sum - 1.0) > 1e-6)
-            errors.Add(new("signal.inputs", $"weights must sum to 1. current sum={sum:0.######}"));
-       //}
+            if (spec.Signal.Inputs.Any(x => x.Weight < 0))
+                errors.Add(new("signal.inputs", "weights must not be negative."));
+
+            // 容差 1%，和前端滑块下方“权重合计不等于 100%”的提示保持一致
+            var sum = spec.Signal.Inputs.Sum(x => x.Weight);
+            if (Math.Abs(sum - 1.0) > 0.01)
+                errors.Add(new("signal.inputs", $"weights must sum to 1. current sum={sum:0.######}"));
+        }
 
         // 3) rebalance 周频 dayOfWeek 限制（股票建议 1..5）
         if (spec.Rebalance.Freq == RebalanceFreq.Weekly)

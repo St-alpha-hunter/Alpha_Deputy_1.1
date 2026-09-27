@@ -41,8 +41,11 @@ const BacktestForm = (props: Props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
+    // 提交时直接用 Redux 里最新的因子和权重。
+    // 之前用 useState(selectedFactors) 拍快照：快照只在首次渲染时取一次，
+    // 权重是之后 NewFactorAdjuster 才写进 Redux 的，所以提交上去的 weight 全是 0。
     const selectedFactors = useSelector((s: RootState) => s.factor.selectedFactors);
-    const [localFactors, setlocalFactors] = useState(selectedFactors);
+    // const [localFactors, setlocalFactors] = useState(selectedFactors);
 
     // 进入页面先读取回测数据的可用日期范围，再用它生成默认 spec
     useEffect(() => {
@@ -75,8 +78,8 @@ const BacktestForm = (props: Props) => {
     };
     
     const buildSpecForSubmit = (spec: StrategySpecV0): StrategySpecV0 => {
-                console.log("selectedFactors from redux 来自Redux=", JSON.stringify(localFactors, null, 2));
-                const inputs = localFactors.map(f => ({
+                console.log("selectedFactors from redux 来自Redux=", JSON.stringify(selectedFactors, null, 2));
+                const inputs = selectedFactors.map(f => ({
                     codeKey: f.code_key ?? "", 
                     factor:f.name ?? "",         // 或者你用 code_key / id，当后端需要唯一key时更稳
                     weight: f.weight ?? 0,
@@ -91,6 +94,8 @@ const BacktestForm = (props: Props) => {
                 };
                 };
 
+        // 不能在进入页面时就清空 Redux：因子权重滑块（NewFactorAdjuster）读的就是 Redux，
+        // 一清空滑块就没有因子可调，权重也就没法设置。改为提交成功后再清空（见 handleSubmit）。
         // useEffect(() => {
         // if (selectedFactors.length > 0) {
         //     setlocalFactors([...selectedFactors]); // 复制一份到本地
@@ -106,13 +111,27 @@ const BacktestForm = (props: Props) => {
         //先确保提交成功 //提交滑动因子
         const finalSpec = buildSpecForSubmit(spec);
         console.log("finalSpec 检查一下提交的是啥", JSON.stringify(finalSpec, null, 2));
-        
+
+        // 提交前先在前端拦一下：没选因子 / 权重合计不是 100%（和滑块下方的提示同一个容差 1%）
+        const inputs = finalSpec.signal.inputs;
+        const weightSum = inputs.reduce((acc, x) => acc + x.weight, 0);
+        if (inputs.length === 0) {
+            toast.error(t("console.toast.noFactors"));
+            setIsBacktesting(false);
+            return;
+        }
+        if (Math.abs(weightSum - 1) > 0.01) {
+            toast.error(t("console.toast.weightsNot100", { value: `${(weightSum * 100).toFixed(1)}%` }));
+            setIsBacktesting(false);
+            return;
+        }
 
     try { const res = await createBacktest(finalSpec)
-              e.preventDefault
-                //setIsBacktesting(false);
+              // createBacktest 出错时会自己 handleError（弹出后端的校验信息）并返回 undefined
+              if (!res) return;
                 if (res.taskId) {
                     dispatch(setCurrentTaskId(res.taskId)); // 把 taskId 存到 Redux 里
+                    dispatch(clearFactors());              // 提交成功后再清空已选因子，下一次回测重新选
                     toast.success(t("console.toast.submitted"));
                     console.log("返回的东西是啥createBacktest response", JSON.stringify(res, null, 2));
                     navigate(`/backtests/${res.taskId}`);
