@@ -222,5 +222,23 @@
             "SUCCEEDED": "Succeeded",
             "FAILED": "Failed"
         }
+    },
+    "backtestResult": {
+        "title": "Backtest Report",
+        "running": "Backtest running, please wait...",
+        "missingTaskId": "Missing taskId",
+        "parseFailed": "Failed to parse the backtest result",
+        "failed": "Backtest failed",
+        "pollFailed": "Failed to fetch the backtest status",
+        "strategyNameLabel": "Strategy Name",
+        "saveReport": "Save Report",
+        "saveFailed": "Save failed",
+        "saveSucceeded": "Saved",
+        "saveFailedWithReason": "Save failed: {{reason}}",
+        "nameRequired": "Please enter a strategy name",
+        "namePlaceholder": "Strategy name",
+        "saving": "Saving…",
+        "saved": "Saved",
+        "viewReport": "View report →"
     }
 }

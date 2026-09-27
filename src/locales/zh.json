@@ -218,5 +218,23 @@
             "SUCCEEDED": "已完成",
             "FAILED": "失败"
         }
+    },
+    "backtestResult": {
+        "title": "回测报告",
+        "running": "回测运行中，请稍候...",
+        "missingTaskId": "缺少 taskId",
+        "parseFailed": "回测结果解析失败",
+        "failed": "回测失败",
+        "pollFailed": "轮询请求失败",
+        "strategyNameLabel": "策略名称",
+        "saveReport": "保存报告",
+        "saveFailed": "提交失败",
+        "saveSucceeded": "提交成功",
+        "saveFailedWithReason": "提交失败：{{reason}}",
+        "nameRequired": "请先填写策略名称",
+        "namePlaceholder": "输入策略名称",
+        "saving": "保存中…",
+        "saved": "已保存",
+        "viewReport": "查看报告 →"
     }
 }

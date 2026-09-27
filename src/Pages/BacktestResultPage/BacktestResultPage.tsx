@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/features/store";
-import FactorSidebar from "../../Components/FactorSidebar/FactorSidebar";
-// TODO: equity curve 数据还没做好，暂不展示；做好后恢复这里和下面的收益图
-// import EquityCurveChart from "../../Components/EquityCurveChart/EquityCurveChart"
 import { getBacktestResult } from "../../Service/NewBacktestService";
 import type {
   BacktestResult,
   BacktestResultResponse,
 } from "../../Service/NewBacktestService";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCurrentTaskId, addTask, updateTaskStatus, removeTask, clearTasks} from "../../redux/features/Task/taskSlice";
+import { addTask, updateTaskStatus } from "../../redux/features/Task/taskSlice";
 import {saveBacktestTasksToLocalStorage} from "../../Utils/localStorage";
 import { toast } from "react-toastify";
 import {createReport} from "../../Service/ReportService";
+import { useTranslation } from "react-i18next";
+import BacktestReportView, { Card, ReportLayout, Spinner } from "../../Components/BacktestReportView/BacktestReportView";
 
 const BacktestResultPage = () => {
   const { taskId } = useParams<{ taskId: string }>();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
       useEffect(() => {
         if (taskId) {
           dispatch(addTask({ taskId, status: "QUEUED" }));
@@ -36,7 +36,7 @@ const BacktestResultPage = () => {
 
     if (!taskId) {
       setStatus("FAILED");
-      setError("缺少 taskId");
+      setError(t("backtestResult.missingTaskId"));
       return;
     }
 
@@ -63,7 +63,7 @@ const BacktestResultPage = () => {
             // 读 result.equityCurve 会抛错并被下面 catch 误判为“解析失败”）
           } catch (e) {
             console.error("解析 resultJson 失败:", e);
-            setError("回测结果解析失败");
+            setError(t("backtestResult.parseFailed"));
             setStatus("FAILED");
             dispatch(updateTaskStatus({ taskId, status: "FAILED" }));
           }
@@ -71,7 +71,7 @@ const BacktestResultPage = () => {
         }
 
         if (status === "FAILED") {
-          setError(errorMessage || "回测失败");
+          setError(errorMessage || t("backtestResult.failed"));
           dispatch(updateTaskStatus({ taskId, status: "FAILED" }));
           return;
         }
@@ -81,7 +81,7 @@ const BacktestResultPage = () => {
         console.error("轮询失败:", e);
         if (!stopped) {
           setStatus("FAILED");
-          setError("轮询请求失败");
+          setError(t("backtestResult.pollFailed"));
         }
       }
     };
@@ -95,147 +95,107 @@ const BacktestResultPage = () => {
   }, [taskId]);
 
 
-  
+
+    // ---------- 保存为报告 ----------
     const username = useSelector((state: RootState) => state.username.userName);
-    const [formData, setFormData] = useState({
-          strategyName: "",
-        });
-    const handleChange = (e) => {
-            const { name, value } = e.target;
-            setFormData({
-              ...formData,
-              [name]: value
-            });
-          };
-    const handleSubmit = async (e) => {
+    const [strategyName, setStrategyName] = useState("");
+    const [saving, setSaving] = useState(false);
+    const [savedReportId, setSavedReportId] = useState<string | null>(null);
+
+    const handleSubmit = async (e: React.FormEvent) => {
             e.preventDefault(); // 阻止页面刷新
             if (!result) {
-              toast.error("提交失败");
+              toast.error(t("backtestResult.saveFailed"));
+              return;
+            }
+            if (!strategyName.trim()) {
+              toast.error(t("backtestResult.nameRequired"));
               return;
             }
 
+            setSaving(true);
             try {
               const res = await createReport({
                 appUserId: username, // 这里换成真实用户ID
-                strategyName: formData.strategyName,
+                strategyName: strategyName.trim(),
                 resultJson: rawResultJson,
             });
+            // createReport 出错时会自己 handleError 并返回 undefined，这里要当失败处理
+            if (!res) {
+              toast.error(t("backtestResult.saveFailed"));
+              return;
+            }
             console.log("提交成功:", res);
-            toast.success("提交成功");
+            toast.success(t("backtestResult.saveSucceeded"));
+            setSavedReportId(res.reportId);
             } catch(error:any) {
               console.error("提交失败:", error);
-              toast.error("提交失败: " + error.message);
+              toast.error(t("backtestResult.saveFailedWithReason", { reason: error.message }));
+            } finally {
+              setSaving(false);
             }
           };
 
+    const saveActions = savedReportId ? (
+        <div className="flex items-center gap-3 text-sm">
+            <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">{t("backtestResult.saved")}</span>
+            <Link to={`/report/${savedReportId}`} className="text-blue-600 hover:underline">{t("backtestResult.viewReport")}</Link>
+        </div>
+    ) : (
+        <form onSubmit={handleSubmit} className="flex flex-wrap items-center gap-2">
+            <input
+                type="text"
+                name="strategyName"
+                aria-label={t("backtestResult.strategyNameLabel")}
+                placeholder={t("backtestResult.namePlaceholder")}
+                className="w-56 px-3 py-2 rounded-lg border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400"
+                value={strategyName}
+                onChange={(e) => setStrategyName(e.target.value)}
+            />
+            <button
+                type="submit"
+                disabled={saving}
+                className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+                {saving ? t("backtestResult.saving") : t("backtestResult.saveReport")}
+            </button>
+        </form>
+    );
+
 
   if (status === "PENDING" || status === "RUNNING") {
-  return (
-    <div className="grid grid-cols-12 h-screen relative">
-      <div className="fixed top-24 left-0 w-[260px] h-[calc(100vh-4rem)] overflow-auto p-4 rounded-lg">
-        <FactorSidebar />
-      </div>
-
-      <div className="col-span-10 col-start-3 flex flex-col items-center justify-center gap-4">
-        
-        {/* 转圈 */}
-        <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-
-        {/* 文字 */}
-        <div className="text-lg text-gray-900">
-          回测运行中，请稍候...
-        </div>
-
-      </div>
-    </div>
-  );
+    return (
+      <ReportLayout>
+        <Card className="flex flex-col items-center justify-center gap-4 py-24">
+          <Spinner />
+          <div className="text-gray-700">{t("backtestResult.running")}</div>
+          {taskId && <div className="text-xs font-mono text-gray-400 break-all">{taskId}</div>}
+        </Card>
+      </ReportLayout>
+    );
   }
 
-  if (status === "FAILED") {
+  if (status === "FAILED" || !result) {
     return (
-      <div className="grid grid-cols-12 h-screen relative">
-        <div className="fixed top-24 left-0 w-[260px] h-[calc(100vh-4rem)] overflow-auto p-4 rounded-lg">
-          <FactorSidebar />
+      <ReportLayout>
+        <div className="space-y-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{t("backtestResult.title")}</h1>
+          <div className="rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm p-4">
+            {error || (status === "FAILED" ? t("backtestResult.failed") : t("report.empty"))}
+          </div>
         </div>
-
-        <div className="col-span-10 col-start-3 p-6">
-          <h2 className="font-bold text-black text-2xl mb-4">回测报告</h2>
-          <p className="text-red-500">{error || "回测失败"}</p>
-        </div>
-      </div>
+      </ReportLayout>
     );
   }
 
   return (
-    <div className="grid grid-cols-12 h-screen relative">
-      <div className="fixed top-24 left-0 w-[260px] h-[calc(100vh-4rem)] overflow-auto p-4 rounded-lg">
-        <FactorSidebar />
-      </div>
-
-      <div className="col-span-10 col-start-3 p-6">
-        <h2 className="font-bold text-black text-2xl mb-4">回测报告</h2>
-
-        {result ? (
-          <div className="space-y-4">
-            <div>
-              <div className="font-semibold">消息</div>
-              <div>{result.message}</div>
-            </div>
-
-            <div>
-              <div className="font-semibold">是否成功</div>
-              <div>{String(result.success)}</div>
-            </div>
-
-            <div>
-              <div className="font-semibold">Sharpe</div>
-              <div>{result.metrics["sharpe 夏普比率"].sharperatio}</div>
-            </div>
-
-            <div>
-              <div className="font-semibold">累计收益率</div>
-              <div>{result.metrics["returns 累计收益率"].rtot}</div>
-            </div>
-
-            <div>
-              <div className="font-semibold">最大回撤</div>
-              <div>{result.metrics["maxDrawdown 最大回撤"].drawdown}</div>
-            </div>
-
-            {/* TODO: 收益图，equity curve 做好后恢复 */}
-            {/* <div>
-              <div className = "font-semibold">收益图</div>
-              <EquityCurveChart data={result.equityCurve ?? []} />
-            </div> */}
-
-            <div>
-              <div className="font-semibold">原始结果 JSON</div>
-
-            <form onSubmit={handleSubmit} className = "space-y-5">
-              <pre className="bg-gray-100 p-4 rounded overflow-auto text-sm">
-                {JSON.stringify(result, null, 2)}
-              </pre>
-              <div className="flex flex-col gap-y-5">
-                <label>输入StrategyName策略名称</label>
-                <input 
-                  type="text" 
-                  name="strategyName" 
-                  className ="border p-2 rounded w-full bg-yellow-500"
-                  value={formData.strategyName} 
-                  onChange={handleChange} 
-                  />
-              </div>
-                <button type="submit" className="bg-red-500 text-white font-bold rounded-lg w-80 h-20 border-b border-white pb-4 mb-8 ">
-                  保存报告
-                </button>
-            </form>
-            </div>
-          </div>
-        ) : (
-          <div>暂无结果</div>
-        )}
-      </div>
-    </div>
+    <ReportLayout>
+      <BacktestReportView
+        result={result}
+        title={t("backtestResult.title")}
+        actions={saveActions}
+      />
+    </ReportLayout>
   );
 }
 
