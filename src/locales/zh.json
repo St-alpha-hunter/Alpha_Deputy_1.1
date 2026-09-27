@@ -196,6 +196,7 @@
         "rawJson": "原始结果 JSON",
         "chart": {
             "netValue": "净值",
+            "value": "总资产",
             "cumReturn": "累计收益",
             "noData": "暂无净值曲线数据"
         },

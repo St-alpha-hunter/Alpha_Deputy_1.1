@@ -38,8 +38,8 @@
     "grossProfitRatio": "Gross Profit Ratio",
     "operatingIncomeRatio": "Operating Income Ratio",
     "IBTR": "Income Before Tax Ratio",
-    "Codefactor": "Code Factor",
-    "Strategy": "Strategy House",
+    "Codefactor": "Code Factor(waiting)",
+    "Strategy": "Strategy House(waiting) ",
     "operatingCashflow": "Operating Cashflow",
     "investingCashflow": "Investing Cashflow",
     "financingCashflow": "Financing Cashflow",
@@ -196,6 +196,7 @@
         "rawJson": "Raw Result JSON",
         "chart": {
             "netValue": "NAV",
+            "value": "Portfolio value",
             "cumReturn": "Cum. Return",
             "noData": "No equity curve data"
         },

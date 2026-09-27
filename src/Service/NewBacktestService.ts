@@ -68,118 +68,20 @@ export interface BacktestResultResponse {
   resultJson?: string;
 }
 
-/////再往下的都是parse出来的真正结果了
-export interface BacktestResult {
-  message: string
-  success: boolean
-  tradeList: any[]
-  metrics: Metrics
-  rawSpec: RawSpec
-  equityCurve: EquityCurve[]
-}
-
-export interface Metrics {
-  "sharpe 夏普比率": Sharpe
-  "returns 累计收益率": Returns
-  "maxDrawdown 最大回撤": MaxDrawdown
-}
-
-export interface Sharpe {
-  sharperatio: number
-}
-
-export interface Returns {
-  ravg: number
-  rtot: number
-  rnorm: number
-  rnorm100: number
-}
-
-export interface MaxDrawdown {
-  len: number
-  drawdown: number
-  moneydown: number
-  max: {
-    len: number
-    drawdown: number
-    moneydown: number
-  }
-}
-
-export interface EquityCurve {
-  date: string;
-  value: number;
-  netValue: number;
-}
-
-interface EquityCurveChartProps {
-  data: EquityCurve[];
-}
-
-export interface RawSpec {
-  name: string
-  universe: string
-  dataVersion: string
-  signal: Signal
-  execute: Execute
-  portfolio: Portfolio
-  rebalance: Rebalance
-  timeRange: TimeRange
-  riskManagement: RiskManagement
-}
-
-export interface Signal {
-  lag: number
-  type: number
-  lookback: number
-  inputs: SignalInput[]
-}
-
-export interface SignalInput {
-  factor: string
-  weight: number
-  codeKey: string
-}
-
-export interface Execute {
-  priceType: number
-  allowShort: boolean
-  slippageBps: number
-  commissionBps: number
-}
-
-
-export interface Portfolio {
-  selector: {
-    k: number
-    type: number
-  }
-  weighting: {
-    type: number
-  }
-  initialCash: number
-  targetCashWeight: number
-}
-
-export interface Rebalance {
-  freq: number
-  dayOfWeek: number | null
-  dayOfMonth: number
-  holidayPolicy: number
-}
-
-export interface TimeRange {
-  startDate: string
-  endDate: string
-  calendar: string
-}
-
-export interface RiskManagement {
-  volTarget: number
-  maxDrawdown: number
-  maxLeverage: number
-  maxTurnover: number
-  maxPositionWeight: number
-}
-
-
+/////parse 出来的真正结果，接口统一放在 Models/BacktestResult 里，这里转出一份保持原有 import 可用
+export type {
+  BacktestResult,
+  Metrics,
+  Sharpe,
+  Returns,
+  MaxDrawdown,
+  EquityCurve,
+  RawSpec,
+  Signal,
+  SignalInput,
+  Execute,
+  Portfolio,
+  Rebalance,
+  TimeRange,
+  RiskManagement,
+} from "../Models/BacktestResult";

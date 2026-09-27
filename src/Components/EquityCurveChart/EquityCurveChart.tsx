@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactECharts from "echarts-for-react";
-import type { EquityCurve } from "../../Service/NewBacktestService";
+import type { EquityCurve } from "../../Models/BacktestResult";
 import { useTranslation } from "react-i18next";
 
 interface EquityCurveChartProps {
@@ -28,25 +28,25 @@ const EquityCurveChart = ({ data, showTitle = true }: EquityCurveChartProps) => 
 
     tooltip: {
       trigger: "axis",
-      formatter: (
-        params: Array<{
-          axisValue: string;
-          value: number;
-        }>
-      ) => {
-        const point = params[0];
+      // echarts 传进来的可能是单个对象也可能是数组，用 dataIndex 回查原始点，这样能同时拿到 value 和 netValue
+      formatter: (params: unknown) => {
+        const first = (Array.isArray(params) ? params[0] : params) as { dataIndex?: number } | undefined;
+        const point = first?.dataIndex !== undefined ? data[first.dataIndex] : undefined;
 
         if (!point) {
           return "";
         }
 
-        const netValue = Number(point.value);
+        const assetLine = Number.isFinite(point.value)
+          ? `<div>${t("report.chart.value")}：${point.value.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>`
+          : "";
 
         return `
           <div>
-            <div>${point.axisValue}</div>
-            <div>${t("report.chart.netValue")}：${netValue.toFixed(4)}</div>
-            <div>${t("report.chart.cumReturn")}：${((netValue - 1) * 100).toFixed(2)}%</div>
+            <div>${point.date}</div>
+            <div>${t("report.chart.netValue")}：${point.netValue.toFixed(4)}</div>
+            <div>${t("report.chart.cumReturn")}：${((point.netValue - 1) * 100).toFixed(2)}%</div>
+            ${assetLine}
           </div>
         `;
       },

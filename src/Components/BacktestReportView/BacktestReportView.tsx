@@ -1,9 +1,9 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import FactorSidebar from "../FactorSidebar/FactorSidebar";
-// TODO: equity curve 数据还没做好，暂不展示；做好后恢复这里和下面几处 TODO
-// import EquityCurveChart from "../EquityCurveChart/EquityCurveChart";
-import type { BacktestResult } from "../../Service/NewBacktestService";
+import EquityCurveChart from "../EquityCurveChart/EquityCurveChart";
+import { getEquityCurve, type BacktestResult } from "../../Models/BacktestResult";
 import { useFactorTranslate } from "../../Helpers/useFactorTranslate";
 
 // 回测结果的展示视图：ReportPage（已保存的报告）和 BacktestResultPage（刚跑完的回测）共用
@@ -91,14 +91,13 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
 
     const m = result.metrics;
     const spec = result.rawSpec;
-    // TODO: equity curve 做好后恢复——累计收益优先用净值曲线算，并显示期末资产
-    // const curve = result.equityCurve ?? [];
-    // const last = curve[curve.length - 1];
+    // 净值曲线（旧报告里可能没有，getEquityCurve 会返回空数组）
+    const curve = useMemo(() => getEquityCurve(result), [result]);
+    const last = curve[curve.length - 1];
 
-    // 目前只用 backtrader 的对数收益 rtot 换算累计收益
+    // 累计收益优先用净值曲线算，没有曲线时退回 backtrader 的对数收益 rtot
     const rtot = m?.["returns 累计收益率"]?.rtot;
-    // const totalReturn = last && isNum(last.netValue) ? last.netValue - 1 : isNum(rtot) ? Math.expm1(rtot) : undefined;
-    const totalReturn = isNum(rtot) ? Math.expm1(rtot) : undefined;
+    const totalReturn = last ? last.netValue - 1 : isNum(rtot) ? Math.expm1(rtot) : undefined;
     const annual = m?.["returns 累计收益率"]?.rnorm100;
     const maxDD = m?.["maxDrawdown 最大回撤"]?.max;
 
@@ -141,8 +140,11 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
 
             {/* 核心指标 */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* TODO: equity curve 做好后恢复期末资产：sub={last ? t("report.endingValue", { value: fmtMoney(last.value) }) : undefined} */}
-                <Kpi label={t("report.totalReturn")} value={fmtPct(totalReturn)} />
+                <Kpi
+                    label={t("report.totalReturn")}
+                    value={fmtPct(totalReturn)}
+                    sub={last && isNum(last.value) ? t("report.endingValue", { value: fmtMoney(last.value) }) : undefined}
+                />
                 <Kpi label={t("report.annualReturn")} value={isNum(annual) ? `${annual.toFixed(2)}%` : "—"} />
                 <Kpi label={t("report.sharpe")} value={fmtNum(m?.["sharpe 夏普比率"]?.sharperatio)} />
                 <Kpi
@@ -152,10 +154,10 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
                 />
             </div>
 
-            {/* TODO: 净值曲线，equity curve 做好后恢复 */}
-            {/* <Card title={t("report.equityCurve")}>
+            {/* 净值曲线 */}
+            <Card title={t("report.equityCurve")}>
                 <EquityCurveChart data={curve} showTitle={false} />
-            </Card> */}
+            </Card>
 
             {/* 策略配置 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
