@@ -80,7 +80,8 @@ class Strategy(bt.Strategy):
         #     item["codeKey"]: getattr(datas, item["codeKey"])
         #     for item in self.factor_inputs
         # }
-        self.peak_value = self.broker.getvalue()
+        # 个股止损线：沿用前端的 maxDrawdown 字段，含义改为“单只股票相对持仓成本亏损超过该比例就卖出”
+        self.stop_loss_pct = self.risk_cfg["maxDrawdown"]
 
         self.inital = self.config["portfolio"]["initialCash"]
         # 每个交易日的组合净值
@@ -165,6 +166,32 @@ class Strategy(bt.Strategy):
 
         return True
 
+    def _check_stop_loss(self):
+        """
+        每根bar检查每只持仓：收盘价相对持仓均价亏损 >= stop_loss_pct 就清掉这一只。
+        返回当天触发止损的股票集合，调仓时不再买回。
+        卖出的钱留作现金，等下次调仓再分配。
+        """
+        stopped = set()
+        if not self.stop_loss_pct or self.stop_loss_pct <= 0:
+            return stopped
+
+        today = self.datas[0].datetime.date(0)
+        for data in self.datas:
+            pos = self.getposition(data)
+            if pos.size <= 0:
+                continue
+            # 当天没有新 bar（停牌）就不判断，避免用旧价格
+            if len(data) == 0 or data.datetime.date(0) != today:
+                continue
+
+            loss = 1.0 - data.close[0] / pos.price
+            if loss >= self.stop_loss_pct:
+                print(f"止损: {data._name} 成本 {pos.price:.2f} 现价 {data.close[0]:.2f} 亏损 {loss:.2%}")
+                self.order_target_percent(data=data, target=0.0)
+                stopped.add(data)
+        return stopped
+
     def _close_all_positions(self):
         for data in self.datas:
             # 只平有持仓的；还没上市的股票没有价格，对它下单会报错
@@ -184,11 +211,10 @@ class Strategy(bt.Strategy):
 
         # 1. 每根bar都记录组合净值
         self._record_portfolio_value()
-        # 2. 每根bar都检查回撤，而不是只在调仓日检查
-        current_value = self.broker.getvalue()
-        self.peak_value = max(self.peak_value, current_value)
 
-  
+        # 2. 每根bar都检查个股止损，而不是只在调仓日检查
+        stopped_today = self._check_stop_loss()
+
         #处理lag
         lag = self.signal_cfg['lag']
         if len(self.datas[0]) <= lag:
@@ -199,21 +225,21 @@ class Strategy(bt.Strategy):
             return
 
         #回撤限制
-        current_value = self.broker.getvalue()
-        self.peak_value = max(self.peak_value, current_value)
+        # current_value = self.broker.getvalue()
+        # self.peak_value = max(self.peak_value, current_value)
 
-        if self.peak_value > 0:
-            max_drawdown = (self.peak_value - current_value) / self.peak_value
-        else:
-            max_drawdown = 0.0
+        # if self.peak_value > 0:
+        #     max_drawdown = (self.peak_value - current_value) / self.peak_value
+        # else:
+        #     max_drawdown = 0.0
 
-        maxDrawdown = self.risk_cfg['maxDrawdown']
+        # maxDrawdown = self.risk_cfg['maxDrawdown']
 
-        if max_drawdown >= maxDrawdown:
-            # if self.position:
-            if any(self.getposition(d).size != 0 for d in self.datas):
-                self._close_all_positions()
-                return
+        # if max_drawdown >= maxDrawdown:
+        #     # if self.position:
+        #     if any(self.getposition(d).size != 0 for d in self.datas):
+        #         self._close_all_positions()
+        #         return
 
         scored = []
         today = self.datas[0].datetime.date(0)
@@ -222,6 +248,9 @@ class Strategy(bt.Strategy):
         for data in self.datas:
             # 还没上市（没有任何 bar）的股票跳过
             if len(data) == 0:
+                continue
+            # 今天刚触发止损的不参与打分，避免同一根bar又买回来
+            if data in stopped_today:
                 continue
             # 当天没有新 bar（还没上市 / 停牌），不要拿旧数据当今天的算
             if data.datetime.date(0) != today:
@@ -264,6 +293,9 @@ class Strategy(bt.Strategy):
         # 7.先把未入选的清掉
         for data in self.datas:
             # 只平有持仓的；还没上市的股票没有价格，对它下单会报错
+            # 今天已经下过止损单的跳过，否则重复卖出会变成空头
+            if data in stopped_today:
+                continue
             if data not in selected_set and self.getposition(data).size != 0:
                 self.order_target_percent(data=data, target=0.0)
 
