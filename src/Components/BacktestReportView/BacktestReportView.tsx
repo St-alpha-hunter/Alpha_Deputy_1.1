@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import FactorSidebar from "../FactorSidebar/FactorSidebar";
 import EquityCurveChart from "../EquityCurveChart/EquityCurveChart";
-import { getEquityCurve, type BacktestResult } from "../../Models/BacktestResult";
+import { getEquityCurve, getTradeList, type BacktestResult, type TradeRecord } from "../../Models/BacktestResult";
 import { useFactorTranslate } from "../../Helpers/useFactorTranslate";
 
 // 回测结果的展示视图：ReportPage（已保存的报告）和 BacktestResultPage（刚跑完的回测）共用
@@ -63,6 +63,46 @@ export const Spinner = () => (
 );
 
 
+// 成交明细表：成交可能上千条，限制高度 + 表头吸顶滚动
+const TradeTable = ({ trades }: { trades: TradeRecord[] }) => {
+    const { t } = useTranslation();
+    const th = "py-2 px-2 font-medium bg-gray-50 sticky top-0";
+    const td = "py-1.5 px-2 tabular-nums";
+    return (
+        <div className="max-h-[480px] overflow-auto rounded-lg border border-gray-100">
+            <table className="w-full text-sm whitespace-nowrap">
+                <thead>
+                    <tr className="text-left text-gray-500 border-b border-gray-200">
+                        <th className={th}>{t("report.trade.date")}</th>
+                        <th className={th}>{t("report.trade.symbol")}</th>
+                        <th className={th}>{t("report.trade.side")}</th>
+                        <th className={`${th} text-right`}>{t("report.trade.size")}</th>
+                        <th className={`${th} text-right`}>{t("report.trade.price")}</th>
+                        <th className={`${th} text-right`}>{t("report.trade.value")}</th>
+                        <th className={`${th} text-right`}>{t("report.trade.commission")}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {trades.map((tr, i) => (
+                        <tr key={i} className="border-b border-gray-100 last:border-0">
+                            <td className={`${td} text-gray-500`}>{tr.date}</td>
+                            <td className={`${td} font-medium text-gray-900`}>{tr.symbol}</td>
+                            <td className={`${td} ${tr.side === "buy" ? "text-green-600" : "text-red-600"}`}>
+                                {tr.side === "buy" ? t("report.trade.buy") : t("report.trade.sell")}
+                            </td>
+                            <td className={`${td} text-right`}>{tr.size.toLocaleString()}</td>
+                            <td className={`${td} text-right`}>{fmtNum(tr.price)}</td>
+                            <td className={`${td} text-right`}>{fmtMoney(tr.value)}</td>
+                            <td className={`${td} text-right`}>{fmtNum(tr.commission)}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
+
 // ---------- 页面外壳：左侧因子栏 + 右侧内容 ----------
 export const ReportLayout = ({ children }: { children: React.ReactNode }) => (
     <div className="grid grid-cols-12 min-h-screen relative bg-gray-50">
@@ -94,6 +134,11 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
     // 净值曲线（旧报告里可能没有，getEquityCurve 会返回空数组）
     const curve = useMemo(() => getEquityCurve(result), [result]);
     const last = curve[curve.length - 1];
+
+    // 成交明细（旧报告里是空数组）
+    const trades = useMemo(() => getTradeList(result), [result]);
+    const buyCount = trades.filter((tr) => tr.side === "buy").length;
+    const totalCommission = trades.reduce((acc, tr) => acc + tr.commission, 0);
 
     // 累计收益优先用净值曲线算，没有曲线时退回 backtrader 的对数收益 rtot
     const rtot = m?.["returns 累计收益率"]?.rtot;
@@ -224,10 +269,28 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
                         <Row label={t("console.execute.commission")} value={fmtPct(spec?.execute?.commissionBps, 3)} />
                         <Row label={t("console.execute.slippage")} value={fmtPct(spec?.execute?.slippageBps, 3)} />
                         <Row label={t("console.execute.allowShort")} value={spec?.execute ? (spec.execute.allowShort ? t("report.yes") : t("report.no")) : "—"} />
-                        <Row label={t("report.tradeCount")} value={result.tradeList?.length ?? 0} />
+                        <Row
+                            label={t("report.tradeCount")}
+                            value={trades.length > 0
+                                ? `${trades.length}（${t("report.buySellCount", { buy: buyCount, sell: trades.length - buyCount })}）`
+                                : 0}
+                        />
+                        <Row label={t("report.totalCommission")} value={trades.length > 0 ? fmtMoney(totalCommission) : "—"} />
                     </dl>
                 </Card>
             </div>
+
+            {/* 成交明细，默认折叠 */}
+            <details className="bg-white rounded-xl border border-gray-200 shadow-sm">
+                <summary className="cursor-pointer select-none px-5 py-4 text-sm font-medium text-gray-600 hover:text-gray-900">
+                    {t("report.tradeDetails")}（{trades.length}）
+                </summary>
+                <div className="px-5 pb-5">
+                    {trades.length > 0 ? <TradeTable trades={trades} /> : (
+                        <div className="text-sm text-gray-400">{t("report.noTrades")}</div>
+                    )}
+                </div>
+            </details>
 
             {/* 原始数据，默认折叠 */}
             <details className="bg-white rounded-xl border border-gray-200 shadow-sm">

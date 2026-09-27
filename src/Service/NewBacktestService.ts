@@ -76,6 +76,7 @@ export type {
   Returns,
   MaxDrawdown,
   EquityCurve,
+  TradeRecord,
   RawSpec,
   Signal,
   SignalInput,

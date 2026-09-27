@@ -86,6 +86,8 @@ class Strategy(bt.Strategy):
         self.inital = self.config["portfolio"]["initialCash"]
         # 每个交易日的组合净值
         self.equity_curve = []
+        # 每一笔成交（买/卖各算一笔），在 notify_order 里收集
+        self.trade_list = []
 
 
     def _compute_score(self, data, factor_inputs, lag):
@@ -131,6 +133,29 @@ class Strategy(bt.Strategy):
         })
 
         print(f"日期是{current_date.isoformat()}，价值是{float(current_value)}, 净值是{(current_value / self.inital)} \n")
+
+    def notify_order(self, order):
+        # 提交/接受阶段还没成交，不处理
+        if order.status in (order.Submitted, order.Accepted):
+            return
+
+        if order.status == order.Completed:
+            size = float(order.executed.size)
+            price = float(order.executed.price)
+            self.trade_list.append({
+                "date": bt.num2date(order.executed.dt).date().isoformat(),
+                "symbol": order.data._name,
+                "side": "buy" if order.isbuy() else "sell",
+                "size": abs(size),
+                "price": price,
+                "value": abs(size) * price,
+                "commission": float(order.executed.comm),
+            })
+            return
+
+        # Canceled / Margin / Rejected / Expired：不计入成交，只打日志方便排查
+        print(f"订单未成交: {order.data._name} {'买入' if order.isbuy() else '卖出'} "
+              f"数量 {order.created.size} 状态 {order.getstatusname()}")
 
     def _should_rebalance(self):
         """

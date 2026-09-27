@@ -98,7 +98,7 @@ def main() -> None:
             #     {"date": , "value": 1005000}
             # ],
             "equityCurve": strat.equity_curve,
-            "tradeList": [],
+            "tradeList": strat.trade_list,
             "rawSpec": config
         }
 

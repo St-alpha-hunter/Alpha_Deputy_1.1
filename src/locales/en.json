@@ -81,7 +81,7 @@
         },
         "risk": {
             "title": "Risk Management",
-            "maxDrawdown": "Max Drawdown",
+            "maxDrawdown": "Drawdown Trigger",
             "maxDrawdownError": "Max drawdown must be between 0 and 0.5",
             "maxPositionWeight": "Max Weight / Stock",
             "maxPositionWeightError": "Max position per stock must be between 0 and 0.2",
@@ -192,6 +192,21 @@
         "execution": "Execution",
         "yes": "Yes",
         "no": "No",
+        "buySellCount": "{{buy}} buy / {{sell}} sell",
+        "totalCommission": "Total Commission",
+        "tradeDetails": "Trade Details",
+        "noTrades": "No trades recorded (older reports need to be re-run)",
+        "trade": {
+            "date": "Date",
+            "symbol": "Symbol",
+            "side": "Side",
+            "buy": "Buy",
+            "sell": "Sell",
+            "size": "Shares",
+            "price": "Price",
+            "value": "Value",
+            "commission": "Commission"
+        },
         "tradeCount": "Trades",
         "rawJson": "Raw Result JSON",
         "chart": {

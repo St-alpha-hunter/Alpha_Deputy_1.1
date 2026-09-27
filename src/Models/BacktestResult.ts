@@ -4,7 +4,8 @@
 export interface BacktestResult {
   message: string
   success: boolean
-  tradeList: any[]
+  /** 每一笔成交，见 strategy.py 的 notify_order；旧报告里是空数组 */
+  tradeList: TradeRecord[]
   metrics: Metrics
   rawSpec: RawSpec
   /** 每个交易日一条，见 strategy.py 的 _record_portfolio_value；旧报告里可能没有 */
@@ -48,6 +49,20 @@ export interface EquityCurve {
   value: number;
   /** 净值 = value / initialCash，起点为 1 */
   netValue: number;
+}
+
+/** 一笔成交（买、卖各算一笔） */
+export interface TradeRecord {
+  /** 成交日期 YYYY-MM-DD */
+  date: string;
+  symbol: string;
+  side: "buy" | "sell";
+  /** 成交股数，始终为正，方向看 side */
+  size: number;
+  price: number;
+  /** 成交金额 = size * price */
+  value: number;
+  commission: number;
 }
 
 export interface RawSpec {
@@ -156,4 +171,38 @@ export const getEquityCurve = (result: unknown): EquityCurve[] => {
       netValue: p.netValue ?? (p.value !== undefined && base ? p.value / base : NaN),
     }))
     .filter((p) => Number.isFinite(p.netValue));
+};
+
+/**
+ * 从回测结果里取出成交明细并清洗：丢掉缺日期/代码/方向或数值不合法的记录，按日期升序排列
+ */
+export const getTradeList = (result: unknown): TradeRecord[] => {
+  if (!result || typeof result !== "object") return [];
+  const r = result as Record<string, unknown>;
+  const raw = r.tradeList ?? r.trade_list ?? r.TradeList;
+  if (!Array.isArray(raw)) return [];
+
+  return raw
+    .map((t): TradeRecord | null => {
+      if (!t || typeof t !== "object") return null;
+      const o = t as Record<string, unknown>;
+      const date = typeof o.date === "string" ? o.date.slice(0, 10) : "";
+      const symbol = typeof o.symbol === "string" ? o.symbol : "";
+      const side = o.side === "buy" || o.side === "sell" ? o.side : undefined;
+      const size = toNum(o.size);
+      const price = toNum(o.price);
+      if (!date || !symbol || !side || size === undefined || price === undefined) return null;
+      return {
+        date,
+        symbol,
+        side,
+        size: Math.abs(size),
+        price,
+        value: toNum(o.value) ?? Math.abs(size) * price,
+        commission: toNum(o.commission) ?? 0,
+      };
+    })
+    .filter((t): t is TradeRecord => t !== null)
+    // 同一天内保持原顺序（先卖后买），只按日期排
+    .sort((a, b) => a.date.localeCompare(b.date));
 };

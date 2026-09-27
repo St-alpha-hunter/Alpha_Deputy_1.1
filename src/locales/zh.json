@@ -81,7 +81,7 @@
         },
         "risk": {
             "title": "风险控制",
-            "maxDrawdown": "允许最大回撤",
+            "maxDrawdown": "单票允许最大回撤",
             "maxDrawdownError": "允许最大回撤应该设定在0-0.5之间",
             "maxPositionWeight": "单票最大持仓",
             "maxPositionWeightError": "单票最大持仓应该设定在0-0.2之间",
@@ -192,6 +192,21 @@
         "execution": "交易执行",
         "yes": "是",
         "no": "否",
+        "buySellCount": "买 {{buy}} / 卖 {{sell}}",
+        "totalCommission": "总手续费",
+        "tradeDetails": "成交明细",
+        "noTrades": "暂无成交记录（旧报告需重新回测才有）",
+        "trade": {
+            "date": "日期",
+            "symbol": "代码",
+            "side": "方向",
+            "buy": "买入",
+            "sell": "卖出",
+            "size": "数量",
+            "price": "成交价",
+            "value": "成交额",
+            "commission": "手续费"
+        },
         "tradeCount": "成交笔数",
         "rawJson": "原始结果 JSON",
         "chart": {
