@@ -13,6 +13,7 @@ BACKTEST_DIR = os.path.join(
             os.path.dirname(
                 os.path.abspath(__file__)))), "pipeline/data/backtest_data")
 
+
 BASE_PARAMS = (
         ("datetime", None),
         ("open", "open"),
@@ -79,10 +80,12 @@ def create_factorData(config):
     )
 
 
+
 ###投喂数据
 def feed_data(config, startDate, endDate):
     datas = []
     factor_data_cols = create_factorData(config)
+
     for file in Path(BACKTEST_DIR).glob("*.parquet"):
         symbol = file.stem
         df = pd.read_parquet(file)
@@ -103,9 +106,12 @@ def feed_data(config, startDate, endDate):
             df = df.set_index("datetime")
         else:
             raise ValueError(f"{file.name} 缺少 date/datetime 列")
-        
-        data = factor_data_cols(
-            dataname=df)
+
+        if df.empty:
+            print(f"{file.name} 在指定的时间范围内没有数据，已跳过")
+            continue
+
+        data = factor_data_cols(dataname=df)
         datas.append((symbol, data))
         print(f"{file}数据已经准备")
     return datas

@@ -93,7 +93,7 @@ const ExecuteSection = ({ spec, setSpec }: Props) => {
                         }/>     
 
     
-            <h3 className="text-sm leading-snug">{t("console.execute.allowShort")}</h3>
+            {/* <h3 className="text-sm leading-snug">{t("console.execute.allowShort")}</h3>
             <select
                 className="text-red-500 font-bold w-full min-w-0"
                 value ={spec.execute.allowShort ? "true" : "false"}
@@ -106,7 +106,7 @@ const ExecuteSection = ({ spec, setSpec }: Props) => {
             >
                 <option value="true">{t("console.execute.allow")}</option>
                 <option value="false">{t("console.execute.disallow")}</option>
-            </select>
+            </select> */}
        
         </div>
      </div>

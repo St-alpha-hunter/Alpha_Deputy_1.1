@@ -194,8 +194,10 @@ export function makeDefaultStrategySpecV0(
     signal: {
       type: "linear_weight",
       inputs: [
-        { codeKey: "mom_5", factor: "5日动量因子", weight: 0.5 },
-        { codeKey: "mom_12", factor: "12月动量因子", weight: 0.5 }
+        // [因子标准化 2026-10-03] 改成标准化后的因子；原来的 mom_12 在 pipeline 里不存在（只算 5/10/20/60/120/252），
+        // 用户不改默认值直接回测会报错。12 个月动量 ≈ 252 个交易日，所以换成 mom_252_z
+        { codeKey: "mom_5_z", factor: "5日动量因子", weight: 0.5 },
+        { codeKey: "mom_252_z", factor: "12月动量因子", weight: 0.5 }
       ],
       lookback: 20,
       lag: 1,

@@ -21,6 +21,7 @@ from process_data.update_daily import read_date_from_parquet, get_today_date_str
 from process_data.fetch_data import read_symbols_from_file, load_fmp_bulk_data, get_alpha_deputy_factor
 from compute_factor.compute_mom import compute_mom
 from compute_factor.merge_factor import merge_factors_v1, merge_factors_v2
+from compute_factor.standardize import standardize_factors   # [因子标准化 2026-10-03]
 from process_data.merge_divide_date import divide_data_by_symbol
 
 ##导入文件路径
@@ -50,6 +51,17 @@ if __name__ == "__main__":
     price_df, mom_factor = compute_mom(price_df, window=120)
     price_df, mom_factor = compute_mom(price_df, window=252)
     print("截至{endDate}，因子计算已完成")
+
+    ##Step2.5: [因子标准化 2026-10-03] 每日截面去极值 + z-score，新增 mom_5_z … mom_252_z 列，原始因子列保留
+    ## 后面的 Step3 合并大表、Step4 按 symbol 拆分都会把所有列原样带下去，所以回测数据里自然就有 _z 列
+    MOM_COLS = [f"mom_{w}" for w in (5, 10, 20, 60, 120, 252)]
+    price_df = standardize_factors(price_df, MOM_COLS)
+    print("因子截面标准化已完成：" + ", ".join(c + "_z" for c in MOM_COLS))
+    ## [因子标准化 2026-10-03] compute_mom 每次写 price_table.parquet 时还没有 _z 列，这里把带 _z 列的 price_df 再写回去，
+    ## 否则单独跑 update.py（读 price_table.parquet 再按 symbol 拆分）时，backtest_data 里的 _z 列会丢
+    os.makedirs(SORT_PRICE_TABLE, exist_ok=True)
+    price_df.to_parquet(os.path.join(SORT_PRICE_TABLE, "price_table.parquet"), index=False)
+    print("已把含 _z 列的价格表写回 price_table.parquet")
 
     #Step3: 合并因子到大表 alpha_deputy_factor.parquet
     alpha_deputy_factor_df = merge_factors_v1(alpha_data, price_df)

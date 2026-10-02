@@ -10,6 +10,22 @@ export interface BacktestResult {
   rawSpec: RawSpec
   /** 每个交易日一条，见 strategy.py 的 _record_portfolio_value；旧报告里可能没有 */
   equityCurve?: EquityCurve[]
+  /** [换手率限制 2026-09-30] 每次调仓一条，见 strategy.py 的 _plan_rebalance_with_turnover_limit；旧报告里没有 */
+  turnoverList?: TurnoverRecord[]
+}
+
+/** [换手率限制 2026-09-30] 一次调仓的换手情况 */
+export interface TurnoverRecord {
+  /** 调仓日期 YYYY-MM-DD */
+  date: string;
+  /** 预估单边换手率（按调仓当天收盘价算，0.1 = 10%）；用现金填空位、止损不计入 */
+  turnover: number;
+  /** 这次换掉了几只（卖一只旧的 + 买一只新的 算一次） */
+  swaps: number;
+  /** 用现金填空位买入了几只（第一次建仓、止损后补位） */
+  fills: number;
+  /** 是否被 maxTurnover 额度挡住了一部分调仓 */
+  limited: boolean;
 }
 
 export interface Metrics {
@@ -204,5 +220,33 @@ export const getTradeList = (result: unknown): TradeRecord[] => {
     })
     .filter((t): t is TradeRecord => t !== null)
     // 同一天内保持原顺序（先卖后买），只按日期排
+    .sort((a, b) => a.date.localeCompare(b.date));
+};
+
+/**
+ * [换手率限制 2026-09-30] 取出每次调仓的换手记录，丢掉日期或换手率不合法的
+ */
+export const getTurnoverList = (result: unknown): TurnoverRecord[] => {
+  if (!result || typeof result !== "object") return [];
+  const r = result as Record<string, unknown>;
+  const raw = r.turnoverList ?? r.turnover_list;
+  if (!Array.isArray(raw)) return [];
+
+  return raw
+    .map((x): TurnoverRecord | null => {
+      if (!x || typeof x !== "object") return null;
+      const o = x as Record<string, unknown>;
+      const date = typeof o.date === "string" ? o.date.slice(0, 10) : "";
+      const turnover = toNum(o.turnover);
+      if (!date || turnover === undefined) return null;
+      return {
+        date,
+        turnover,
+        swaps: toNum(o.swaps) ?? 0,
+        fills: toNum(o.fills) ?? 0,
+        limited: o.limited === true,
+      };
+    })
+    .filter((x): x is TurnoverRecord => x !== null)
     .sort((a, b) => a.date.localeCompare(b.date));
 };

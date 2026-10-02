@@ -69,16 +69,16 @@ const RiskSection = ({ spec, setSpec }: Props) => {
             }
         
 
-        const handleTargetVolatility = (value: number) => {
-                if (value < 0 || value > 1) return;
-                setSpec((prev) => ({
-                    ...prev,
-                    riskManagement: {
-                    ...prev.riskManagement,
-                    targetVolatility: value,
-                    },
-                }));
-        };
+        // const handleTargetVolatility = (value: number) => {
+        //         if (value < 0 || value > 1) return;
+        //         setSpec((prev) => ({
+        //             ...prev,
+        //             riskManagement: {
+        //             ...prev.riskManagement,
+        //             targetVolatility: value,
+        //             },
+        //         }));
+        // };
 
     return (
                 <div className = "mr-10  text-gray-100 ml-5">
@@ -128,9 +128,10 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                                     className="text-red-500 font-bold w-full min-w-0"
                                     value={spec.riskManagement.maxTurnover}
                                     min={0}
-                                    max={10}
+                                    // [换手率限制 2026-09-30] 单次调仓单边换手率，范围从 0-10 改成 0-1（和后端 [Range(0,1)] 一致）
+                                    max={1}
                                     step={0.01}
-                                    validate={(v) => (v < 0 || v > 10 ? t("console.risk.maxTurnoverError") : null)}
+                                    validate={(v) => (v < 0 || v > 1 ? t("console.risk.maxTurnoverError") : null)}
                                     onInvalid={(msg) => toast.error(msg)}
                                     onCommit={(maxTurnover) =>
                                         setSpec((prev) => ({
@@ -159,7 +160,7 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                             />
                         
                         
-                            <h3 className="text-sm leading-snug">{t("console.risk.volTarget")}</h3>
+                            {/* <h3 className="text-sm leading-snug">{t("console.risk.volTarget")}</h3>
                                 <NumberField
                                         className="text-red-500 font-bold w-full min-w-0"
                                         value={spec.riskManagement.volTarget}
@@ -174,7 +175,7 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                                                 riskManagement: { ...prev.riskManagement, volTarget },
                                             }))
                                         }
-                                />
+                                /> */}
                         
                     </div>
 

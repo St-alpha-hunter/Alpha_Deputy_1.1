@@ -217,8 +217,9 @@ public sealed class RiskMangementSpec
     public double MaxPositionWeight { get; init; }
 
     //最大换手
+    // [换手率限制 2026-09-30] 含义定为“单次调仓的单边换手率”（按净资产算），范围从 0-10 改成 0-1
     [JsonPropertyName("maxTurnover")]
-    [Range(0,10)]
+    [Range(0,1)]
     public double MaxTurnover { get; init; }
 
     // max_leverage 最大杠杆倍数

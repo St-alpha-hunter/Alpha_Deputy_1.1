@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import FactorSidebar from "../FactorSidebar/FactorSidebar";
 import EquityCurveChart from "../EquityCurveChart/EquityCurveChart";
-import { getEquityCurve, getTradeList, type BacktestResult, type TradeRecord } from "../../Models/BacktestResult";
+import { getEquityCurve, getTradeList, getTurnoverList, type BacktestResult, type TradeRecord } from "../../Models/BacktestResult";
 import { useFactorTranslate } from "../../Helpers/useFactorTranslate";
 
 // 回测结果的展示视图：ReportPage（已保存的报告）和 BacktestResultPage（刚跑完的回测）共用
@@ -140,6 +140,13 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
     const buyCount = trades.filter((tr) => tr.side === "buy").length;
     const totalCommission = trades.reduce((acc, tr) => acc + tr.commission, 0);
 
+    // [换手率限制 2026-09-30] 每次调仓的换手记录（旧报告里没有，显示 —）
+    const turnovers = useMemo(() => getTurnoverList(result), [result]);
+    const avgTurnover = turnovers.length > 0
+        ? turnovers.reduce((acc, x) => acc + x.turnover, 0) / turnovers.length
+        : undefined;
+    const limitedCount = turnovers.filter((x) => x.limited).length;
+
     // 累计收益优先用净值曲线算，没有曲线时退回 backtrader 的对数收益 rtot
     const rtot = m?.["returns 累计收益率"]?.rtot;
     const totalReturn = last ? last.netValue - 1 : isNum(rtot) ? Math.expm1(rtot) : undefined;
@@ -257,9 +264,15 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
                     <dl>
                         <Row label={t("console.risk.maxDrawdown")} value={fmtPct(spec?.riskManagement?.maxDrawdown, 0)} />
                         <Row label={t("console.risk.maxPositionWeight")} value={fmtPct(spec?.riskManagement?.maxPositionWeight, 1)} />
-                        <Row label={t("console.risk.maxTurnover")} value={fmtNum(spec?.riskManagement?.maxTurnover)} />
+                        {/* [换手率限制 2026-09-30] 换手率改成百分比显示，并补上实际换手情况 */}
+                        <Row label={t("console.risk.maxTurnover")} value={fmtPct(spec?.riskManagement?.maxTurnover, 0)} />
+                        <Row label={t("report.avgTurnover")} value={fmtPct(avgTurnover, 1)} />
+                        <Row
+                            label={t("report.turnoverLimited")}
+                            value={turnovers.length > 0 ? `${limitedCount} / ${turnovers.length}` : "—"}
+                        />
                         <Row label={t("console.risk.maxLeverage")} value={isNum(spec?.riskManagement?.maxLeverage) ? `${spec.riskManagement.maxLeverage}x` : "—"} />
-                        <Row label={t("console.risk.volTarget")} value={fmtPct(spec?.riskManagement?.volTarget, 0)} />
+                        {/* <Row label={t("console.risk.volTarget")} value={fmtPct(spec?.riskManagement?.volTarget, 0)} /> */}
                     </dl>
                 </Card>
 
@@ -268,7 +281,7 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
                         <Row label={t("console.execute.priceType")} value={t(enumLabel(spec?.execute?.priceType, PRICE_TYPE.order, PRICE_TYPE.labels))} />
                         <Row label={t("console.execute.commission")} value={fmtPct(spec?.execute?.commissionBps, 3)} />
                         <Row label={t("console.execute.slippage")} value={fmtPct(spec?.execute?.slippageBps, 3)} />
-                        <Row label={t("console.execute.allowShort")} value={spec?.execute ? (spec.execute.allowShort ? t("report.yes") : t("report.no")) : "—"} />
+                        {/* <Row label={t("console.execute.allowShort")} value={spec?.execute ? (spec.execute.allowShort ? t("report.yes") : t("report.no")) : "—"} /> */}
                         <Row
                             label={t("report.tradeCount")}
                             value={trades.length > 0

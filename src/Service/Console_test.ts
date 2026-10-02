@@ -1,6 +1,5 @@
 import axios from 'axios';
 import  { handleError } from '../Helpers/ErrorHandler';
-import { PortfolioConstraint } from './Constraint';
 
 
 //

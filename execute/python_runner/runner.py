@@ -77,6 +77,8 @@ def main() -> None:
             # ],
             "equityCurve": strat.equity_curve,
             "tradeList": strat.trade_list,
+            # [换手率限制 2026-09-30] 每次调仓的换手记录：date / turnover / swaps / fills / limited
+            "turnoverList": strat.turnover_list,
             "rawSpec": config
         }
 
