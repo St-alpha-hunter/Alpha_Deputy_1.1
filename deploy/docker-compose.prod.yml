@@ -1,3 +1,7 @@
+# 固定 compose 项目名。不写的话默认取本文件所在目录名（deploy），和线上已有的项目名 alpha-deputy 对不上，
+# compose 会当成新项目：容器名冲突，而且会挂载一个新的空数据卷 deploy_alpha-deputy-postgres（线上数据在 alpha-deputy_alpha-deputy-postgres）
+name: alpha-deputy
+
 services:
   db:
     image: postgres:16-alpine

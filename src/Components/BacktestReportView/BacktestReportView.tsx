@@ -271,7 +271,8 @@ const BacktestReportView = ({ result, title, backLink, actions }: Props) => {
                             label={t("report.turnoverLimited")}
                             value={turnovers.length > 0 ? `${limitedCount} / ${turnovers.length}` : "—"}
                         />
-                        <Row label={t("console.risk.maxLeverage")} value={isNum(spec?.riskManagement?.maxLeverage) ? `${spec.riskManagement.maxLeverage}x` : "—"} />
+                        {/* [暂时隐藏杠杆 2026-10-03] 杠杆还没生效，报告里先不展示，修好后取消注释 */}
+                        {/* <Row label={t("console.risk.maxLeverage")} value={isNum(spec?.riskManagement?.maxLeverage) ? `${spec.riskManagement.maxLeverage}x` : "—"} /> */}
                         {/* <Row label={t("console.risk.volTarget")} value={fmtPct(spec?.riskManagement?.volTarget, 0)} /> */}
                     </dl>
                 </Card>

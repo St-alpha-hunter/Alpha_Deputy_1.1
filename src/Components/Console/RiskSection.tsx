@@ -57,16 +57,17 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                 };
 
 
-        const handleMaxLeverage = (value: number) => {
-                if (value < 1 || value > 3) return;
-                setSpec((prev) => ({
-                    ...prev,
-                    riskManagement: {
-                    ...prev.riskManagement,
-                    maxLeverage: value,
-                    },
-                }));
-            }
+        // [暂时隐藏杠杆 2026-10-03] 本来就没被调用，和下面的杠杆输入框一起注释掉
+        // const handleMaxLeverage = (value: number) => {
+        //         if (value < 1 || value > 3) return;
+        //         setSpec((prev) => ({
+        //             ...prev,
+        //             riskManagement: {
+        //             ...prev.riskManagement,
+        //             maxLeverage: value,
+        //             },
+        //         }));
+        //     }
         
 
         // const handleTargetVolatility = (value: number) => {
@@ -142,7 +143,10 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                             />
                         
                         
-                            <h3 className="text-sm leading-snug">{t("console.risk.maxLeverage")}</h3>
+                            {/* [暂时隐藏杠杆 2026-10-03] 策略里还没实现杠杆（backtrader 的 leverage 没接、权重也没放开），
+                                先不让用户填，等杠杆和现金权重的逻辑做好后再取消注释。
+                                spec.riskManagement.maxLeverage 仍保留默认值 1.0 一起提交，后端校验不受影响 */}
+                            {/* <h3 className="text-sm leading-snug">{t("console.risk.maxLeverage")}</h3>
                             <NumberField
                                     className="text-red-500 font-bold w-full min-w-0"
                                     value={spec.riskManagement.maxLeverage}
@@ -157,7 +161,7 @@ const RiskSection = ({ spec, setSpec }: Props) => {
                                             riskManagement: { ...prev.riskManagement, maxLeverage },
                                         }))
                                     }
-                            />
+                            /> */}
                         
                         
                             {/* <h3 className="text-sm leading-snug">{t("console.risk.volTarget")}</h3>
