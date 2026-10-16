@@ -19,6 +19,7 @@ import Tile from "../../Components/Tile/Tile"
 import CompanyFind from "../../Components/CompanyFind/CompanyFind";
 import TenkFind from "../../Components/TenkFind/TenkFind";
 import Sidebar from "../../Components/Sidebar/Sidebar";
+import StockPriceChart from "../../Components/StockPriceChart/StockPriceChart";   // [股价走势 2026-10-16]
 import { useTranslation } from 'react-i18next';
 
 interface Props {}
@@ -36,7 +37,9 @@ const CompanyPage = (props: Props) => {
       setCompany(result?.data[0] ?? null);
     }
     getProfileInit();
-  }, [])
+    // [股价走势 2026-10-16] 原来依赖数组是 []：在公司页里直接换到另一只股票（URL 的 ticker 变了）时不会重新加载。
+    // 加上 ticker，换股票就会重新请求公司资料
+  }, [ticker])
 
 return (
   company ? (
@@ -53,6 +56,10 @@ return (
           subTitle={company.dcf != null ? `$${company.dcf.toFixed(2)}` : t('common.na')}
         />
         <Tile title={t('company.sector')} subTitle={company.sector || t('common.na')} />
+        {/* [股价走势 2026-10-16] 信息卡片下面、10-K 上面；w-full 占满一行，px-4 和上面的卡片对齐 */}
+        <div className="w-full px-4 mt-6">
+          <StockPriceChart symbol={company.symbol} />
+        </div>
         <CompanyFind ticker={company.symbol} />
         <TenkFind ticker={company.symbol} />
         <p className="bg-white shadow rounded text-medium font-medium text-gray-900 p-3 mt-1 m-4">

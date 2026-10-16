@@ -42,6 +42,24 @@ export const searchCompanies = async (query: string) => {
 };
 
 
+// [股价走势 2026-10-16] 单只股票的全部日线（复权价，来自本地 backtest_data）。
+// 返回带状态的结果，页面据此显示：图表 / “暂无本地行情数据” / “加载失败”。
+// 401（登录过期）由 useAuth 里的全局拦截器统一处理，这里归到 error 即可
+export type PriceHistoryResult =
+  | { status: "ok"; data: unknown }
+  | { status: "notFound" }
+  | { status: "error"; message: string };
+
+export const getPriceHistory = async (symbol: string): Promise<PriceHistoryResult> => {
+  try {
+    const { data } = await axios.get(`${companyApi}/price-history/${encodeURIComponent(symbol)}`);
+    return { status: "ok", data };
+  } catch (error: any) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) return { status: "notFound" };
+    return { status: "error", message: error?.message ?? "unknown error" };
+  }
+};
+
 export const getCompanyProfile = async (query: string) => {
   try {
     const data = await axios.get<CompanyProfile[]>(

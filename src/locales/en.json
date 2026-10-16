@@ -26,7 +26,27 @@
         "price": "Price",
         "dcf": "DCF",
         "sector": "Sector",
-        "noDescription": "No description available."
+        "noDescription": "No description available.",
+        "priceChart": {
+            "title": "Price History",
+            "loading": "Loading prices…",
+            "noData": "No local price data (this stock is not in the backtest universe)",
+            "loadFailed": "Failed to load prices. Please try again later.",
+            "line": "Line",
+            "kline": "Candles",
+            "range": { "1M": "1M", "3M": "3M", "1Y": "1Y", "ALL": "All" },
+            "lastClose": "Last Close",
+            "rangeChange": "Period Change",
+            "maxDrawdown": "Max Drawdown",
+            "open": "Open",
+            "high": "High",
+            "low": "Low",
+            "close": "Close",
+            "change": "Change",
+            "volume": "Volume",
+            "adjustedNote": "Adjusted prices, same data as backtests",
+            "dataThrough": "Data through {{date}}"
+        }
     },
     "postComment": "Post comment",
     "date": "Date",

@@ -162,6 +162,11 @@ builder.Services.Configure<PythonBacktestRunnerOptions>(
 
 builder.Services.AddSingleton<IBacktestDataRangeService, PythonBacktestDataRangeService>();
 
+// [股价走势 2026-10-16] 公司页的股价走势：内存缓存 + A 方案（Python 读 parquet）。
+// 以后换成 B 方案（Parquet.Net），只改下面这一行的实现类
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<IPriceHistoryService, PythonPriceHistoryService>();
+
 
 
 // 6️⃣ 回测结果存储（当前本地文件实现）
