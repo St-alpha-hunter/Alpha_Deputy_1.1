@@ -9,12 +9,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace api.Controllers
 {
     [Route("api/account")]
     [ApiController]
+    // [默认需要登录 2026-10-16] Program.cs 里设了“默认所有接口都要登录”，登录/注册必须对未登录用户开放，
+    // 否则谁都登录不了。整个 Controller 只有这两个接口，所以直接标在类上
+    [AllowAnonymous]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;

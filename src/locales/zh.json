@@ -14,6 +14,10 @@
     "IncomeStatement": "损益表",
     "BalanceSheet": "资产负债表",
     "CashFlow": "现金流量表",
+    "auth": {
+        "sessionExpired": "登录已过期，请重新登录",
+        "loginFailed": "登录失败：用户名或密码错误"
+    },
     "common": {
         "na": "暂无"
     },

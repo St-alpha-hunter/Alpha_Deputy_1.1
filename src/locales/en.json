@@ -14,6 +14,10 @@
     "IncomeStatement": "Income Statement",
     "BalanceSheet": "Balance Sheet",
     "CashFlow": "Cashflow Statement",
+    "auth": {
+        "sessionExpired": "Your session has expired. Please log in again.",
+        "loginFailed": "Login failed: incorrect username or password"
+    },
     "common": {
         "na": "N/A"
     },

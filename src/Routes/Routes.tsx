@@ -27,7 +27,8 @@ export const router = createBrowserRouter([
         element: <App/>,
         children: [
             { path: "", element: <HomePage/>},
-            { path: "search", element: <SearchPage/>},
+            // [默认需要登录 2026-10-16] 后端改成默认要登录后，搜索页调用的 /api/company/search 未登录会 401，前端也加上保护
+            { path: "search", element: <ProtectedRoute><SearchPage/></ProtectedRoute>},
             { path: "login", element: <LoginPage/>},
             { path: "register", element: <RegisterPage /> },
             { path: "company/:ticker", element:<ProtectedRoute><CompanyPage/></ProtectedRoute>},
@@ -35,7 +36,8 @@ export const router = createBrowserRouter([
             { path: "session", element:<ProtectedRoute><BacktestForm/></ProtectedRoute>},
             { path: "deck", element:<ProtectedRoute><FactorDeckPage/></ProtectedRoute>},
             { path: "strategy-warehouse", element: <StrategyWarehouse/>},
-            { path: "coding", element: <CodeFactor/>},
+            // [默认需要登录 2026-10-16] 页面里的因子侧栏会调 /api/factor，同上
+            { path: "coding", element: <ProtectedRoute><CodeFactor/></ProtectedRoute>},
 
             {            
               path: "company/:ticker",

@@ -21,6 +21,7 @@ using api.Backtest.Infrastructure.Queue;
 using api.Backtest.Infrastructure.Storage;
 using api.Backtest.Contracts;
 using api.Backtest.Runner;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -113,6 +114,18 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// [默认需要登录 2026-10-16] 默认策略：没有标 [Authorize] / [AllowAnonymous] 的接口，一律要求登录。
+// 原来只有写了 [Authorize] 的接口才要登录，CompanyController（转发 FMP，消耗 API 额度）、FactorController
+// 的增删改、ReportController 的按 id 读/改/删等都能匿名调用，前端的 ProtectedRoute 只是挡住页面、挡不住直接调接口。
+// 现在反过来：默认要登录，需要匿名访问的接口显式标 [AllowAnonymous]（登录、注册、/healthz、data-range）。
+// 以后新加的接口忘了写 [Authorize] 也是安全的。
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
 //
 // 1️⃣ 数据库（EF Core）
 //
@@ -195,7 +208,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/healthz", () => Results.Ok("Healthy"));
+// [默认需要登录 2026-10-16] 必须 AllowAnonymous：docker 健康检查（curl /healthz）不带 token，
+// 要求登录的话 api 容器会一直 unhealthy，web 容器（depends_on: service_healthy）就起不来
+app.MapGet("/healthz", () => Results.Ok("Healthy")).AllowAnonymous();
 
 app.UseHttpsRedirection();
 
